@@ -1,5 +1,5 @@
 ## team project repo
-<h3>project is a student manager system</h3>
+<h3>코딩교육을 이용한 구독 또는 판매 서비스</h3>
 
 ##💻프로젝트 소개
 
