@@ -1,0 +1,30 @@
+*{margin: 0; padding: 0;}
+body{overflow: scroll;}
+table{border: 1px solid black; margin: 0 auto; box-sizing: border-box; border-collapse:collapse;border-spacing:0; text-align: center;}
+th {border: 1px solid black; background-color: #efefef;}
+td{border: 1px solid black; box-sizing: border-box;}
+h3{text-align: center; padding: 30px 0 30px 0;font-size: 30px; background-color: #001D66; color: white;}
+img{width: 100%;}
+button, input[type="submit"]{
+	cursor: pointer;
+}
+
+#detailsList{width: 100%; height: 300px; padding: 10px 0 10px 0;  overflow: scroll;}
+#plusBtn{width: 25px; height: 25px;}
+#minusBtn{width: 25px; height: 25px;}
+#lookUpBtn{display: flex; justify-content: flex-end;}
+#listArea{width: 90%; margin: 0 auto; margin-top: 50px;}
+#ListTable{width: 90%; padding: 0 10px 0 10px; border: none; margin-top: 10px;}
+#modfiyBtn{display: flex; justify-content: flex-end;width: 90%; margin: 0 auto;}
+#modfiyBtn2{display: flex; justify-content: flex-end;width: 90%; margin: 0 auto;}
+
+/* 뱅배정 전용 ccs */
+#categoryArea{width: 90%;height: 300px; border: 1px solid black; margin: 0 auto; margin-top: 30px;display: flex; justify-content: space-around; overflow: scroll;}
+.category{width: 45%;margin-top: 30px;}
+.category>table{width: 100%;}
+
+/* 벌점 부과 관리 */
+.penaltyList{border: 1px solid black;width: 90%;height: 300px; overflow: scroll; margin: 0 auto; margin-top: 50px;}
+.penaltyListAera{width: 90%; margin: 0 auto;}
+
+.tableHeight{height: 300px;}
