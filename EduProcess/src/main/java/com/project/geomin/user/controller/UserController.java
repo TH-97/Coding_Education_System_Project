@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.geomin.user.command.UserVO;
+import com.project.geomin.command.UserVO;
 import com.project.geomin.user.jwt.util.JWTService;
 import com.project.geomin.user.service.UserService;
 
@@ -84,5 +84,10 @@ public class UserController {
 
 		return "user/login";
 
+	}
+
+	@GetMapping("/mainPage")
+	public String mainPage(){
+		return "user/main_page";
 	}
 }

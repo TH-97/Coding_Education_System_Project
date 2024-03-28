@@ -3,7 +3,7 @@ package com.project.geomin.user.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.geomin.user.command.UserVO;
+import com.project.geomin.command.UserVO;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
