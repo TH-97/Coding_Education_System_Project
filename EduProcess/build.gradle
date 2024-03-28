@@ -40,8 +40,11 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	//시큐리티 테스트
 	testImplementation 'org.springframework.security:spring-security-test'
-}
+	//타임리프 레이아웃
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.0'
 
+
+}
 tasks.named('test') {
 	useJUnitPlatform()
 }
