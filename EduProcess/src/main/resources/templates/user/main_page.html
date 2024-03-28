@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../static/css/main_page.css">
+</head>
+<body>
+  <iframe src="../../static/header.html" frameborder="0" style="width: 100%;"></iframe>
+  <section>
+    <div id="section">
+      <div class="section_item">1</div>
+    </div>
+
+    <!-- 모달창 -->
+    <div id="modal" class="hidden">
+      <div class="modal-content">
+        <div id="logo">로고</div>
+        <div>
+          <form action="" method="post" id="textBox">
+          <input type="text" placeholder="이메일">
+          <input type="text" placeholder="비밀번호">
+          <button id="loginBtn2">로그인</button>
+          </form>
+        </div>
+        <div id="alink" style="border: none;">
+          <p>
+            <a style="border: none;" href="">아이디(이메일)찾기</a>
+            <a style="padding-left: 4px;" href="">비밀번호 찾기</a>
+            <a style="padding-left: 4px;" href="">회원가입</a>
+          </p>
+        </div>
+        <div id="simpleBox">
+          <hr id="line">
+          <span id="simpleLogin">간편 로그인</span>
+          <div>
+            <div id="kakao"><img src="kakao_icon.png" alt=""></div>
+          </div>
+        </div>
+        <button id="close-modal">X</button>
+      </div>
+    </div>
+    <!-- 모달창 끝 -->
+  </section>
+</body>
+  <script src="../../static/js/main_page.js"></script>
+</html>

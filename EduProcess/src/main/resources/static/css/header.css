@@ -1,0 +1,7 @@
+*{margin: 0;padding: 0;}
+#header{margin: 30px 30px; display: flex;justify-content: space-between;}
+#header-content{width: 65%; display: flex;justify-content: space-around;}
+#loginBtn{background-color: #5DA886; border: none;padding: 10px 10px; border-radius: 10px;}
+#loginBtn:hover{cursor: pointer;}
+p{height: 100%; display: flex; align-items: center;}
+p:hover{color: #5DA886;cursor: pointer;}
