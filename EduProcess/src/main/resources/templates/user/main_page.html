@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="../../static/css/main_page.css">
+  <link rel="stylesheet" href="/css/main_page.css">
 </head>
 <body>
-  <iframe src="../../static/header.html" frameborder="0" style="width: 100%;"></iframe>
+  <iframe src="header.html" frameborder="0" style="width: 100%;"></iframe>
+  
+  <h1>ㅁㄴㅇㄹㅇㄴㅁㄹㄴㅁㅇㄹㄴㅁㄹㅇㄴ</h1>
   <section>
     <div id="section">
       <div class="section_item">1</div>
@@ -18,9 +20,9 @@
       <div class="modal-content">
         <div id="logo">로고</div>
         <div>
-          <form action="" method="post" id="textBox">
-          <input type="text" placeholder="이메일">
-          <input type="text" placeholder="비밀번호">
+          <form action="/loginForm" method="post" id="textBox">
+          <input type="text" name = "username" placeholder="아이디">
+          <input type="text" name = "password" placeholder="비밀번호">
           <button id="loginBtn2">로그인</button>
           </form>
         </div>
@@ -44,5 +46,5 @@
     <!-- 모달창 끝 -->
   </section>
 </body>
-  <script src="../../static/js/main_page.js"></script>
+  <script src="/js/main_page.js"></script>
 </html>

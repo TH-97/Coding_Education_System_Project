@@ -69,12 +69,12 @@ public class SecurityConfig{
 		.and()
 		.authorizeHttpRequests()
 //		.antMatchers("/images/**","/js/**","/css/**").permitAll()
-		.antMatchers("/user/login","/user/join","/user/register","/loginForm","/user/stud_join","/user/educ_join").permitAll()
+		.antMatchers("/user/mainPage","/user/login","/user/join","/user/register","/loginForm","/user/stud_join","/user/educ_join").permitAll()
 		.antMatchers("/admin/**").hasAnyRole("ADMIN","MASTER")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
-		.loginPage("/user/login") // 로그인 페이지 URL
+		.loginPage("/user/mainPage") // 로그인 페이지 URL
 		.loginProcessingUrl("/loginForm") // 로그인 처리 URL
 //		.defaultSuccessUrl("/user/user_main") // 로그인 성공 후 이동할 URL
 		.successHandler( loginSuccessHandler() )
