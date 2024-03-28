@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/allList.css">
+
+</head>
+
+<body>
+
+  <h3>학생 입주 정보 조회</h3>
+  <hr>
+  <div id="listArea" >
+     <div style=" float: left; padding: 10px;">
+   		<h5>선택한 입주모집번호중 상태구분이 "신청" 인 신청자들 기숙사 정원(120명)에 맞춰 필터링 해줍니다.</h5>
+   		<h5>ex) 모집인원 120명, 신청인원 240명 이면 신청인원을 120명으로 필터링함</h5>
+   		<h5>기준 : 집에서 학교 거리(거리가 먼 순서대로), 학점(3.5이상)</h5>
+   		<br>
+    	<form action="mvnAplyFilter" method="get">
+    	입주모집번호 :
+    	<select name="mvn_rcrt_no">
+    		<option value = "202403">202403</option>
+    	</select>
+    	<input type="submit" value="신청자 필터링하기">
+    	</form>
+    </div>
+  
+    <div id="lookUpBtn" style=" float: right; padding: 10px;">
+      <form action="/mvnAplySelect" method="get">
+     입주모집번호 :
+     <select name="MVN_RCRT_NO">
+     	<option value="202403">202403</option>
+     </select>
+     <br>
+      신청구분 : 
+   	<select name="STTS_CLSF" style="margin-top: 10px;">
+   		<option value="0">전체</option>
+     	<option value="1">신청</option>
+     	<option value="2">선발실패</option>
+     	<option value="3">선발</option>
+     	<option value="4">배정</option>
+     	<option value="5">입주</option>
+     	<option value="6">퇴실</option>
+     </select>
+     <br><br>
+     <input type="text" name="USER_NM"  placeholder="이름,전체조회(미입력)">
+     <input type="submit" value="검색"> 
+    </form>
+    </div>
+    
+ 
+    <table style="margin-top: 30px; width: 100%;">
+      <tr>
+        <th>조회 내역</th>
+      </tr>
+
+      <tr>
+        <td>
+          <div id="detailsList">
+       
+            <table id="ListTable">
+              <thead>
+                <tr>
+                  <th>입주모집번호</th>
+                  <th>학번</th>
+                  <th>이름</th>
+                  <th>호실</th>
+                  <th>상태구분</th>
+                  <th>신청일자</th>
+                  <th>선발일자</th>
+                  <th>배정일자</th>
+                  <th>입주일자</th>
+                  <th>퇴실입자</th>
+                  <th>퇴실구분</th>
+                  <th>상벌총점</th>
+                  <th>비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr >
+                 
+                </tr>
+
+                
+
+              
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+	
+
+<script th:inline="javascript">
+	var msg = [[${msg}]];
+	if(msg != null){
+		alert(msg);
+	}
+</script>
+
+   
+<style>
+	#ListTable tbody tr:hover{
+		background-color: #e3e3e3;
+		cursor: pointer;
+	}
+</style>
+
+</body>
+
+</html>

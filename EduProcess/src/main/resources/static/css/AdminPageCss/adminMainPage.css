@@ -1,0 +1,30 @@
+*{margin: 0; padding: 0; list-style-type: none;font-family: "Nanum Gothic Coding" !important;}
+body{
+  display: flex;
+}
+#aside{
+  background-color: #001D66; 
+  width: 200px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  
+}
+#nav{
+  color: white;
+  /* height: 600px; */
+  /* background-color: #002fa6; */
+  margin-top: 100px;
+  display: block;
+  overflow: scroll;
+  
+}
+#main{
+  width: 100%;
+  height: auto;
+}
+span{opacity: 0.8;}
+span:hover{opacity: 1; cursor: pointer;}
+h2{color: white; text-align: center; margin-top: 10px;}
+h3{color: white; text-align: center;}

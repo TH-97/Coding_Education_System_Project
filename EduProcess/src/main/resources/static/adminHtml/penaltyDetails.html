@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/AdminPageCss/allList.css">
+</head>
+<body>
+  
+  <h3>벌점 내역</h3>
+  <hr>
+  <div id="listArea">
+  <div id="lookUpBtn">
+    <input type="text"><button>조회하기</button>
+  </div>
+  <table style="margin-top: 30px; width: 100%;">
+    <tr>
+      <th>조회 내역</th>
+    </tr>
+
+    <tr>
+      <td>
+        <div id="detailsList">
+        <div id="modfiyBtn">
+        <button>수정하기</button>
+        </div>
+      <table id="ListTable">
+        <thead>
+          <tr>
+            <th>학번</th>
+            <th>이름</th>
+            <th>호실</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>119203</td>
+            <td>홍길동</td>
+            <td>205호</td>
+          </tr>
+        </tbody>
+        </table>
+        </div>
+      </td>
+
+  </table>
+  
+  </div>
+
+  <div id="penaltyList">
+    <div id="modfiyBtn">
+      <button>추가하기</button>
+      </div>
+    <div id="penaltyListAera">
+    <table style="width: 100%; margin-top: 30px;">
+    <thead>
+      <tr>
+        <th>학번</th>
+        <th>이름</th>
+        <th>호실</th>
+        <th>사유</th>
+        <th>벌점</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>119203</td>
+        <td>홍길동</td>
+        <td>205호</td>
+        <td>기숙사내에서 흡연 금지</td>
+        <td> -10 </td>
+      </tr>
+    </tbody>
+    </table>
+    </div>
+  </div>
+</body>
+</html>

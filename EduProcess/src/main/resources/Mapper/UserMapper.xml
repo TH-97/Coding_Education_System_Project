@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.geomin.user.service.UserMapper">
+	<select id="login" resultType="UserVO">
+		select * from user where user_id =
+		#{username}
+	</select>
+
+	<insert id="join">
+		insert into user(user_id,
+		user_pw,
+		user_nm,
+		user_age,
+		user_pn,
+		parn_pn,
+		user_gn,
+		role)
+		values (#{user_id},
+		#{user_pw},
+		#{user_nm},
+		#{user_age},
+		#{user_pn},
+		#{parn_pn},
+		#{user_gn},
+		#{role})
+	</insert>
+
+</mapper>

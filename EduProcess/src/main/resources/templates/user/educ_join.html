@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 회원가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 320px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="submit"],
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>회원가입</h2>
+    <form action="/user/register" method="post">
+        <label for="id">아이디</label>
+        <input type="text"  name="user_id" required>
+        
+        <label for="password">비밀번호</label>
+        <input type="password" name="user_pw" required>
+        
+        <label for="stud_nm">성함</label>
+        <input type="text" name="user_nm" required>
+        
+        <label for="stud_age">나이</label>
+        <input type="number" name="user_age" required>세
+        
+        <label for="stud_pn">연락처</label>
+        <input type="text" name="user_pn" placeholder="-을빼고 입력하여주세요">
+        
+        <label for="성별">성별</label>
+        <input type="radio" name="user_gn" value="M">남자
+        <input type="radio" name="user_gn" value="F">여자
+        
+        <input type="hidden" name="role" value="ROLE_educ">
+        
+        <input type="submit" value="가입하기">
+    </form>
+    
+    <div class =signup_social>
+    	<hr class="social_line">
+    	<span class="socail_title">간편회원가입</span>
+    	
+    	<button>카카오톡</button>
+    	<button>구글</button>
+    </div>
+    
+</div>
+
+</body>
+</html>
