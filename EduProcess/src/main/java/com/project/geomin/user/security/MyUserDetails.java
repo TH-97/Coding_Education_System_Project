@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.project.geomin.user.command.UserVO;
+import com.project.geomin.command.UserVO;
 
 public class MyUserDetails implements UserDetails{
 

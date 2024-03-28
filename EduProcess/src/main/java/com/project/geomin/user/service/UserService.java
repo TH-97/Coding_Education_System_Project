@@ -1,6 +1,6 @@
 package com.project.geomin.user.service;
 
-import com.project.geomin.user.command.UserVO;
+import com.project.geomin.command.UserVO;
 
 public interface UserService {
 

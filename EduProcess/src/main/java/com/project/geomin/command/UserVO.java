@@ -1,4 +1,4 @@
-package com.project.geomin.user.command;
+package com.project.geomin.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

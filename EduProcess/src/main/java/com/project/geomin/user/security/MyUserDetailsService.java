@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.project.geomin.user.command.UserVO;
+import com.project.geomin.command.UserVO;
 import com.project.geomin.user.service.UserMapper;
 
 @Service
