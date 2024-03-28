@@ -85,4 +85,9 @@ public class UserController {
 		return "user/login";
 
 	}
+
+	@GetMapping("/mainPage")
+	public String mainPage(){
+		return "user/main_page";
+	}
 }
