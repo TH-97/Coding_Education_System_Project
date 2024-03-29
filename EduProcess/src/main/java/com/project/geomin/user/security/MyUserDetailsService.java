@@ -1,6 +1,8 @@
 package com.project.geomin.user.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService{
 		
 		//로그인 시도
 		UserVO userVO = userMapper.login(username);
-		
+
 		if(userVO != null) {
 			return new MyUserDetails(userVO);
 		}

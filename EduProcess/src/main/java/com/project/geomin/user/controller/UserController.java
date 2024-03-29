@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -145,6 +148,19 @@ public class UserController {
 		//네이버 회원가입이 안되어있으면 회원가입 , 아니면 로그인
 		
 		if(userService.login(String.valueOf(userInfo.get("naver_account")))!=null) {
+			UserVO vo = new UserVO();
+			
+//			vo.setRole(userInfo.get("권한 어케함?"));
+			
+			vo.setUser_id(String.valueOf(userInfo.get("naver_account")));
+			
+			
+			MyUserDetails principal = new MyUserDetails(vo);
+			
+			SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(principal,null , principal.getAuthorities())  );
+			
+			
+			System.out.println();
 			
 //			System.out.println(myUserDetails);
 			return "user/main_page";
