@@ -1,8 +1,8 @@
-*{margin: 0;padding: 0; text-decoration: none;}
-img{width: 100%;}
+
 #section{width: 100%;height: 700px; background-image: url('/img/mainbackground_img.png');  background-size: contain;
   background-repeat: no-repeat;}
 .section_item{width: 100%;height: auto;}
+
 
 /* 모달 */
 #modal {
@@ -16,7 +16,7 @@ img{width: 100%;}
   display: none;
 }
 
-#logo{margin: 12px 0 24px;}
+#logo2{margin: 12px 0 24px;}
 
 .modal-content {
   position: absolute;
