@@ -35,8 +35,8 @@ public class KakaoAPI {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			
 			String req = "grant_type=authorization_code"
-					   + "&client_id=fea130b67d24f2ef47c5134f1ffc13d4" //본인키
-					   + "&redirect_uri=http://127.0.0.1:8181/user/kakao"
+					   + "&client_id=5b36e517cda6ce71a97d292f2d6e5388" //본인키
+					   + "&redirect_uri=http://127.0.0.1:8989/user/kakao"
 					   + "&code=" + code;
 			bw.write(req);
 			bw.flush();
@@ -105,20 +105,32 @@ public class KakaoAPI {
 		            result += line;
 		        }
 		        
+//		        System.out.println("kakaoAPI 결과 : "+result);
 		        //GSON역분해
 		        //카카오디벨로퍼에서 - property_keys확인
 		        JsonParser json = new JsonParser();
 		        JsonElement element = json.parse(result);
 		        
+//		        System.out.println("JSONElement parse : " + element);
+		        
 		        //json에서 key를 꺼내고, 다시 key를 꺼낸다.
 		        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+		        
+		        System.out.println("properties : " +properties);
+		        
 		        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 		        
-		        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-		        String email = kakao_account.getAsJsonObject().get("email").getAsString();
+		        System.out.println("account : " +kakao_account);
 		        
+		        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+		        
+//		        System.out.println("nickname : " +nickname);
+		        
+//		        String email = kakao_account.getAsJsonObject().get("email").getAsString();
+		        
+//		        System.out.println("email : " +email);
 		        map.put("nickname", nickname); //필수동의
-		        map.put("email", email); //선택동의
+//		        map.put("email", email); //선택동의
 		        
 			}
 	        

@@ -102,6 +102,7 @@ public class UserController {
 	
 	@GetMapping("/kakao")
 	public String kakao(@RequestParam("code") String code,Model model) {
+		System.out.println("코드 : " + code);
 		model.addAttribute("code",code);
 		
 		String access_token = kakaoAPI.getAccessToken(code);
@@ -109,6 +110,9 @@ public class UserController {
 		
 		HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(access_token);
 		System.out.println("결과:" + userInfo.toString());
-		return "redirect:/user/kakao";
+		
+		
+		
+		return "user/kakao";
 	}
 }
