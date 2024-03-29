@@ -1,11 +1,16 @@
 package com.project.geomin.user.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.geomin.command.UserVO;
 import com.project.geomin.user.jwt.util.JWTService;
+import com.project.geomin.user.security.MyUserDetails;
 import com.project.geomin.user.service.KakaoAPI;
+import com.project.geomin.user.service.NaverAPI;
 import com.project.geomin.user.service.UserService;
 
 @Controller
@@ -30,8 +37,14 @@ public class UserController {
 	private KakaoAPI kakaoAPI;
 	
 	@Autowired
+	@Qualifier("naver")
+	private NaverAPI naverAPI;
+	
+	@Autowired
 	@Qualifier("userService")
 	private UserService userService;
+	
+//	private MyUserDetails myUserDetails;
 
 	@Autowired
 	private BCryptPasswordEncoder bc;
@@ -102,17 +115,60 @@ public class UserController {
 	
 	@GetMapping("/kakao")
 	public String kakao(@RequestParam("code") String code,Model model) {
-		System.out.println("코드 : " + code);
-		model.addAttribute("code",code);
 		
 		String access_token = kakaoAPI.getAccessToken(code);
-		System.out.println("접근토큰:" + access_token);
 		
 		HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(access_token);
 		System.out.println("결과:" + userInfo.toString());
 		
+		model.addAttribute("code",userInfo.get("nickname"));
 		
 		
 		return "user/kakao";
+	}
+	
+	@GetMapping("/naver")
+	public String naver(@RequestParam("code") String code ,Model model)  {
+		
+		String access_token = naverAPI.getAccessToken(code);
+		
+		HashMap<String , Object> userInfo =naverAPI.getUserInfo(access_token);
+		System.out.println("결과: " +userInfo.toString());
+		
+		model.addAttribute("naver_account",userInfo.get("naver_account"));
+		model.addAttribute("name",userInfo.get("name"));
+		model.addAttribute("gender",userInfo.get("gender"));
+		model.addAttribute("age",userInfo.get("age"));
+		model.addAttribute("mobile",userInfo.get("mobile"));
+		
+		Random random = new Random();
+		
+		int randomNumber = random.nextInt(999999);
+		
+		model.addAttribute("password",String.format("%06d", randomNumber));
+		
+		//네이버 회원가입이 안되어있으면 회원가입 , 아니면 로그인
+		
+		if(userService.login(String.valueOf(userInfo.get("naver_account")))!=null) {
+			UserVO vo = new UserVO();
+			
+//			vo.setRole(userInfo.get("권한 어케함?"));
+			
+			vo.setUser_id(String.valueOf(userInfo.get("naver_account")));
+			
+			
+			MyUserDetails principal = new MyUserDetails(vo);
+			
+			SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(principal,null , principal.getAuthorities())  );
+			
+			
+			System.out.println();
+			
+//			System.out.println(myUserDetails);
+			return "user/main_page";
+		}else {
+			return "user/naver";
+		}
+		
 	}
 }

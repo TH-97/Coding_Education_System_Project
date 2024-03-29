@@ -13,7 +13,18 @@
   <link rel="stylesheet" href="/css/all.css">
 </head>
 <body>
-<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+
+<th:block th:replace="~{/user/layouts/header :: header}">
+  <p>인덱스 내용</p>
+</th:block>
+  
+  	<div sec:authorize="isAuthenticated()">
+		[[${#authentication.principal}]]
+		[[${#authentication.principal.username}]] <!-- 디테일 안에 들어있는  getter username-->
+		[[${#authentication.principal.password}]] <!-- 디테일 안에 들어있는  getter password -->
+		[[${#authentication.principal.role}]] <!-- 디테일 안에 들어있는  getter role -->
+	</div>
+
   <section>
     <div id="section">
       <div class="section_item">1</div>
