@@ -8,9 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.stereotype.Component;
 
-import com.mysql.cj.xdevapi.JsonParser;
+
 
 @Component("kakao")
 public class KakaoAPI {

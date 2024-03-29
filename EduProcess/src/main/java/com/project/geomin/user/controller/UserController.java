@@ -97,6 +97,8 @@ public class UserController {
 	public String mainPage(){
 		return "user/main_page";
 	}
+	@GetMapping("/conMa")
+	public String conMa(){ return "user/content";}
 	
 	@GetMapping("/kakao")
 	public String kakao(@RequestParam("code") String code,Model model) {
