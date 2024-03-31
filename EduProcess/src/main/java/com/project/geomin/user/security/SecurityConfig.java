@@ -68,13 +68,13 @@ public class SecurityConfig{
 		.headers().frameOptions().sameOrigin()
 		.and()
 		.authorizeHttpRequests()
-//		.antMatchers("/images/**","/js/**","/css/**").permitAll()
-		.antMatchers("/user/naver","/user/mainPage","/user/login","/user/join","/user/register","/loginForm","/user/stud_join","/user/educ_join","/user/kakao").permitAll()
+//		.antMatchers("/user/find_ID","/user/find_PW","/send_auth","/send","/user/find_PW","/user/find_ID","/user/naver","/user/mainPage","/user/login","/user/join","/user/register","/loginForm","/user/stud_join","/user/educ_join","/user/kakao").permitAll()
 		.antMatchers("/admin/**").hasAnyRole("ADMIN","MASTER")
-		.anyRequest().authenticated()
+//		.anyRequest().authenticated()
+		.anyRequest().permitAll()
 		.and()
 		.formLogin()
-		.loginPage("/user/mainPage") // 로그인 페이지 URL
+		.loginPage("/user/login") // 로그인 페이지 URL
 		.loginProcessingUrl("/loginForm") // 로그인 처리 URL
 //		.defaultSuccessUrl("/user/user_main") // 로그인 성공 후 이동할 URL
 		.successHandler( loginSuccessHandler() )
@@ -82,7 +82,7 @@ public class SecurityConfig{
 		.and()
 		.exceptionHandling().accessDeniedPage("/user/user_deny")
 		.and()	
-		.logout().logoutUrl("/logout").logoutSuccessUrl("/user/login");
+		.logout().logoutUrl("/logout").logoutSuccessUrl("/user/mainPage");
 		
 		http.rememberMe()
 		.key("geomin") //리멤버미를 쿠키로 동작시키는데 그때, 쿠키에 저장되는 토큰값을 만들 비밀키

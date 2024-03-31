@@ -46,6 +46,8 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.google.code.gson/gson
 	implementation 'com.google.code.gson:gson:2.8.5'
 	
+	implementation 'net.nurigo:sdk:4.2.7'
+	
 
 
 }

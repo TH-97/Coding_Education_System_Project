@@ -13,14 +13,14 @@
 </th:block>
   
   	<div sec:authorize="isAuthenticated()">
-		[[${#authentication.principal}]]
-		[[${#authentication.principal.username}]] <!-- 디테일 안에 들어있는  getter username-->
-		[[${#authentication.principal.password}]] <!-- 디테일 안에 들어있는  getter password -->
+		[[${#authentication.principal}]]<br>
+		[[${#authentication.principal.username}]] <!-- 디테일 안에 들어있는  getter username--> <br>
+		[[${#authentication.principal.password}]] <!-- 디테일 안에 들어있는  getter password --><br>
 		[[${#authentication.principal.role}]] <!-- 디테일 안에 들어있는  getter role -->
 	</div>
   <section>
     <div id="section">
-      <div class="section_item">1</div>
+      <div class="section_item"></div>
     </div>
 
     <!-- 모달창 -->
