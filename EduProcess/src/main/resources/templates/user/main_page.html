@@ -3,16 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
   <title>Document</title>
-  <link rel="stylesheet" href="/css/main_page.css">
   <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/main_page.css">
+  <link rel="stylesheet" href="/css/all.css">
 </head>
 <body>
+
 <th:block th:replace="~{/user/layouts/header :: header}">
   <p>인덱스 내용</p>
 </th:block>
   
-  <h1>ㅁㄴㅇㄹㅇㄴㅁㄹㄴㅁㅇㄹㄴㅁㄹㅇㄴ</h1>
+  	<div sec:authorize="isAuthenticated()">
+		[[${#authentication.principal}]]
+		[[${#authentication.principal.username}]] <!-- 디테일 안에 들어있는  getter username-->
+		[[${#authentication.principal.password}]] <!-- 디테일 안에 들어있는  getter password -->
+		[[${#authentication.principal.role}]] <!-- 디테일 안에 들어있는  getter role -->
+	</div>
+
   <section>
     <div id="section">
       <div class="section_item">1</div>
@@ -21,7 +33,7 @@
     <!-- 모달창 -->
     <div id="modal" class="hidden">
       <div class="modal-content">
-        <div id="logo">로고</div>
+        <div id="logo2">로고</div>
         <div>
           <form action="/loginForm" method="post" id="textBox">
           <input type="text" name = "username" placeholder="아이디">

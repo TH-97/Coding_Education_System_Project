@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/aside.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/all.css">
+</head>
+<body>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+  <section id="con-ma-div">
+    <div>
+      <th:block th:replace="~{/user/layouts/aside :: aside}"></th:block>
+    </div>
+    <div style="padding: 50px 50px; width: 100%">
+    <div id="content_management">
+      <h1>교육 컨텐츠 관리</h1>
+      <br>
+      <h3>이용자들에게 제공될 교육 컨텐츠 패키지를 관리</h3>
+    </div>
+    <div id="con-ma-regi-btn">
+      <button>등록하기</button>
+    </div>
+    <div>
+
+    </div>
+    </div>
+  </section>
+</body>
+</html>

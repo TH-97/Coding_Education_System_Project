@@ -69,7 +69,9 @@ public class SecurityConfig{
 		.and()
 		.authorizeHttpRequests()
 //		.antMatchers("/images/**","/js/**","/css/**").permitAll()
-		.antMatchers("/user/mainPage","/user/login","/user/join","/user/register","/loginForm","/user/stud_join","/user/educ_join","/user/kakao").permitAll()
+
+		.antMatchers("/user/naver","/user/mainPage","/user/login","/user/join","/user/register","/loginForm","/user/stud_join","/user/educ_join","/user/kakao").permitAll()
+
 		.antMatchers("/admin/**").hasAnyRole("ADMIN","MASTER")
 		.anyRequest().authenticated()
 		.and()
