@@ -30,9 +30,9 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 		
 		
 		if(role.equals("ROLE_educ")) {
-			response.sendRedirect("/admin");
+			response.sendRedirect("/user/mainPage");
 		}else if(role.equals("ROLE_stud")) {
-			response.sendRedirect("/user/alert");
+			response.sendRedirect("/user/mainPage");
 		}else {
 			response.sendRedirect("/admin");
 		}

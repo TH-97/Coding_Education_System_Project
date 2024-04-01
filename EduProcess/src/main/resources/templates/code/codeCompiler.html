@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Compiler</title>
+</head>
+<body>
+    <h1>Code Compiler</h1>
+    <form id="codeForm">
+        <label for="code">Enter your code:</label><br>
+        <textarea id="code" name="code" rows="10" cols="50"></textarea><br>
+        <button type="submit">Compile and Run</button>
+    </form>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById("codeForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // 폼의 기본 동작 중단
+
+            var code = document.getElementById("code").value;
+
+            // AJAX를 사용하여 서버로 코드를 전송하고 결과를 받아옴
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/compileAndRun", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    document.getElementById("output").innerText = xhr.responseText;
+                }
+            };
+            xhr.send("code=" + encodeURIComponent(code));
+        });
+    </script>
+</body>
+</html>

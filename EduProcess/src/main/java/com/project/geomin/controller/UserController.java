@@ -1,4 +1,4 @@
-package com.project.geomin.user.controller;
+package com.project.geomin.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -49,6 +49,10 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bc;
 
+	@GetMapping("/alert")
+	public String alert() {
+		return "user/alert";
+	}
 	@GetMapping("/join")
 	public String join() {
 		return "user/join";
@@ -79,18 +83,6 @@ public class UserController {
 		}
 	}
 
-//	@GetMapping("/login")
-//	public String login() {
-//		return"user/login";
-//	}
-
-//	@PostMapping("/loginForm")
-//	public ResponseEntity<Object> login(@RequestBody StudentVO vo) {
-//
-//		String token = JWTService.createToken(vo.getStud_id());
-//
-//		return new ResponseEntity<>(token , HttpStatus.OK );
-//	}
 	
 	@GetMapping("/login")
 	public String login(@RequestParam(value = "err", required= false)String err 
@@ -149,26 +141,40 @@ public class UserController {
 		
 		//네이버 회원가입이 안되어있으면 회원가입 , 아니면 로그인
 		
-		if(userService.login(String.valueOf(userInfo.get("naver_account")))!=null) {
-			UserVO vo = new UserVO();
-			
-//			vo.setRole(userInfo.get("권한 어케함?"));
-			
-			vo.setUser_id(String.valueOf(userInfo.get("naver_account")));
+		MyUserDetails vo =new MyUserDetails(userService.login(String.valueOf(userInfo.get("naver_account"))));
+		
+		if(vo !=null) {
 			
 			
-			MyUserDetails principal = new MyUserDetails(vo);
+			//시큐리티세션에 강제로 저장하기 (소셜로그인은 시큐리티를 타고오지않기때문에)
+			SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(vo,null , vo.getAuthorities())  );
 			
-			SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(principal,null , principal.getAuthorities())  );
 			
-			
-			System.out.println();
-			
-//			System.out.println(myUserDetails);
-			return "user/main_page";
+			return "redirect:/user/mainPage";
 		}else {
 			return "user/naver";
 		}
 		
 	}
+	
+	@GetMapping("/find_PW")
+	public String find_pw() {
+		return "user/find_PW";
+	}
+	
+	@GetMapping("/find_ID")
+	public String find_id() {
+		return "user/find_ID";
+	}
+	
+	@GetMapping("/find_ID_result")
+	public String find_ID_result() {
+		return "user/find_ID_result";
+	}
+	
+	@GetMapping("/code")
+	public String code() {
+		return "code/codeCompiler";
+	}
+	
 }
