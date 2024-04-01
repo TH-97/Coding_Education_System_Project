@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>휴대폰 인증</title>
+</head>
+<body>
+    <h2>휴대폰 인증</h2>
+    <p>인증 번호를 입력하세요. 입력하신 휴대폰 번호로 인증 번호가 발송됩니다.</p>
+    <form action="/auth/authCheck" method="post">
+        <div>
+         <input type="hidden"  name="user_pn" th:value ="${user_pn}">
+         
+            <label for="verificationCode">인증 번호:</label>
+            <input type="text" name="auth_nm" required>
+        </div>
+        <button type="submit">인증 확인</button>
+    </form>
+</body>
+</html>

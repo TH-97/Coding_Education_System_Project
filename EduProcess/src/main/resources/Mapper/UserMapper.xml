@@ -27,4 +27,19 @@
 		#{role})
 	</insert>
 
+	<update id="auth">
+	update user set auth_nm = #{auth_nm}
+	where user_id = #{user_id}
+	</update>
+	
+	<select id="aLogin" resultType="UserVO">
+		select * from user 
+		where user_pn =	#{user_pn}
+	</select>
+	
+	<select id="authCheck" resultType="UserVO">
+		select * from user 
+		where auth_nm =	#{auth_nm} and user_pn =#{user_pn}
+	</select>
+	
 </mapper>

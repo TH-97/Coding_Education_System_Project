@@ -1,5 +1,7 @@
 package com.project.geomin.user.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,23 @@ public class UserServiceImpl implements UserService{
 	public int join(UserVO userVO) {
 		int a = userMapper.join(userVO);
 		return a;
+	}
+
+	@Override
+	public int auth(Map<String,Object> map) {
+		int a =userMapper.auth(map);
+		
+		return a;
+	}
+
+	@Override
+	public UserVO aLogin(String pn) {
+		return userMapper.aLogin(pn);
+	}
+
+	@Override
+	public UserVO authCheck(String auth_nm , String user_pn) {
+		return userMapper.authCheck(auth_nm ,user_pn);
 	}
 
 
