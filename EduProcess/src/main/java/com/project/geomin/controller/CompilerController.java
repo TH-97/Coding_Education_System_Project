@@ -16,7 +16,7 @@ public class CompilerController {
     @PostMapping("/compileAndRun")
     public String compileAndRun(@RequestParam("code") String code) throws IOException, InterruptedException {
         // 사용자가 입력한 코드를 파일로 저장
-        String fileName = "C:\\Users\\ddd\\Desktop\\Solution.java";
+        String fileName = "C:\\Users\\user\\Desktop\\Solution.java";
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             fileWriter.write(code);
@@ -34,7 +34,7 @@ public class CompilerController {
                
         	
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
-            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\ddd\\\\Desktop Solution");
+            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
             
             // 프로세스의 출력을 읽는 스레드 생성
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));

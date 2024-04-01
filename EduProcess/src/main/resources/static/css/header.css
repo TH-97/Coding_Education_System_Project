@@ -3,7 +3,8 @@
 #logo{width: 200px;}
 #header img {width: 100%;}
 #header-content{width: 65%; display: flex;justify-content: space-around;}
-#loginBtn{background-color: #5DA886; border: none;padding: 10px 10px; border-radius: 10px;}
+#loginBtn , #logoutBtn {background-color: #5DA886; border: none;padding: 10px 10px; border-radius: 10px;}
 #loginBtn:hover{cursor: pointer;}
 p{height: 100%; display: flex; align-items: center;}
 p:hover{color: #5DA886;cursor: pointer;}
+a {text-decoration: none ; outline: none}

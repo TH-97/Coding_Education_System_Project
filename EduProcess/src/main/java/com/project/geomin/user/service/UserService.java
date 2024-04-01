@@ -9,6 +9,7 @@ public interface UserService {
 	//user
 	public UserVO login(String username);
 	public int join(UserVO userVO);
+	public UserVO checkLogin(String username);
 	
 	//auth
 	public int auth(Map<String,Object> map);
