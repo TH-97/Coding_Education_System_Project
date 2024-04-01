@@ -34,16 +34,17 @@
         </div>
         <div id="alink" style="border: none;">
           <p>
-            <a style="border: none;" href="">아이디(이메일)찾기</a>
-            <a style="padding-left: 4px;" href="">비밀번호 찾기</a>
-            <a style="padding-left: 4px;" href="">회원가입</a>
+            <a style="border: none;" href="/user/find_ID">아이디(이메일)찾기</a>
+            <a style="padding-left: 4px;" href="/user/find_PW">비밀번호 찾기</a>
+            <a style="padding-left: 4px;" href="/user/join">회원가입</a>
           </p>
         </div>
         <div id="simpleBox">
           <hr id="line">
           <span id="simpleLogin">간편 로그인</span>
           <div>
-            <div id="kakao"><img src="kakao_icon.png" alt=""></div>
+           <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=hGxkco0a05QxwVjiglkx&state=STATE_STRING&redirect_uri=http://127.0.0.1:8989/user/naver"><img class = "social" src="/img/naver_official.png"></a><br>
+    	   <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5b36e517cda6ce71a97d292f2d6e5388&redirect_uri=http://127.0.0.1:8989/user/kakao"><img class = "social" src="/img/kakao_login.png"></a>
           </div>
         </div>
         <button id="close-modal">X</button>
@@ -53,4 +54,13 @@
   </section>
 </body>
   <script src="/js/main_page.js"></script>
+ 	<script th:inline = "javascript">
+        //모델에서 전달된 값을 가져와서 alert로 표시
+        var message = '[[${message}]]';
+        console.log(message)
+        var msg = JSON.parse(message)
+        if(msg != null){
+        	alert(msg);
+        }
+    </script>
 </html>
