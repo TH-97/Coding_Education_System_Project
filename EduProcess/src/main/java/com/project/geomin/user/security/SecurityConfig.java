@@ -68,7 +68,7 @@ public class SecurityConfig{
 		.headers().frameOptions().sameOrigin()
 		.and()
 		.authorizeHttpRequests()
-//		.antMatchers("/user/find_ID","/user/find_PW","/send_auth","/send","/user/find_PW","/user/find_ID","/user/naver","/user/mainPage","/user/login","/user/join","/user/register","/loginForm","/user/stud_join","/user/educ_join","/user/kakao").permitAll()
+
 		.antMatchers("/admin/**").hasAnyRole("ADMIN","MASTER")
 //		.anyRequest().authenticated()
 		.anyRequest().permitAll()

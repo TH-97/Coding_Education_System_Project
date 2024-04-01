@@ -1,4 +1,4 @@
-var openModalButton =  document.querySelector("iframe").contentDocument.querySelector("#loginBtn");
+var openModalButton =  document.querySelector("#loginBtn");
 console.log(openModalButton);
 var modal = document.getElementById('modal');
 var closeModalButton = document.getElementById('close-modal');

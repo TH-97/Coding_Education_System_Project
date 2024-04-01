@@ -42,12 +42,17 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	//타임리프 레이아웃
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.0'
+<<<<<<< HEAD
 	
 	// https://mvnrepository.com/artifact/com.google.code.gson/gson
 	implementation 'com.google.code.gson:gson:2.8.5'
 	
 	implementation 'net.nurigo:sdk:4.2.7'
 	
+=======
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	implementation 'com.google.code.gson:gson:2.8.5'
+>>>>>>> d4f19f4 (전체적인 틀 잡기)
 
 
 }
