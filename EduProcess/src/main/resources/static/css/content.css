@@ -1,5 +1,5 @@
 
-#con-ma-div{display: flex;}
+#con-ma-div{display: flex; width: 1200px; margin: 0 auto}
 #content_management{padding: 50px 50px;}
 #content_management > h1{font-size: 50px;}
 #content_management > h3{color: #999;}
@@ -7,3 +7,5 @@
 #con-ma-regi-btn > button{position: absolute; right: 150px;bottom: 0; width: 70px;height: 40px; background-color: black;
     border: none; color: white; border-radius: 4px;
 }
+
+#con-form{padding: 20px 50px}

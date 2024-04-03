@@ -1,26 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymleaf.org">
-<head>
+
+<head th:fragment="font_css">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-  <title>Document</title>
+
   <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/main_page.css">
   <link rel="stylesheet" href="/css/all.css">
 </head>
-<body>
-
-<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
-
-  <section>
-    <div id="section">
-      <div class="section_item"></div>
-    </div>
-  </section>
-</body>
-  <script src="/js/main_page.js"></script>
-</html>
