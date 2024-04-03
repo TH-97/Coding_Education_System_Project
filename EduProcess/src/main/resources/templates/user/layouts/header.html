@@ -8,7 +8,14 @@
             <p>교육자마당</p>
             <p>운영마당</p>
             <div style="display: flex; align-items: center">
-                <button id="logoutBtn" sec:authorize="isAuthenticated()"><a href="/logout">로그아웃</a></button>
+                <div class="dropdown">
+ 				<button class="dropbtn" sec:authorize="isAuthenticated()" onclick="toggleDropdown()">내정보</button>
+ 					 <div class="dropdown-content">
+    					<a href="/logout">로그아웃</a>
+  						<a href="#">링크 2</a>
+    					<a href="#">링크 3</a>
+ 					 </div>
+				</div>
                 <button id="loginBtn">로그인</button>
 
             </div>

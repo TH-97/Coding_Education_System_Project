@@ -20,5 +20,6 @@
 
 
 
-인증번호3분만료(쓰레드or db에 3분후 expire , js(interval)로 시간초)
+인증번호3분만료(쓰레드or db에 3분후 expire , js(interval)로 시간초), uuid
+회원가입시 중복 아이디 및 패턴적용
 회원가입 이후 교육자 신청하면 권한부여
