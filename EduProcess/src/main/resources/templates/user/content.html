@@ -22,12 +22,71 @@
       <h3>이용자들에게 제공될 교육 컨텐츠 패키지를 관리</h3>
     </div>
     <div id="con-ma-regi-btn">
-      <button>등록하기</button>
+      <button id="regiBtn">등록하기</button>
     </div>
     <div>
 
     </div>
     </div>
   </section>
+<!-- 모달창 -->
+<div id="con-modal" class="hidden" draggable="true">
+  <div class="con-modal-content">
+    <button id="con-close-modal">X</button>
+    <table>
+      <tr>
+        <th>컨텐츠 이름</th>
+        <td colspan="2"><input type="text" name="con-nm"></td>
+      </tr>
+      <tr>
+        <th>카테고리</th>
+        <td colspan="2">
+          <select name="cate_no">
+            <option>자바</option>
+            <option>파이썬</option>
+            <option>C++</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>가격</th>
+        <td colspan="2"><input type="text" name="con_price"></td>
+      </tr>
+      <tr>
+        <th>할인율</th>
+        <td colspan="2"><input type="text" name="con_discount"></td>
+      </tr>
+      <tr>
+        <th>내용</th>
+        <td colspan="2"><input type="text" name="con_description"></td>
+      </tr>
+      <tr>
+        <th>카테고리</th>
+        <td colspan="2">
+          <select name="cate_lv">
+            <option>고급</option>
+            <option>중급</option>
+            <option>초급</option>
+            <option>입문</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>썸내일</th>
+        <td colspan="2"><div class="thumbnail_box">드래그 해주세요</div></td>
+      </tr>
+      <tbody id="file_div">
+      <tr>
+        <th>영상</th>
+        <th>1</th>
+        <td><div class="file_box">드래그 해주세요</div></td>
+      </tr>
+      </tbody>
+    </table>
+    <button id="addButton">+</button>
+  </div>
+</div>
+<!-- 모달창 끝 -->
 </body>
+<script src="/js/content.js"></script>
 </html>
