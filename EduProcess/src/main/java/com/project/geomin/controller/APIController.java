@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.geomin.user.util.IdValidator;
+
 @RestController
-public class CompilerController {
+public class APIController {
 
     @PostMapping("/compileAndRun")
     public String compileAndRun(@RequestParam("code") String code) throws IOException, InterruptedException {
@@ -61,6 +63,13 @@ public class CompilerController {
             System.out.println("컴파일 오류");
             return "컴파일 오류";
         }
+    }
+    @PostMapping("/idCheck")
+    public String idCheck(@RequestParam("user_id") String id) throws IOException, InterruptedException{
+    	String str = "";
+//    	IdValidator.getInstance().isIdUnique(id);
+    	System.out.println(id+"asddsaad");
+    	return str;
     }
 
     // 프로세스의 출력을 읽는 스레드 클래스
