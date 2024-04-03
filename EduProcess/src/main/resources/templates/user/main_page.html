@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
   <title>Document</title>
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/main_page.css">
-  <link rel="stylesheet" href="/css/all.css">
-</head>
-<body>
 
+  <link rel="stylesheet" href="/css/main_page.css">
+
+</head>
+
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
 
   <section>
@@ -21,36 +16,7 @@
       <div class="section_item"></div>
     </div>
 
-    <!-- 모달창 -->
-    <div id="modal" class="hidden">
-      <div class="modal-content">
-        <div id="logo2">로고</div>
-        <div>
-          <form action="/loginForm" method="post" id="textBox">
-          <input type="text" name = "username" placeholder="아이디">
-          <input type="text" name = "password" placeholder="비밀번호">
-          <button id="loginBtn2">로그인</button>
-          </form>
-        </div>
-        <div id="alink" style="border: none;">
-          <p>
-            <a style="border: none;" href="/user/find_ID">아이디(이메일)찾기</a>
-            <a style="padding-left: 4px;" href="/user/find_PW">비밀번호 찾기</a>
-            <a style="padding-left: 4px;" href="/user/join">회원가입</a>
-          </p>
-        </div>
-        <div id="simpleBox">
-          <hr id="line">
-          <span id="simpleLogin">간편 로그인</span>
-          <div>
-           <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=hGxkco0a05QxwVjiglkx&state=STATE_STRING&redirect_uri=http://127.0.0.1:8989/user/naver"><img class = "social" src="/img/naver_official.png"></a><br>
-    	   <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5b36e517cda6ce71a97d292f2d6e5388&redirect_uri=http://127.0.0.1:8989/user/kakao"><img class = "social" src="/img/kakao_login.png"></a>
-          </div>
-        </div>
-        <button id="close-modal">X</button>
-      </div>
-    </div>
-    <!-- 모달창 끝 -->
+
   </section>
 </body>
   <script src="/js/main_page.js"></script>
