@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/aside.css">
   <link rel="stylesheet" href="/css/content.css">
-  <link rel="stylesheet" href="/css/all.css">
+
 </head>
+
 <body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
 <!--상단바-->
+
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
   <section id="con-ma-div">
     <div>
