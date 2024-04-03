@@ -42,4 +42,8 @@
 		where auth_nm =	#{auth_nm} and user_pn =#{user_pn}
 	</select>
 	
+	<select id ="checkLogin" resultType="UserVO">
+		select * from user
+		where user_id = #{username}
+	</select>
 </mapper>

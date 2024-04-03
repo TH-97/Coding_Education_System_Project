@@ -12,3 +12,7 @@ openModalButton.addEventListener('click', () => {
 closeModalButton.addEventListener('click', () => {
   modal.style.display = "none"
 });
+
+var logoutBtn = document.querySelector("#logoutBtn");
+var loginBtn = document.querySelector("#loginBtn");
+if (logoutBtn !== null)loginBtn.style.display = "none";

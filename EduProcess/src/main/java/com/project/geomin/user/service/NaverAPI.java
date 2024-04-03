@@ -99,7 +99,7 @@ public class NaverAPI {
 				String naver_account = response.getAsJsonObject().get("id").getAsString();
 				String gender = response.getAsJsonObject().get("gender").getAsString();
 				String name = response.getAsJsonObject().get("name").getAsString();
-				String mobile = response.getAsJsonObject().get("mobile").getAsString();
+				String mobile = response.getAsJsonObject().get("mobile").getAsString().replace("-", "");
 				int age = response.getAsJsonObject().get("birthyear").getAsInt();
 
 				map.put("naver_account", naver_account); 

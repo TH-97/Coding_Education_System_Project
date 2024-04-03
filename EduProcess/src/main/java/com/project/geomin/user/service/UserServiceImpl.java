@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService{
 		return userMapper.authCheck(auth_nm ,user_pn);
 	}
 
+	@Override
+	public UserVO checkLogin(String username) {
+		
+		return userMapper.checkLogin(username);
+	}
+
 
 	
 }
