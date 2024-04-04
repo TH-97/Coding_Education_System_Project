@@ -21,5 +21,45 @@
 
 
 인증번호3분만료(쓰레드or db에 3분후 expire , js(interval)로 시간초), uuid
-회원가입시 중복 아이디 및 패턴적용
-회원가입 이후 교육자 신청하면 권한부여
+회원가입시 중복 아이디 및 패턴적용 (서버재시작시 값 다시 가져오기)	
+아이디,비밀번호찾기 ui
+
+public class VerificationCodeManager {
+    private Map<String, Instant> verificationCodes = new HashMap<>();
+    private static final long EXPIRATION_TIME_SECONDS = 3 * 60;
+
+    public String generateVerificationCode(String userId) {
+        // 인증번호 생성
+        String verificationCode = generateRandomCode();
+        
+        // 현재 시간 저장
+        Instant currentTime = Instant.now();
+        verificationCodes.put(userId, currentTime);
+        
+        return verificationCode;
+    }
+
+    public boolean verifyVerificationCode(String userId, String code) {
+        // 저장된 시간 가져오기
+        Instant savedTime = verificationCodes.get(userId);
+        if (savedTime == null) {
+            return false; // 저장된 시간이 없으면 인증 실패
+        }
+        
+        // 현재 시간과 저장된 시간의 차이 계산 (초 단위)
+        long elapsedTimeSeconds = Instant.now().getEpochSecond() - savedTime.getEpochSecond();
+        
+        // 차이가 3분(180초) 이상이면 만료
+        return elapsedTimeSeconds <= EXPIRATION_TIME_SECONDS && codeIsValid(code);
+    }
+
+    private boolean codeIsValid(String code) {
+        // 여기서 코드의 유효성을 추가로 검사할 수 있음 (예: 길이, 문자열 패턴 등)
+        return true;
+    }
+
+    private String generateRandomCode() {
+        // 여기서 랜덤한 인증번호를 생성할 수 있음
+        return "123456"; // 예시로 123456 사용
+    }
+}

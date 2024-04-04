@@ -27,6 +27,7 @@ import com.project.geomin.user.security.MyUserDetails;
 import com.project.geomin.user.service.KakaoAPI;
 import com.project.geomin.user.service.NaverAPI;
 import com.project.geomin.user.service.UserService;
+import com.project.geomin.user.util.IdValidator;
 
 @Controller
 @RequestMapping("/user")
@@ -77,6 +78,8 @@ public class UserController {
 		int a = userService.join(userVO);
 
 		if(a==1) {
+			System.out.println(userVO.getUser_id());
+			IdValidator.getInstance().addId(userVO.getUser_id());
 			return "user/success";
 		}else {
 			return "user/alert";

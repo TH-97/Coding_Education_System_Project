@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.geomin.command.UserVO;
 import com.project.geomin.user.service.UserService;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -30,6 +31,9 @@ public class authController {
 	private UserService userService;
 	//coolsms
 	final DefaultMessageService messageService;
+	
+	 private Map<String, Instant> ValidCode = new HashMap<>();
+	 private static final long EXPIRATION_TIME_SECONDS = 3 * 60;
 
 	public authController(@Value("${coolsms.apikey}") String apikey , @Value("${coolsms.apisecret}") String apisecret) {
 		// 반드시 계정 내 등록된 유효한 API 키, API Secret Key를 입력해주셔야 합니다!

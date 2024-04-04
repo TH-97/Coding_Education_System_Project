@@ -1,7 +1,6 @@
 document.getElementById("idCheck").addEventListener("click", function(e) {
 	e.defaultPrevented;
             var idCheck = document.getElementById("id").value;
-console.log(idCheck);
             // AJAX를 사용하여 서버로 코드를 전송하고 결과를 받아옴
             var check = new XMLHttpRequest();
             check.open("POST", "/idCheck", true);

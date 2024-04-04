@@ -66,10 +66,16 @@ public class APIController {
     }
     @PostMapping("/idCheck")
     public String idCheck(@RequestParam("user_id") String id) throws IOException, InterruptedException{
-    	String str = "";
-//    	IdValidator.getInstance().isIdUnique(id);
-    	System.out.println(id+"asddsaad");
-    	return str;
+    	if(id =="") {
+    		return "";
+    	}
+   if(IdValidator.getInstance().isIdUnique(id)) {
+	   System.out.println(IdValidator.getInstance().getIdSet());
+    	System.out.println("id = " + id);
+    	return "사용가능한 아이디입니다";
+   }else {
+	   return "중복된 아이디입니다";
+   }
     }
 
     // 프로세스의 출력을 읽는 스레드 클래스

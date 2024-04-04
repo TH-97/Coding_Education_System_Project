@@ -42,4 +42,7 @@ public class IdValidator {
             idSet.remove(id);
         }
     }
+    public Set<String> getIdSet() {
+        return idSet;
+    }
 }
