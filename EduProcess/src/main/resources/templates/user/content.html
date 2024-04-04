@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
-  <link rel="stylesheet" href="/css/aside.css">
-  <link rel="stylesheet" href="/css/content.css">
+    <link rel="stylesheet" href="/css/aside.css">
+    <link rel="stylesheet" href="/css/content.css">
 
 </head>
 
@@ -11,80 +11,89 @@
 <!--상단바-->
 
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
-  <section id="con-ma-div">
+<section id="con-ma-div">
     <div>
-      <th:block th:replace="~{/user/layouts/aside :: aside}"></th:block>
+        <th:block th:replace="~{/user/layouts/aside :: aside}"></th:block>
     </div>
     <div style="padding: 50px 50px; width: 100%">
-    <div id="content_management">
-      <h1>교육 컨텐츠 관리</h1>
-      <br>
-      <h3>이용자들에게 제공될 교육 컨텐츠 패키지를 관리</h3>
-    </div>
-    <div id="con-ma-regi-btn">
-      <button id="regiBtn">등록하기</button>
-    </div>
-    <div>
+        <div id="content_management">
+            <h1>교육 컨텐츠 관리</h1>
+            <br>
+            <h3>이용자들에게 제공될 교육 컨텐츠 패키지를 관리</h3>
+        </div>
+        <div id="con-ma-regi-btn">
+            <button id="regiBtn">등록하기</button>
+        </div>
+        <div>
 
+        </div>
     </div>
-    </div>
-  </section>
+</section>
 <!-- 모달창 -->
-<div id="con-modal" class="hidden" draggable="true">
-  <div class="con-modal-content">
-    <button id="con-close-modal">X</button>
-    <table>
-      <tr>
-        <th>컨텐츠 이름</th>
-        <td colspan="2"><input type="text" name="con-nm"></td>
-      </tr>
-      <tr>
-        <th>카테고리</th>
-        <td colspan="2">
-          <select name="cate_no">
-            <option>자바</option>
-            <option>파이썬</option>
-            <option>C++</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>가격</th>
-        <td colspan="2"><input type="text" name="con_price"></td>
-      </tr>
-      <tr>
-        <th>할인율</th>
-        <td colspan="2"><input type="text" name="con_discount"></td>
-      </tr>
-      <tr>
-        <th>내용</th>
-        <td colspan="2"><input type="text" name="con_description"></td>
-      </tr>
-      <tr>
-        <th>카테고리</th>
-        <td colspan="2">
-          <select name="cate_lv">
-            <option>고급</option>
-            <option>중급</option>
-            <option>초급</option>
-            <option>입문</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>썸내일</th>
-        <td colspan="2"><div class="thumbnail_box">드래그 해주세요</div></td>
-      </tr>
-      <tbody id="file_div">
-      <tr>
-        <th>영상</th>
-        <th>1</th>
-        <td><div class="file_box">드래그 해주세요</div></td>
-      </tr>
-      </tbody>
-    </table>
-    <button id="addButton">+</button>
-  </div>
+<div id="con-modal" class="hidden">
+    <div class="con-modal-content">
+        <button id="con-close-modal">X</button>
+        <table>
+            <tr>
+                <th class="th1">컨텐츠 이름</th>
+                <td colspan="3"><input type="text" id="con_nm"></td>
+            </tr>
+            <tr>
+                <th class="th1">카테고리</th>
+                <td colspan="3">
+                    <select id="cate_no">
+                        <option>자바</option>
+                        <option>파이썬</option>
+                        <option>C++</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="th1">가격</th>
+                <td colspan="3"><input type="text" id="con_price"></td>
+            </tr>
+            <tr>
+                <th class="th1">할인율</th>
+                <td colspan="3"><input type="text" id="con_discount"></td>
+            </tr>
+            <tr>
+                <th class="th1">내용</th>
+                <td colspan="3"><textarea style="width: 100%; height: 70px" id="con_description"></textarea></td>
+            </tr>
+            <tr>
+                <th class="th1">난이도</th>
+                <td colspan="3">
+                    <select id="cate_lv">
+                        <option>고급</option>
+                        <option>중급</option>
+                        <option>초급</option>
+                        <option>입문</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="th1">썸내일</th>
+                <td colspan="3">
+                    <div class="thumbnail_box">썸내일을 드래그 해주세요</div>
+                </td>
+            </tr>
+            <tbody id="file_div">
+            <tr>
+                <th class="th1">영상</th>
+                <th class="v-index">1</th>
+                <th><input type="text" placeholder="저장할 영상의 이름"></th>
+                <td>
+                    <div class="file_box">영상을 드래그 해주세요</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="btnAera">
+            <button id="addButton">+</button>
+            <button id="popButton">-</button>
+        </div>
+        <button id="regi">저장하기</button>
+    </div>
 </div>
 <!-- 모달창 끝 -->
 </body>
