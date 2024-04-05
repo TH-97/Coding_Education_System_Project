@@ -30,7 +30,7 @@ addButton.addEventListener("click", () => {
     // numberCell.tagName = 'TH';
     numberCell.innerHTML = '<th className="v-index">' + index + '</th>';
     const filename = newRow.insertCell();
-    filename.innerHTML = "<input type=\"text\" placeholder=\"저장할 영상의 이름\">";
+    filename.innerHTML = "<input class='file_name' type=\"text\" placeholder=\"저장할 영상의 이름\">";
 
     const fileCell = newRow.insertCell();
     fileCell.innerHTML = '<div class="file_box">영상을 드래그 해주세요</div>';
@@ -49,7 +49,6 @@ pop.addEventListener("click", () => {
 
 
 //drop box
-
 let file_data = [];
 let filediv = document.querySelector("#file_div")
 //박스 안에 drag 하고 있을 때
@@ -93,7 +92,6 @@ filediv.addEventListener('drop', (event) => {
             }
         }
         //파일 데이터를 변수에 저장
-        // console.log(filediv.children.length)
         file_data[index] = event.dataTransfer.files[0];
         console.table(file_data)
     }
@@ -102,6 +100,7 @@ filediv.addEventListener('drop', (event) => {
 
 //드롭 썸내일
 const thumbnailbox = document.querySelector('.thumbnail_box');
+
 thumbnailbox.addEventListener('dragover', (event) => {
     event.preventDefault();
     thumbnailbox.classList.add('highlight');
@@ -129,14 +128,20 @@ thumbnailbox.addEventListener('drop', (event) => {
 
         //파일 데이터를 변수에 저장
         file_data[0] = event.dataTransfer.files[0];
-        console.log(file_data)
     }
 
 });
 
 //저장하기 클릭시 데이터 넘겨주기
+let file_data_name = [];
 var regi = document.getElementById('regi')
 regi.addEventListener("click", ()=>{
+    let file_name = document.querySelectorAll(".file_name")
+    console.log(file_name.value)
+    file_data_name[0] = document.querySelector("#thumbnail_name").value;
+    for (var i of file_name){
+        file_data_name.push(i.value);
+    }
     var con_nm = document.getElementById('con_nm')
     var cate_no = document.getElementById('cate_no')
     var con_price = document.getElementById('con_price')
@@ -147,7 +152,10 @@ regi.addEventListener("click", ()=>{
 
     let formData = new FormData();
     for(var file of file_data){
-    formData.append('file_data' , file)
+        formData.append('file_data' , file)
+    }
+    for(var fileName of file_data_name){
+        formData.append('file_data_name', fileName)
     }
     formData.append('con_nm',con_nm.value);
     formData.append('cate_no',cate_no.value);
@@ -162,7 +170,6 @@ regi.addEventListener("click", ()=>{
         .then(data => {
             let result = confirm("업로드가 완료 되었습니다" + data);
             if(result){
-                console.log(1)
                 con_modal.style.display ="none";
             }
         })
