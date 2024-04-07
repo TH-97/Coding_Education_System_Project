@@ -186,6 +186,11 @@ public class UserController {
 		return "user/find_ID_result";
 	}
 	
+	@GetMapping("/find_PW_result")
+	public String find_PW_result() {
+		return "user/find_PW_result";
+	}
+	
 	@GetMapping("/code")
 	public String code() {
 		return "code/codeCompiler";

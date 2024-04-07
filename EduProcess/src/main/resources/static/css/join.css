@@ -69,7 +69,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 	height:40px;
 }
 #idCheck{
-	width: calc(30%);
+	width: 30%;
 	padding: 7px 12px; 
 	margin: 3px 0px 12px;
 	box-sizing: border-box;
@@ -77,10 +77,11 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sub
 	border-radius: 5px;
 	height:40px;
 	font-size: 12px;
-	background-color:gray;
+	background-color:#00C471;
+	color:#fff;
 }
 #idCheck:hover{
-	background-color:#777;
+	background-color:#5DA886;
 	cursor:pointer;
 }
 input[type="radio"] {
