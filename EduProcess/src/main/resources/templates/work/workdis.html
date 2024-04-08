@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/makework.css">
+</head>
+<body>
+<div class="detailbox">
+    <h1 class="mkwork">숙제생성</h1>
+    <div id="homeList_div">
+        <button type="submit" class="hbtn2">조회 하기</button>
+        <h3 class="homelist">숙제리스트</h3>
+        <table class="tb2">
+            <thead>
+            <tr>
+                <th>숙제명</th>
+                <th>숙제내용</th>
+                <th>레벨</th>
+                <th>제출기한</th>
+                <th>생성일자</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>자바 기초알아보기</td>
+                <td>숙제내용</td>
+                <td>6</td>
+                <td>3/6</td>
+                <td>2024/05/05</td>
+            </tr>
+            <tr>
+                <td>자바 기초알아보기</td>
+                <td>숙제내용</td>
+                <td>6</td>
+                <td>3/6</td>
+                <td>2024/05/05</td>
+            </tr>
+            <tr>
+                <td>자바 기초알아보기</td>
+                <td>숙제내용</td>
+                <td>6</td>
+                <td>3/6</td>
+                <td>2024/05/05</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="detailbox1">
+        <input type='checkbox'
+               name='all'
+               value='selectall'
+               onclick='selectAll(this)' class="all2, hbtn2"/> <b style="float: right; margin-top: 10px; margin-right: 34px;">전체 선택</b>
+        <h3 class="mkwork2">숙제 전송</h3>
+        <div class="detailbox2">
+            <table class="tb2">
+                <thead>
+                <tr>
+                    <th>그룹명</th>
+                    <th>숙제명</th>
+                    <th>인원</th>
+                    <th>전송</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>자바 기초</td>
+                    <td>자바 기초 알아보기</td>
+                    <td>24</td>
+                    <td><input type="checkbox" name="all" class="all2"></td>
+                </tr>
+                <tr>
+                    <td>자바 기초</td>
+                    <td>자바 기초 알아보기</td>
+                    <td>24</td>
+                    <td><input type="checkbox" name="all" class="all2"></td>
+                </tr>
+                <tr>
+                    <td>자바 기초</td>
+                    <td>자바 기초 알아보기</td>
+                    <td>24</td>
+                    <td><input type="checkbox" name="all" class="all2"></td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="hbtn">전송하기</button>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    function selectAll(selectAll)  {
+        const checkboxes = document.getElementsByName('all');
+        console.log(1);
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked;
+            console.log(2);
+        })
+    }
+</script>
+</html>

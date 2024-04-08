@@ -1,0 +1,121 @@
+
+.detailbox {
+    margin-top: 50px;
+    width: 1000px;
+    height: 400px;
+    margin: 0 auto;
+}
+.detailbox1 {
+    margin-top: 50px;
+    width: 1000px;
+    height: 400px;
+}
+.detailbox2 {
+    width: 1000px;
+    height: 400px;
+}
+.detailbox3 {
+    width: 1000px;
+    height: 400px;
+}
+.mkwork {
+    margin-left: 150px;
+}
+.mkwork2 {
+    margin-left: 150px;
+    margin-bottom: 20px;
+}
+.ii {
+    width: 550px;
+    height: 20px;
+}
+.homelist {
+    margin-left: 150px;
+    margin-bottom: 20px;
+}
+.hbtn {
+    float: right;
+    margin-right: 154px;
+    margin-top: 10px;
+    color: #ddd;
+    background-color: black;
+    border-style: none;
+    border-radius: 8px;
+    width: 70px;
+    height: 30px;
+    cursor: pointer;
+}
+.sbtn {
+    float: right;
+}
+.hbtn2 {
+    float: right;
+    margin-right: 154px;
+
+    color: #ddd;
+    background-color: black;
+    border-style: none;
+    border-radius: 8px;
+    width: 70px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.tb1 {
+    border-collapse: collapse;
+    width: 700px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: white;
+}
+.tb2 {
+    border-collapse: collapse;
+    width: 700px;
+    height: 150px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+/* 테이블 행 */
+th, td {
+    /* padding: 4px; */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #5da886;
+    color: #ddd;
+    height: 28px;
+}
+.all2 {
+    width: 30px;
+    height: 30px;
+    margin-left: 6px;
+}
+/* 테이블 비율 */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 30%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 30%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 10%;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 15%;
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    width: 15%;
+}
