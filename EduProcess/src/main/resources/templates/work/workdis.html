@@ -23,29 +23,50 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>자바 기초알아보기</td>
-                <td>숙제내용</td>
-                <td>6</td>
-                <td>3/6</td>
-                <td>2024/05/05</td>
-            </tr>
-            <tr>
-                <td>자바 기초알아보기</td>
-                <td>숙제내용</td>
-                <td>6</td>
-                <td>3/6</td>
-                <td>2024/05/05</td>
-            </tr>
-            <tr>
-                <td>자바 기초알아보기</td>
-                <td>숙제내용</td>
-                <td>6</td>
-                <td>3/6</td>
-                <td>2024/05/05</td>
+            <tr th:each="workeva : ${list}">
+                <td th:text="${workeva.h_name}"></td>
+                <td th:text="${workeva.h_detail}"></td>
+                <td th:text="${workeva.h_level}"></td>
+                <td th:text="${workeva.h_reg_ymd}"></td>
+                <td th:text="${workeva.h_dead}"></td>
             </tr>
             </tbody>
         </table>
+        <div class="page"  >
+            <ul style="display: flex; justify-content: space-around">
+                <li><a th:href="@{work(page=1,amount=${pageVO.amount})}">
+                    <i class="fa fa-angle-double-left"></i><p><<</p></a></li>
+                <!-- 2. 이전버튼 -->
+                <th:block th:if="${pageVO.prev}">
+                    <li style="margin-right:5px;">
+                        <a th:href="@{work(page=${pageVO.start - 1},
+																amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"> < </i></a>
+                    </li>
+                </th:block>
+                <!-- 1. 페이지 반복-->
+                <th:block th:each="page, status :${pageVO.pageList}">
+                    <li th:class="${page == pageVO.page ? 'on' : ''}">
+                        <a th:href="@{work(page=${page},
+                                        amount=${pageVO.amount})}">[[${page}]]</a>
+                    </li>
+                </th:block>
+
+                <!--3. 다음버튼-->
+                <th:block th:if="${pageVO.next}">
+                    <li style="margin-left:5px;">
+                        <a th:href="@{work(page=${pageVO.end + 1},
+                                amount=${pageVO.amount})}"><i
+                                class="fa fa-angle-right" aria-hidden="true">
+
+                        </i> > </a></li>
+                </th:block>
+
+                <li><a th:href="@{board(page=${pageVO.realEnd},
+                                        amount=${pageVO.amount})}"><i
+                        class="fa fa-angle-double-right" aria-hidden="true">>></i></a></li>
+            </ul>
+        </div>
     </div>
     <div class="detailbox1">
         <input type='checkbox'

@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-</beans>
+<mapper namespace="com.project.geomin.service.WorkMapper">
+    <select id="getList" resultType="WorkVO">
+        SELECT h_name, h_detail, h_level, h_reg_ymd, h_dead FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
+    </select>
+    <select id="getTotal" resultType="int">
+        select count(*)
+        from hw_distribution
+    </select>
+    <insert id="regist">
+        INSERT INTO hw_distribution (
+            h_name,
+            h_detail,
+            h_level,
+            h_dead,
+            h_reg_ymd
+        ) VALUES (
+                  #{h_name},
+                  #{h_detail},
+                  #{h_level},
+                  #{h_dead},
+                  date_format(now(), '%Y$m$d')
+                         )
+    </insert>
+</mapper>

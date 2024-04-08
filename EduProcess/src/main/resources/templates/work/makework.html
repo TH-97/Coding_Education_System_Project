@@ -13,37 +13,35 @@
     <div class="detailbox1">
         <h3 class="mkwork2">숙제 정보 입력</h3>
         <div class="detailbox2">
-            <table class="tb1">
-                <tbody>
-                <tr>
-                    <td>숙제명</td>
-                    <td><input type="text" class="ii"></td>
-                </tr>
-                <tr>
-                    <td>숙제내용</td>
-                    <td><input type="text" class="ii"></td>
-                </tr>
-                <tr>
-                    <td>학습그룹</td>
-                    <td><input type="text" class="ii"></td>
-                </tr>
-                <tr>
-                    <td>숙제 레벨</td>
-                    <td>
-                        <select name="" id="" class="ii">
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>제출기한</td>
-                    <td><input type="text" class="ii"></td>
-                </tr>
-                </tbody>
-            </table>
-            <button type="submit" class="hbtn">숙제 저장</button>
+            <form name="workForm" action="workForm" method="post">
+                <table class="tb1">
+                    <tbody>
+                    <tr>
+                        <td>숙제명</td>
+                        <td><input type="text" class="ii"></td>
+                    </tr>
+                    <tr>
+                        <td>숙제내용</td>
+                        <td><input type="text" class="ii"></td>
+                    </tr>
+                    <tr>
+                        <td>숙제 레벨</td>
+                        <td>
+                            <select name="" id="" class="ii">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제출기한</td>
+                        <td><input type="text" class="ii"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="hbtn">숙제 저장</button>
+            </form>
         </div>
     </div>
     <div id="homeList_div">
