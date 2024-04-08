@@ -147,7 +147,7 @@ regi.addEventListener("click", ()=>{
     var con_price = document.getElementById('con_price')
     var con_discount = document.getElementById('con_discount')
     var con_description = document.getElementById('con_description')
-    var cate_lv = document.getElementById('cate_lv')
+    var con_lv = document.getElementById('con_lv')
 
 
     let formData = new FormData();
@@ -162,7 +162,7 @@ regi.addEventListener("click", ()=>{
     formData.append('con_price',con_price.value);
     formData.append('con_discount',con_discount.value);
     formData.append('con_description',con_description.value);
-    formData.append('cate_lv',cate_lv.value);
+    formData.append('con_lv',con_lv.value);
 
 
     fetch('/cloudUpload', {method: 'post', body: formData})

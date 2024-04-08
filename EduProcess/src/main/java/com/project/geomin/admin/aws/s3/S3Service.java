@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.DoubleStream;
 
 @Service
 public class S3Service {
@@ -49,6 +51,19 @@ public class S3Service {
             // s3.putObject(putOb, RequestBody.fromFile(new File(objectPath))); //로컬파일을 읽어서 올리는 경우는 이렇게
             s3.putObject(putOb, RequestBody.fromBytes(objectdata)); //클라이언트에서 입력받은 파일의 바이트데이터
             System.out.println("Successfully placed " + objectKey + " into bucket " + aws_target_bucket);
+
+//            String key = "테스트/0썸네일";
+//            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+//                    .bucket(aws_target_bucket)
+//                    .key(key)
+//                    .build();
+//
+//            ResponseInputStream<GetObjectResponse> res = s3.getObject(getObjectRequest);
+//
+//            System.out.println( "여기가 중요"+ res.key());
+
+
+
 
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
