@@ -63,6 +63,7 @@ public class authController {
 		System.out.println("인증번호 : " +a );
 		
 		
+<<<<<<< HEAD
 		try {
 			//인증번호 보내고
 			
@@ -75,6 +76,8 @@ public class authController {
 			e.printStackTrace();
 		}
 		
+=======
+>>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 		
 		//인증번호 db에 저장하고 
 		UserVO vo = userService.aLogin(pn);
@@ -99,6 +102,7 @@ public class authController {
 			}else {
 				System.out.println("send에서 에러");
 				 return "redirect:/auth/missAuth";
+<<<<<<< HEAD
 			}
 		}else{
 			//등록된 번호가 없다는 경고창 이후 돌아가기
@@ -140,6 +144,8 @@ public class authController {
 			}else {
 				System.out.println("send에서 에러");
 				 return "redirect:/auth/missAuth";
+=======
+>>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 			}
 		}else{
 			//등록된 번호가 없다는 경고창 이후 돌아가기
@@ -159,6 +165,7 @@ public class authController {
 		UserVO vo =userService.authCheck(auth_nm ,user_pn);
 		if(vo !=null) {
 			if(verifyValidCode(user_pn)) {
+<<<<<<< HEAD
 				//인증완료
 				ValidCode.remove(user_pn);
 				if(vo.getUser_id().startsWith("@")) {
@@ -172,6 +179,11 @@ public class authController {
 				ra.addFlashAttribute("user_id",vo.getUser_id());
 				return "redirect:/user/find_ID_result";
 				}
+=======
+				//인증완료 
+				ra.addFlashAttribute("user_id",vo.getUser_id());
+				return "redirect:/user/find_ID_result";
+>>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 			}else {
 				//인증실패
 				System.out.println("시간넘어감");
@@ -179,9 +191,13 @@ public class authController {
 			}
 			
 		}else {
+<<<<<<< HEAD
 			if(ValidCode.containsKey(user_pn)) {
 				ValidCode.remove(user_pn);
 			}
+=======
+			
+>>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 			return "redirect:/auth/missAuth";
 		}
 		
@@ -192,11 +208,14 @@ public class authController {
 		return "auth/missAuth";
 	}
 	
+<<<<<<< HEAD
 	@GetMapping("/alertAuth")
 	public String alertAuth() {
 		return "auth/alertAuth";
 	}
 	
+=======
+>>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 	@GetMapping("/missAuth2")
 	public String missAuth2() {
 		return "auth/missAuth2";
