@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" href="/css/find_PW_result.css">
+</head>
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+<div class = "container">
+<div class="find_password_head">
+<h1 class="find_password_title">비밀번호 재설정</h1>
+</div>
+<div class="find_password_success">
+            <input type="password" name="pw" required placeholder="비밀번호를 입력하여주세요"><br>
+            <input type="password" name="pw_check" required placeholder="비밀번호를 다시 입력하여주세요">
+</div>
+<button type="submit" class="">확인</button>
+
+    </div>
+    
+    
+    <script src="/js/find_PW_result.js"></script>
+</body>
+</html>
