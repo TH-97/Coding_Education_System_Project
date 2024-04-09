@@ -1,33 +1,25 @@
 package com.project.geomin.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.project.geomin.command.UserVO;
-import com.project.geomin.user.jwt.util.JWTService;
 import com.project.geomin.user.security.MyUserDetails;
 import com.project.geomin.user.service.KakaoAPI;
 import com.project.geomin.user.service.NaverAPI;
 import com.project.geomin.user.service.UserService;
-import com.project.geomin.user.util.IdValidator;
 
 @Controller
 @RequestMapping("/user")
@@ -79,7 +71,6 @@ public class UserController {
 
 		if(a==1) {
 			System.out.println(userVO.getUser_id());
-			IdValidator.getInstance().addId(userVO.getUser_id());
 			return "user/success";
 		}else {
 			return "user/alert";
@@ -196,5 +187,13 @@ public class UserController {
 		return "code/codeCompiler";
 	}
 	
+	@PostMapping("/reset_pw")
+	public String reset_pw(@RequestParam("pn") String pn , @RequestParam("pw") String pw , Model model) {
+		String bcPw= bc.encode(pw);
+		userService.updatePW(pn,bcPw);
+		model.addAttribute("message","비밀번호가 재설정 되었습니다. 다시 로그인 하여 주십시오");
+		//메시지 담고 메인페이지로
+		return "";
+	}
 	
 }

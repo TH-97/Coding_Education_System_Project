@@ -20,6 +20,7 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
 input[type="text"] {
 	width: calc(70% - 20px);
 	padding: 7px 12px; 
@@ -45,7 +46,7 @@ button[type="submit"] {
 input[type="submit"]:hover {
 	cursor:pointer;
 }
-.find_id_description{
+.find_pw_description{
 	font-size: 15px;
 	margin: 0 auto;
 	margin-top: 7px;

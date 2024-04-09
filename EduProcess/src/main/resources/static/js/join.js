@@ -12,3 +12,12 @@ document.getElementById("idCheck").addEventListener("click", function(e) {
             };
             check.send("user_id=" + encodeURIComponent(idCheck));
         });
+document.querySelector("input[name=user_pw_check]").addEventListener("keyup",e => {
+	var pw = document.querySelector("input[name=user_pw]").value;
+	var check = document.querySelector(".pw_check")
+	if(pw != e.target.value) {
+		check.innerHTML='비밀번호가 일치하지않습니다'
+	}else {
+		check.innerHTML='비밀번호가 일치합니다'
+	}
+})

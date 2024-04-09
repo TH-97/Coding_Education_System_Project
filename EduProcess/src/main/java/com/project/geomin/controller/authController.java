@@ -63,7 +63,6 @@ public class authController {
 		System.out.println("인증번호 : " +a );
 		
 		
-<<<<<<< HEAD
 		try {
 			//인증번호 보내고
 			
@@ -76,8 +75,6 @@ public class authController {
 			e.printStackTrace();
 		}
 		
-=======
->>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 		
 		//인증번호 db에 저장하고 
 		UserVO vo = userService.aLogin(pn);
@@ -102,7 +99,6 @@ public class authController {
 			}else {
 				System.out.println("send에서 에러");
 				 return "redirect:/auth/missAuth";
-<<<<<<< HEAD
 			}
 		}else{
 			//등록된 번호가 없다는 경고창 이후 돌아가기
@@ -110,6 +106,7 @@ public class authController {
 		}
 	}
 	
+	//비밀번호찾기
 	@PostMapping("/send_PW")
 	public String send_PW(@RequestParam("pn") String pn,@RequestParam("id") String id, RedirectAttributes ra) {
 		Message message = new Message();
@@ -123,9 +120,18 @@ public class authController {
 			
 		//인증번호 db에 저장하고 
 		UserVO vo = userService.aLogin(pn);
-
+		UserVO idvo = userService.checkLogin(id);
 		// db에 넣고 새로고침 or 찾을때마다 업데이트
 		//회원정보가 있을 떄
+		if(idvo == null) {
+			System.out.println("등록 아이디 없음");
+			return "redirect:/auth/alertAuth_id";
+		}
+		//idvo랑 vo가 같아야됨
+		if(!idvo.getUser_pn().equals(pn)) {
+			System.out.println("등록 번호와 아이디 연락처가 다름");
+			return "redirect:/auth/alertAuth_id2";
+		}
 		if(vo!= null) {
 			Map<String ,Object> map = new HashMap<>();
 			//아이디
@@ -139,13 +145,11 @@ public class authController {
 				SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
 				System.out.println(response);
 				ra.addFlashAttribute("user_pn",pn);
-				return "redirect:/auth/send_auth";
+				return "redirect:/auth/sendAuth_pw";
 				
 			}else {
 				System.out.println("send에서 에러");
 				 return "redirect:/auth/missAuth";
-=======
->>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 			}
 		}else{
 			//등록된 번호가 없다는 경고창 이후 돌아가기
@@ -157,33 +161,35 @@ public class authController {
 	public String send_auth() {
 		//인증번호 입력받고 맞으면 다음페이지
 		System.out.println(ValidCode);
-		return "/auth/sendAuth";
+		return "auth/sendAuth";
 	}
 	
-	@PostMapping("/authCheck")
+	@GetMapping("/send_auth_pw")
+	public String send_auth_pw() {
+		//인증번호 입력받고 맞으면 다음페이지
+		System.out.println(ValidCode);
+		return "auth/sendAuth_pw";
+	}
+	
+	@GetMapping("/alertAuth_id")
+	public String alertAuth_id() {
+		return "auth/alertAuth_id";
+	}
+	@GetMapping("/alertAuth_id2")
+	public String alertAuth_id2() {
+		return "auth/alertAuth_id2";
+	}
+	
+	
+	@PostMapping("/authCheck_pw")
 	public String authCheck(@RequestParam("auth_nm") String auth_nm, @RequestParam("user_pn") String user_pn ,RedirectAttributes ra) {
 		UserVO vo =userService.authCheck(auth_nm ,user_pn);
 		if(vo !=null) {
 			if(verifyValidCode(user_pn)) {
-<<<<<<< HEAD
 				//인증완료
 				ValidCode.remove(user_pn);
-				if(vo.getUser_id().startsWith("@")) {
-					//네이버
-					return "";
-				}else if(vo.getUser_id().startsWith("#")){
-					//구글
-					return "";
-				}else {
-					//기본회원
-				ra.addFlashAttribute("user_id",vo.getUser_id());
-				return "redirect:/user/find_ID_result";
-				}
-=======
-				//인증완료 
-				ra.addFlashAttribute("user_id",vo.getUser_id());
-				return "redirect:/user/find_ID_result";
->>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
+				ra.addFlashAttribute("pn",user_pn);
+				return "redirect:/user/find_PW_result";
 			}else {
 				//인증실패
 				System.out.println("시간넘어감");
@@ -191,16 +197,48 @@ public class authController {
 			}
 			
 		}else {
-<<<<<<< HEAD
 			if(ValidCode.containsKey(user_pn)) {
 				ValidCode.remove(user_pn);
 			}
-=======
-			
->>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
+			System.out.println("vo가없음 pw체크");
 			return "redirect:/auth/missAuth";
 		}
+	}
 		
+		@PostMapping("/authCheck")
+		public String authCheck_pw(@RequestParam("auth_nm") String auth_nm, @RequestParam("user_pn") String user_pn ,RedirectAttributes ra) {
+			UserVO vo =userService.authCheck(auth_nm ,user_pn);
+			if(vo !=null) {
+				if(verifyValidCode(user_pn)) {
+					//인증완료
+					ValidCode.remove(user_pn);
+					if(vo.getUser_id().startsWith("@")) {
+						//네이버
+						ra.addFlashAttribute("user_id","네이버 로그인 입니다");
+						return "redirect:/user/find_ID_result";
+					}else if(vo.getUser_id().startsWith("#")){
+						//구글
+						ra.addFlashAttribute("user_id","구글 로그인 입니다");
+						return "redirect:/user/find_ID_result";
+					}else {
+						//기본회원
+						ra.addFlashAttribute("user_id",vo.getUser_id());
+						return "redirect:/user/find_ID_result";
+					}
+				}else {
+					//인증실패
+					System.out.println("시간넘어감");
+					return "redirect:/auth/missAuth2";
+				}
+				
+			}else {
+				if(ValidCode.containsKey(user_pn)) {
+					ValidCode.remove(user_pn);
+				}
+				
+				return "redirect:/auth/missAuth";
+			}
+			
 	}
 	
 	@GetMapping("/missAuth")
@@ -208,14 +246,11 @@ public class authController {
 		return "auth/missAuth";
 	}
 	
-<<<<<<< HEAD
 	@GetMapping("/alertAuth")
 	public String alertAuth() {
 		return "auth/alertAuth";
 	}
 	
-=======
->>>>>>> 7d1ef0f72f2a5b267b64ce05f19205805ffc5da7
 	@GetMapping("/missAuth2")
 	public String missAuth2() {
 		return "auth/missAuth2";
