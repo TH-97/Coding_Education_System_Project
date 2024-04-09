@@ -45,29 +45,61 @@ form {
 label {
 	display: block;
 	margin-bottom: 5px;
-	font-size:15px;
+	font-size:12px;
+	height:16px;
 }
 
 input[type="text"], input[type="email"], input[type="password"], input[type="submit"],
 	input[type="number"] {
 	width: calc(100% - 20px);
-	padding: 5px;
-	margin-bottom: 10px;
+	padding: 7px 12px; 
+	margin: 3px 0px 12px;
 	box-sizing: border-box;
 	border: 1px solid #ccc;
 	border-radius: 5px;
+	height:40px;
+}
+#id{
+	width: calc(70% - 20px);
+	padding: 7px 12px; 
+	margin: 3px 0px 12px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	height:40px;
+}
+#idCheck{
+	width: 30%;
+	padding: 7px 12px; 
+	margin: 3px 0px 12px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	height:40px;
+	font-size: 12px;
+	background-color:#00C471;
+	color:#fff;
+}
+#idCheck:hover{
+	background-color:#5DA886;
+	cursor:pointer;
 }
 input[type="radio"] {
 	margin-right: 20px;
 } 
 
 input[type="submit"] {
-	background-color: #007bff;
+	background-color:#00C471;
 	color: #fff;
 	border: none;
 	cursor: pointer;
+	box-sizing: border-box;
+	width: 300px;
+	height: 48px;
+	margin : 16px 0px 12px;
+	padding : 0px 16px;
 }
 
 input[type="submit"]:hover {
-	background-color: #0056b3;
+	background-color:#5DA886;
 }

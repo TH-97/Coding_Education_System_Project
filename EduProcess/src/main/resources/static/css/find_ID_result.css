@@ -1,0 +1,47 @@
+.container {
+	max-width: 320px;
+	max-height: 800px;
+	margin: 150px auto;
+	background-color: #fff;
+	padding: 20px;
+	/* border:1px solid #777; */
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f2f2f2;
+	margin: 0;
+	padding: 0;
+}
+.find_account_info {
+	font-weight: bold;
+	margin : 0px 0px 16px;
+}
+.find_account_success {
+	text-align: left;
+	margin : 0px 0px 32px;
+	padding : 20px;
+}
+.find_account_symbol{
+	margin : 0px 0px 6px;
+}
+.find_account_login{
+	display:block;
+	background-color:#00C471;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	height: 50px;
+	margin : 16px 10px 12px;
+	padding : 0px 16px;
+	line-height: 50px;
+}
+.find_account_head{
+	margin : 0px 0px 32px;
+}
+.find_account_title{
+	margin:0px 0px 12px;
+}

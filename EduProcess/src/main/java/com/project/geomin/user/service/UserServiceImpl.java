@@ -49,5 +49,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	@Override
+	public void updatePW(String user_pw, String user_pn) {
+		// TODO Auto-generated method stub
+		userMapper.updatePW(user_pw, user_pn);
+		
+	}
+
+
 	
 }

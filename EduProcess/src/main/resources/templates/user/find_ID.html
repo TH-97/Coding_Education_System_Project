@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 찾기</title>
+    <link rel="stylesheet" href="/css/find_ID.css">
 </head>
 <body>
-    <h2>아이디 찾기</h2>
-    <h3>회원가입시 등록한 휴대폰 번호를 입력하세요</h3>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+<div class = "container">
+    <h2>아이디 찾기(휴대폰 인증)</h2>
+    <div class ="description">회원가입시 등록한<br>휴대폰 번호를 입력하세요</div>
+    
     <form action="/auth/send" method="post">
-        <div>
-            <label for="text">휴대폰번호:</label>
-            <input type="text" name="pn" required placeholder="-을 뺴고 숫자만 입력하여 주세요">
-        </div>
-        <button type="submit">인증요청</button>
+            <input type="text" name="pn" required placeholder="-을 빼고 숫자만 입력">
+        <button type="submit">인증</button>
     </form>
+    </div>
+    <script src="/js/find_ID.js"></script>
 </body>
 </html>
