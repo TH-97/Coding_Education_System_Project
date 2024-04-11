@@ -47,4 +47,9 @@
         JOIN cont_file f ON c.con_nm = f.con_nm
         WHERE c.con_nm = "디비테스트8"
     </select>
+
+    <select id="getContnet" resultType="AdminVO">
+        select con_nm , thumbnail_path
+        from content
+    </select>
 </mapper>

@@ -21,4 +21,6 @@ public interface AdminService {
 
     public AdminVO getT(AdminVO vo);
     public AdminVO getF(AdminVO vo);
+
+    public String getContent();
 }

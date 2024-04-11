@@ -21,4 +21,5 @@ public interface AdminMapper {
                             @Param("service_class1")String service_class1);
     public AdminVO getT(AdminVO vo);
     public AdminVO getF(AdminVO vo);
+    public AdminVO getContent();
 }

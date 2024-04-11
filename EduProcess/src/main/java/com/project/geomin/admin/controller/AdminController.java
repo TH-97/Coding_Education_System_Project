@@ -28,4 +28,10 @@ public class AdminController {
 
         return "test";
     }
+
+    @GetMapping("/mainPage")
+    public String mainPage(){
+        List<AdminVO> list = new ArrayList<>();
+        return "user/main_page";
+    }
 }

@@ -50,4 +50,9 @@ public class AdminServiceImpl implements AdminService{
         return adminMapper.getF(vo);
     }
 
+    @Override
+    public String getContent() {
+       return adminMapper.getContent();
+    }
+
 }
