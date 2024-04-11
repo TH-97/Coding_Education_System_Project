@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/aside.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/all.css">
+  <link rel="stylesheet" href="/css/gpapply/edugroup.css">
+
+</head>
+<body>
+<!--상단바-->
+<th:block th:replace="~{/group/edu/layouts/header :: header}"></th:block>
+  <section id="group_content">
+      <th:block th:replace="~{/group/edu/layouts/aside :: aside}"></th:block>
+
+    <div class="group_content_container">
+
+      <div class="group_content_header">
+        <h1>학습그룹등록</h1>
+        <br>
+        <h3>학습 그룹의 목록에 새로운 학습 그룹을 생성합니다.</h3>
+      </div>
+
+      <div class="regist_content">
+          <ul class="regist_content_container">
+            <li><span>그룹명</span><input type="text" name="" id="" placeholder="그룹명을 입력하세요"></li>
+            <li><span>모집 인원수</span><input type="text" name="" id="" placeholder="모집할 인원을 고르세요 (최대 50명)"></li>
+            <li><span>레벨</span>
+              <select name="">
+                <option value="초급">초급</option>
+                <option value="중급">중급</option>
+                <option value="고급">고급</option>
+              </select>
+            </li>
+            <li><span>학습목표</span> <textarea name="" placeholder="학습목표를 입력하세요"></textarea></li>
+            <li><span>학습 콘텐츠</span><input type="text" name="" id="" placeholder="나중에 교육자가 산 컨텐츠 조회해서 select"></li>
+            <li><span>교육자명</span><input type="text" name="" id=""></li>
+            <input type="hidden" name="" value="">
+          </ul>
+        <input type="submit" value="등록하기" id="regist_btn">
+
+      </div>
+
+    </div>
+  </section>
+</body>
+
+</html>
