@@ -42,4 +42,7 @@ public class WorkServiceImpl implements WorkService {
         System.out.println(result);
         return result;
     }
+    public WorkVO getDetail(int user_id) {
+        return workMapper.getDetail(user_id);
+    }
 }

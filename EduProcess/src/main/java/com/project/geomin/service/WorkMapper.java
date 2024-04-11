@@ -12,4 +12,5 @@ public interface WorkMapper {
     public ArrayList<WorkVO> getList(@Param("cri") Criteria cri, @Param("user_id") String user_id);
     public int getTotal(@Param("cri") Criteria cri, @Param("user_id") String user_id); //전체게시글 수
     public int regist(WorkVO vo);
+    public WorkVO getDetail(int user_id);
 }

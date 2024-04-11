@@ -60,7 +60,26 @@
     height: 30px;
     cursor: pointer;
 }
-
+.workdetail {
+    width: 620px;
+    height: 900px;
+}
+.comarea {
+    border: 1px solid #777;
+    float: right;
+    width: 950px;
+    height: 800px;
+}
+.subtn {
+    float: right;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    top: 0;
+    border-style: none;
+    background-color: #5da886;
+    border-radius: 3px;
+}
 .tb1 {
     border-collapse: collapse;
     width: 700px;

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.project.geomin.service.WorkMapper">
     <select id="getList" resultType="WorkVO">
-        SELECT h_name, h_detail, h_level, h_reg_ymd, h_dead FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
+        SELECT * FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
     </select>
     <select id="getTotal" resultType="int">
         select count(*)
@@ -16,13 +16,20 @@
             h_detail,
             h_level,
             h_dead,
-            h_reg_ymd
+            h_reg_ymd,
+            sg_no
         ) VALUES (
                   #{h_name},
                   #{h_detail},
                   #{h_level},
                   #{h_dead},
-                  date_format(now(), '%Y$m$d')
+                  date_format(now(), '%Y%m%d'),
+                  1
                          )
     </insert>
+
+    <select id="getDetail" resultType="WorkVO">
+        SELECT * FROM hw_distribution
+        WHERE h_no = #{h_no}
+    </select>
 </mapper>

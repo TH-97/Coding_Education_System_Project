@@ -24,7 +24,7 @@
             </thead>
             <tbody>
             <tr th:each="workeva : ${list}">
-                <td th:text="${workeva.h_name}"></td>
+                <td><a th:href="@{'/work/worksub?h_no=' + ${workeva.h_no}}" th:text="${workeva.h_detail}"></a></td>
                 <td th:text="${workeva.h_detail}"></td>
                 <td th:text="${workeva.h_level}"></td>
                 <td th:text="${workeva.h_reg_ymd}"></td>

@@ -31,7 +31,6 @@ public class WorkController {
     @GetMapping("/workeva")
     public String list(Model model, Criteria cri, HttpSession session) {
         String user_id = (String)session.getAttribute("user_id");
-        //목록을 가지고 나와서 데이터를 담고 나감
         ArrayList<WorkVO> list = workService.getList(cri,user_id); //데이터
         int total=workService.getTotal(cri,user_id);
         PageVO pageVo = new PageVO(cri, total);
@@ -43,7 +42,6 @@ public class WorkController {
     @GetMapping("/workdis")
     public String list2(Model model, Criteria cri, HttpSession session) {
         String user_id = (String)session.getAttribute("user_id");
-        //목록을 가지고 나와서 데이터를 담고 나감
         ArrayList<WorkVO> list = workService.getList(cri,user_id); //데이터
         int total=workService.getTotal(cri,user_id);
         PageVO pageVo = new PageVO(cri, total);
@@ -55,11 +53,9 @@ public class WorkController {
 
     @GetMapping("/makework")
     public String reg() {
-        System.out.println("그럼 이건 타?");
         return "work/makework";
     }
 
-    // 상품등록요청
     @PostMapping("/workForm")
     public String workForm(WorkVO vo,
                             HttpSession session) {
@@ -67,6 +63,17 @@ public class WorkController {
 
         int result = workService.regist(vo);
 
-        return "redirect:/board/board";
+        return "redirect:/work/makework";
+    }
+    @GetMapping("/worksub")
+    public String detail(@RequestParam("h_no") int user_id,
+                         Model model,
+                         HttpSession session) {
+        WorkVO vo = workService.getDetail(user_id); //게시글 내용
+
+        model.addAttribute("vo", vo);
+        session.setAttribute("modelData",model);
+
+        return "/work/worksub";
     }
 }
