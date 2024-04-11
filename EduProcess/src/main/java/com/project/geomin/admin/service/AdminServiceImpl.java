@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public String getContent() {
+    public AdminVO getContent() {
        return adminMapper.getContent();
     }
 
