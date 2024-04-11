@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>room</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/gpapply/room.css">
+    <link rel="stylesheet" href="/css/all.css">
+    <script src="https://kit.fontawesome.com/d71a4a6ef8.js"
+            crossorigin="anonymous"></script>
+</head>
+<style>
+  *{
+    margin:0;
+    padding:0;
+  }
+  </style>
+
+<script>
+  window.onload = function(){
+	  getRoom()
+	  createRoom()
+
+      var modalOpen = document.querySelector(".modal-open");
+      var modalClose = document.querySelector(".modal-close");
+      var createChatModal = document.querySelector("#create-chat-modal")
+
+      modalClose.onclick = function() {
+          createChatModal.style.display = "none";
+      }
+      modalOpen.onclick = function (){
+          createChatModal.style.display = "block";
+      }
+  }
+  //채팅방리스트 전부
+  function getRoom(){
+    commonAjax("/getRoom", "", "get",function(res){
+    	createChattingRoom(res);
+    })
+  }
+
+  function createRoom(){
+    $("#createRoom").click(function(){
+      var msg = { roomName : $("#roomName").val()};
+      commonAjax("/createRoom", msg, "post", function(res){
+    	  createChattingRoom(res);
+      })
+
+    });
+
+    $("#roomName").val("");
+  }
+
+  function createChattingRoom(res){
+		if(res != null){
+			var tag = "<tr><th class='num'>방 순서</th><th class='room'>방 이름</th><th class='go'>참여하기</th></tr>";
+			res.forEach(function(d, idx){
+				var rn = d.roomName.trim();
+				var roomNumber = d.roomNumber;
+				tag += "<tr>"+
+							"<td class='num'>"+(idx+1)+"</td>"+
+							"<td class='room'>"+ rn +"</td>"+
+							"<td class='go'><button type='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>참여</button></td>" +
+						"</tr>";	
+			});
+			$(".roomList").empty().append(tag);
+		}
+	}
+
+
+  function goRoom(number, name){
+		location.href="/moveChatting?roomName="+name+"&"+"roomNumber="+number;
+	}
+
+
+  var commonAjax = function(url, data, methodType, fn){
+	// 데이터 값이 잘 넘어왔는지 확인
+    console.log(url);
+    console.log(data);
+    console.log(fn);
+    console.log(methodType);
+   
+
+   $.ajax({
+    url: url,
+    method: methodType,
+    data: JSON.stringify(data),
+    contentType : "application/json",
+    success : function (res){
+      fn(res);
+    },
+    error : function(err){
+      console.log("에러남");
+      fn(err)
+    }
+
+  });
+}
+</script>
+
+
+
+
+<body>
+  <div class="container">
+    <h1>채팅방</h1>
+    <div class="roomContainer">
+        <table class="roomList">
+
+        </table>
+    </div>
+
+    <Section style="position: fixed; top: 0; left: 0; width: 100%">
+      <table class="roomCreate">
+
+          <tr>
+              <td>방이름입력 : <input type="text" name="roomName" id="roomName"></td>
+              <td><button id="createRoom">방 만들기</button> <button class="modal-open">방 만들기2</button></td>
+
+          </tr>
+      </table>
+    </Section>
+
+  </div>
+
+
+
+
+
+<!-- 채팅방 생성 모달창 -->
+  <section id="create-chat-modal" style="display: none">
+
+      <li><input type="hidden" name="" id="" value="방장"></li>
+
+         <div class="chat-modal-container">
+             <i class="fa-solid fa-x fa-2x modal-close" aria-hidden="true"></i>
+             <ul class="chat_content_container" style="display: none;">
+
+                 <li><h2>채팅방 생성</h2></li>
+
+<!--                 학습자 전용-->
+                 <li>
+                     <h3>초대할 교육자 리스트</h3>
+                     <select name="" class="invite_list">
+                        <option>선생1</option>
+                        <option>선생1</option>
+                        <option>선생1</option>
+                     </select>
+                 </li>
+                 <li><button>교육자와 1대1 채팅하기</button></li>
+             </ul>
+<!--                 교육자 전용-->
+             <ul class="chat_content_container" >
+                 <li><h2>채팅방 생성</h2></li>
+                 <li>
+                     <h3>내가 만든 그룹</h3>
+                     <select name="" class="invite_list">
+                        <option>그룹1</option>
+                        <option>그룹2</option>
+                        <option>그룹3</option>
+                     </select>
+                 </li>
+                 <li>
+                     <h3>초대할 학습자 리스트</h3>
+                     <select name="" class="invite_list">
+
+                     </select>
+                 </li>
+                 <li><button>학습자와 1대1 채팅하기</button></li>
+             </ul>
+
+        </div>
+  </section>
+
+</body>
+</html>

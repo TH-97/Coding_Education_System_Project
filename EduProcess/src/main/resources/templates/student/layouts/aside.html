@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/aside.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/gpapply/edugroup.css">
+</head>
+<body>
+  <aside th:fragment="aside">
+    <div id="title">
+      <h3>학습서비스</h3>
+    </div>
+    <div id="side">
+      <ul>
+        <a href="/student/apply" style="color: black"><li class="menu"><img src="/img/group/home.png">학습그룹가입</li></a>
+        <a href="/student/myGroup" style="color: black"><li class="menu"><img src="/img/group/home.png">학습그룹조회</li></a>
+        <li class="menu" onclick="popup()"><img src="/img/group/message.png">채팅방입장</li>
+        <a href="#" style="color: black"><li class="menu"><img src="/img/group/search.png">숙제조회</li></a>
+      </ul>
+    </div>
+    <script src="/js/gpapply/popup.js"></script>
+    <script src="/js/aside.js"></script>
+  </aside>
+</body>
+
+
+</html>

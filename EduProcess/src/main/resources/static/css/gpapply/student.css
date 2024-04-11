@@ -1,0 +1,10 @@
+/* 공통 영역 스타일*/
+#student_content{
+    display: flex; width: 1280px; margin: 0 auto;
+}
+.student_content_container{
+    padding: 50px;
+    width: 100%;
+}
+.student_content_header > h1{font-size: 50px;}
+.student_content_header > h3{color: #999;}
