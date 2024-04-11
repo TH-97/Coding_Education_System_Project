@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<th:block th:replace="~{/student/layouts/font_css :: font_css}"></th:block>
+
+<body>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+<section id="student_content">
+    <th:block th:replace="~{/student/layouts/aside :: aside}"></th:block>
+
+    <div class="student_content_container">
+
+        <div class="student_content_header">
+            <h1>학습그룹가입신청</h1>
+            <br>
+            <h3>원하는 학습그룹을 찾아 학습그룹에 가입해보세요. (최대 7개 가입신청 가능)</h3>
+        </div>
+        <form action="/student/apply" method="get">
+        <div class="select_searchbar">
+            <input type="text" name="user_nm" placeholder="Search Group Name...">
+            <input type="submit" value="">
+        </div>
+        </form>
+
+        <div class="select_content">
+
+            <h2 id="table-header">학습그룹 리스트</h2>
+            <table class="table-group">
+                <tr>
+                    <th>그룹명</th>
+                    <th>레벨</th>
+                    <th>현재인원/모집인원</th>
+                    <th>학습 콘텐츠</th>
+                    <th>교육자명</th>
+                    <th>진행기간</th>
+                    <th>그룹소개</th>
+                    <th>신청하기</th>
+
+                </tr>
+                <tr th:each="groupVO : ${groupList}">
+                    <td>[[${groupVO.sg_name}]]</td>
+                    <td>[[${groupVO.sg_level}]]</td>
+                    <td>[[${groupVO.sg_aplynum}]] / [[${groupVO.sg_allnum}]]명</td>
+                    <td>[[${groupVO.ctb_no}]]</td>
+                    <td>[[${groupVO.user_nm}]]</td>
+                    <td>[[${groupVO.sg_start_date}]] ~<br> [[${groupVO.sg_end_date}]]</td>
+                    <td>[[${groupVO.sg_content}]]</td>
+                    <td><button class="student-apply-btn" th:onclick="|location.href='@{/student/groupApply(sg_no=${groupVO.sg_no}, user_id=${#authentication.getPrincipal.getUserVO.user_id})}'|">신청하기</button></td>
+                </tr>
+
+            </table>
+            <div class="page">
+                <ul>
+
+                    <th:block th:if="${pageVO.total != 0}">
+
+                        <li><a th:href="@{/student/apply(currentPage=1, showPage=${pageVO.amount})}"><i
+                                class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                    </th:block>
+
+                    <th:block th:if="${pageVO.prev}">
+                        <li style="margin-right: 5px;"><a
+                                th:href="@{/student/apply(currentPage=${pageVO.startPage - 1}, showPage=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a></li>
+                    </th:block>
+
+
+                    <th:block th:each="pageNum : ${pageVO.pageList}">
+                        <li th:class="${pageVO.pageNum == pageNum ? 'on' : '' }"><a
+                                th:href="@{/student/apply(currentPage=${pageNum}, showPage=${pageVO.amount})}">[[${pageNum}]]</a></li>
+                    </th:block>
+
+                    <th:block th:if="${pageVO.next}">
+                        <li style="margin-left: 5px;"><a
+                                th:href="@{/student/apply(currentPage=${pageVO.endPage+1}, showPage=${pageVO.amount})}">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                    </th:block>
+
+                    <th:block th:if="${pageVO.total != 0 }">
+                        <li><a
+                                th:href="@{/student/apply(currentPage=${pageVO.realEnd}, showPage=${pageVO.amount})}"><i
+                                class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                    </th:block>
+
+                </ul>
+            </div>
+
+
+            <h2>내가 신청한 그룹 리스트</h2>
+            <table class="table-group">
+                <tr>
+                    <th>그룹명</th>
+                    <th>레벨</th>
+                    <th>현재인원/모집인원</th>
+                    <th>학습 콘텐츠</th>
+                    <th>교육자명</th>
+                    <th>진행기간</th>
+                    <th>그룹소개</th>
+                    <th>상태</th>
+                    <th>신청취소</th>
+                </tr>
+                <tr th:each="myGroupVO : ${myApplyList}">
+                    <td style="display: none">[[${myGroupVO.user_id}]]</td>
+                    <td style="display: none">[[${myGroupVO.sg_no}]]</td>
+                    <td>[[${myGroupVO.sg_name}]]</td>
+                    <td>[[${myGroupVO.sg_level}]]</td>
+                    <td>[[${myGroupVO.sg_aplynum}]] / [[${myGroupVO.sg_allnum}]]명</td>
+                    <td>[[${myGroupVO.ctb_no}]]</td>
+                    <td>[[${myGroupVO.user_nm}]]</td>
+                    <td>[[${myGroupVO.sg_start_date}]] ~<br> [[${myGroupVO.sg_end_date}]]</td>
+                    <td>[[${myGroupVO.sg_content}]]</td>
+
+                    <td>[[${myGroupVO.jg_confirm}]]</td>
+                    <td><button class="student-cancel-btn" onclick="aplyCancel(this)" th:if="${myGroupVO.jg_confirm != '승인'}">신청취소</button></td>
+                </tr>
+
+
+            </table>
+
+
+
+        </div>
+    </div>
+</section>
+</body>
+
+<script th:inline="javascript">
+    var msg = [[${msg}]];
+    if(msg != null){
+        alert(msg);
+    }
+
+
+   function aplyCancel(){
+        var userId = event.target.parentElement.parentElement.children[0].innerText;
+        var sgNo = event.target.parentElement.parentElement.children[1].innerText;
+
+        fetch("/student/deleteAply", {
+            method : "post",
+            headers :  {
+                "Content-Type": "application/json",
+            },
+            body : JSON.stringify({
+                userId : userId,
+                sgNo : sgNo,
+            })
+        })
+        alert("신청이 취소되었습니다.")
+        event.target.parentElement.parentElement.remove();
+
+    }
+
+
+</script>
+
+</html>

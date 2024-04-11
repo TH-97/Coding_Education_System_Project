@@ -1,0 +1,266 @@
+/* aside 레이아웃*/
+#side{padding: 10px 10px; width: 220px; height: 100vh; }
+.menu{width: 100%; height: 40px; background-color: #dee2e6; border-radius: 8px; margin-top: 5px;display: flex;align-items: center;justify-content: center;  }
+.menu.active{background-color: #5DA886;}
+#side > ul li{  position: relative;}
+#side img{width: 20px; position: absolute;left: 30px;}
+#title > h3{text-align: center;}
+#title{width: 240px; margin: 40px 0 30px 0;}
+
+#side > ul > li{ cursor: pointer;}
+/* aside 레이아웃 끝*/
+
+/* 공통 영역 스타일*/
+#group_content{
+    display: flex; width: 1280px; margin: 0 auto;
+}
+.group_content_container{
+    padding:50px;
+    width: 100%;
+}
+.group_content_header > h1{font-size: 50px;}
+.group_content_header > h3{color: #999;}
+
+/* 공통 검색 바*/
+.select_searchbar{
+    width: 100%;
+    display: flex;
+    margin: 30px 0;
+}
+.select_searchbar input[type="text"]{
+    width: 350px;
+    height: 35px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+}
+
+.select_searchbar input[type="submit"]{
+    width: 35px;
+    height: 35px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: url("/img/group/search.png");
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: 3px;
+    background-color: white;
+}
+.select_searchbar input[type="text"]:focus{
+    outline: none;
+    border: 3px solid #5DA886;
+}
+.select_searchbar input[type="submit"]:active{
+    border: 3px solid #5DA886;
+}
+
+/*학습그룹 등록*/
+
+.regist_content{
+    margin-top: 100px;
+}
+.regist_content_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.regist_content_container span{
+    width: 100px;
+    font-weight: bold;
+}
+.regist_content_container li{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+.regist_content_container select{
+    padding: 10px;
+    width: 400px;
+    box-sizing: border-box;
+}
+.regist_content_container li textarea{
+    padding: 10px;
+    width: 400px;
+    height: 100px;
+    box-sizing: border-box;
+}
+.regist_content_container li input[type="text"],
+input[type="date"]{
+    width: 400px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+
+#regist_btn{
+    width: 70px;height: 40px; background-color: black;
+    border: none; color: white; border-radius: 4px;
+    margin-right: 35px;
+    float: right;
+}
+/*학습그룹 등록 끝*/
+
+/*학습 그룹조회*/
+
+.table-group, .table-student {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+
+ .select_content h2{
+     margin: 100px 0 20px 0;
+ }
+#table-header{
+    margin-top: 0;
+}
+
+
+
+
+.table-group td,
+.table-student td{
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+.table-group th ,
+.table-student th{
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background-color: #dee2e6;
+}
+.table-group tr:hover,
+.table-student tr:hover{
+    background-color: #f5f5f5;
+}
+.table-student button{
+    float: right;
+    margin: 0 25px 0 0;
+    width: 60px;height: 30px; background-color: #828282;
+    border: none; color: white; border-radius: 4px;
+    cursor: pointer;
+}
+
+button{
+    float: right;
+    margin: 10px 5px;
+    width: 70px;height: 35px; background-color: black;
+    border: none; color: white; border-radius: 4px;
+    cursor: pointer;
+}
+
+#group-delete-btn:active{
+    opacity: 0.5;
+}
+button:active{
+    opacity: 0.5;
+}
+
+
+/*학습자 조회 모달창*/
+
+#create-studDetail-modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.studDetail-modal-container{
+    width: 300px;
+    position: absolute;
+    top: 580px;
+    left: 60px;
+
+}
+.studDetail-modal-container h2{
+    text-align: center;
+    padding: 10px;
+    border-bottom: 3px solid black;
+}
+.studDetail_content_container{
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 5px;
+    padding: 40px 30px;
+    background-color: #5DA886;
+    color: white;
+    margin-top: 100px;
+
+}
+
+
+.studDetail-modal-container i{
+    position: relative;
+    top: 150px;
+    left: 250px;
+
+    cursor: pointer;
+}
+.studDetail-modal-container i:active{
+    opacity: 0.5;
+}
+.studDetail_content_container .table-student tr:hover{
+    background-color: #5DA886;
+}
+.studDetail_content_container td{
+    cursor: default;
+}
+
+
+    /*모달창 끝*/
+
+
+/*학습 그룹조회 끝*/
+
+
+/* 학습그룹 가입 승인*/
+#group-apply-btn:active{
+    opacity: 0.5;
+}
+
+/* 학습그룹 가입 끝*/
+
+/* 내 학습그룹 입장 */
+
+/* 페이징 */
+.page{padding:30px 0 20px 0;position:relative;}
+.page ul{text-align:center;}
+.page ul li{display:inline;  padding:0px!important;}
+.page ul li a{display:inline-block; zoom:1;*display:inline; width: 35px; height: 35px; line-height: 35px; color:#777777; border:1px solid #dddddd;transition:all 0.25s ease-in-out;-webkit-transition:all 0.25s ease-in-out;font-size:15px;}
+.page ul li a:hover, .page ul li.on a{display:inline-block;zoom:1;*display:inline; border:1px solid #7866c9;background:#fff;color:#7866c9;}
+.page ul li a i{color:#777777;}
+.page ul li a:hover i{color:#7866c9;}
+
+.btn-option{
+    display: inline-block;
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    margin-left:-4px;
+    color: #666;
+    text-align: center;
+    border: 1px solid #cfcfcf;
+    background-color:#fff;
+}
+.search_th{width:100px; float:left; text-align:center;}
+.btn-option.on{background-color:#7866c9; color:#fff;}
+p > .btn-option:first-child{border-radius: 5px 0px 0px 5px;}
+p > .btn-option:last-child{border-radius: 0px 5px 5px 0px;}
+
+/*테이블 안에 버튼들 가운데로 와라잉*/
+#stud_detail_btn, #stud_delete_btn,
+.student-apply-btn, .student-cancel-btn{
+    float: none;
+    margin: 0;
+}

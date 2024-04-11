@@ -1,0 +1,114 @@
+#create-chat-modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.chat-modal-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+.chat-modal-container h2{
+    text-align: center;
+    padding: 10px;
+    border-bottom: 2px solid black;
+}
+.chat_content_container{
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 5px;
+    padding: 40px 30px;
+    background-color: #5DA886;
+    color: white;
+    margin-top: 100px;
+
+}
+
+.chat_content_container li{
+    width: 260px;
+
+}
+.chat_content_container li h3{
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 10px;
+
+
+}
+.invite_list{
+    display: block;
+    text-align: center;
+    width: 70%;
+    margin: 0 auto 40px auto;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid black;
+    font-weight: bold;
+}
+.chat_content_container li button{
+    width: 70%;
+    height: 40px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin: 0 auto;
+    display: block;
+    font-weight: bold;
+}
+.chat_content_container li button:active{
+    border: 3px solid #5DA886;
+}
+
+.chat-modal-container i{
+    position: relative;
+    top: 150px;
+    right: -130px;
+    cursor: pointer;
+    color: white;
+}
+.chat-modal-container i:active{
+    opacity: 0.5;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+td,
+td{
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+th ,
+th{
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background-color: #dee2e6;
+}
+tr:hover,
+ tr:hover{
+    background-color: #f5f5f5;
+}
+
+.container h1{
+    text-align: center;
+    margin: 50px 0;
+}
+
+.roomCreate td{
+    border-top: 1px solid #ddd;
+    cursor: pointer;
+}

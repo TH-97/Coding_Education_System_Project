@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.geomin.student.service.StudentMapper">
+    <select id="allGroupSelect" resultType="GroupVO">
+        select g.*, u.user_nm, ifnull(c.sg_aplynum, 0) as sg_aplynum from study_group g left join user u on g.user_id = u.user_id
+                                                 left join
+                                   (select count(*) as sg_aplynum, sg_no from join_group
+                                    where jg_confirm = '승인'
+                                    group by sg_no) c on g.sg_no = c.sg_no
+        where g.sg_status = '신청받기'
+        <if test="search.user_nm != null and search.user_nm != ''">
+            and u.user_nm LIKE concat('%',#{search.user_nm},'%')
+        </if>
+        order by g.sg_no desc
+        limit #{cri.startPage}, #{cri.showPage}
+
+    </select>
+
+    <select id="myApplyGroup" resultType="JoinGroupVO" >
+        select j.*, g.user_id as sg_user_id, g.ctb_no, g.sg_name, ifnull(c.sg_aplynum, 0) as sg_aplynum, g.sg_allnum, g.sg_start_date, g.sg_end_date, g.sg_level, g.sg_content, g.sg_status, u.user_nm, gu.user_nm as sg_user_nm
+        from join_group j
+                 left join study_group g on j.sg_no = g.sg_no
+                left join user u on j.user_id= u.user_id
+                 left join user gu on gu.user_id = u.user_id
+                 left join
+             (select count(*) as sg_aplynum, sg_no from join_group
+              where jg_confirm = '승인'
+              group by sg_no) c on j.sg_no = c.sg_no
+                 where j.user_id = #{userId}
+    </select>
+
+    <select id="groupAplyTotal" resultType="int">
+        select count(*) from join_group
+        where jg_confirm = '승인' and sg_no = #{sg_no}
+    </select>
+
+    <select id="groupAplyCheck" resultType="int">
+        select count(*) from join_group
+        where user_id = #{user_id} and sg_no = #{sg_no}
+    </select>
+
+    <select id="groupMaxAplyCheck" resultType="int">
+        select count(*) from join_group
+        where user_id = #{user_id}
+    </select>
+
+
+
+    <insert id="groupApply" parameterType="JoinGroupVO">
+        insert into join_group values (#{user_id}, #{sg_no}, '처리중', 0)
+    </insert>
+
+    <!--	페이지 네이션 영역-->
+    <select id="selectGroupPageTotal" parameterType="GroupSearchVO" resultType="int">
+        select count(*) from study_group
+        where sg_status = '신청받기'
+        <if test="user_nm != null and user_nm != ''">
+            and sg_name LIKE concat('%',#{user_nm},'%')
+        </if>
+    </select>
+
+    <delete id="deleteAply" parameterType="JoinGroupVO">
+        delete from join_group where user_id = #{user_id} and sg_no = #{sg_no}
+    </delete>
+</mapper>
+

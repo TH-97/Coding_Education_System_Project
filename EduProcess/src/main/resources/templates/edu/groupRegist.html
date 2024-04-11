@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<th:block th:replace="~{/edu/layouts/font_css :: font_css}"></th:block>
+
+<body>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+  <section id="group_content">
+      <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+
+    <div class="group_content_container">
+
+      <div class="group_content_header">
+        <h1>학습그룹 등록</h1>
+        <br>
+        <h3>학습 그룹의 목록에 새로운 학습 그룹을 생성합니다.</h3>
+      </div>
+      <form action="/edu/groupRegistDB" method="post">
+      <div class="regist_content">
+          <ul class="regist_content_container">
+            <li><span>그룹명</span><input type="text" name="sg_name" placeholder="그룹명을 입력하세요" required></li>
+            <li><span>모집 인원수</span><input type="text" name="sg_allnum"  placeholder="모집할 인원을 고르세요 (최대 50명)" required></li>
+            <li><span>레벨</span>
+              <select name="sg_level">
+                <option value="초급">초급</option>
+                <option value="중급">중급</option>
+                <option value="고급">고급</option>
+              </select>
+            </li>
+            <li><span>학습목표</span> <textarea name="sg_content" placeholder="학습목표를 입력하세요" required></textarea></li>
+            <li><span>학습 콘텐츠</span><input type="text" name="ctb_no" placeholder="나중에 교육자가 산 컨텐츠 조회해서 select" required></li>
+            <li><span>학습 시작 기간</span> <input id="start_date" type="date" min="" name="sg_start_date"  onchange="vaildfunc()" required></li>
+            <li><span>학습 종료 기간</span><input id="end_date" type="date" name="sg_end_date"required ></li>
+            <li><span>그룹방 상태</span>
+              <select name="sg_status">
+                <option value="신청받기">신청받기</option>
+                <option value="신청마감">신청마감</option>
+                <option value="학습진행중">학습진행중</option>
+                <option value="학습종료">학습종료</option>
+              </select>
+            </li>
+          </ul>
+
+        [[${#authentication.getPrincipal.getUserVO.user_id}]]
+        [[${#authentication.getPrincipal.getUserVO.role}]]
+        [[${#authentication.getPrincipal.getUserVO.user_nm}]]
+            <input type="hidden" name="user_id" th:value="${#authentication.getPrincipal.getUserVO.user_id}">
+            <input type="hidden" name="user_nm" th:value="${#authentication.getPrincipal.getUserVO.user_nm}">
+        <input type="submit" value="등록하기" id="regist_btn">
+
+      </div>
+      </form>
+    </div>
+  </section>
+</body>
+
+</html>
+
+<script>
+
+
+  var startDate = document.getElementById("start_date");
+
+  var today = new Date().toISOString().split('T')[0];
+
+  startDate.setAttribute("min", today);
+
+  startDate.onclick = function (){
+    console.dir(event.target)
+  }
+
+  function vaildfunc(){
+    var startDate = document.getElementById("start_date");
+    var endDate = document.getElementById("end_date");
+    endDate.setAttribute("min", startDate.value);
+  }
+
+
+</script>

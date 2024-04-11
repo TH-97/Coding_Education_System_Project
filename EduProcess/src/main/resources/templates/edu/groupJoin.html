@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<th:block th:replace="~{/edu/layouts/font_css :: font_css}"></th:block>
+
+<body>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+<section id="group_content">
+    <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+
+    <div class="group_content_container">
+
+        <div class="group_content_header">
+            <h1>학습그룹 가입승인</h1>
+            <br>
+            <h3>학습자의 학습 그룹 가입 요청을 승인할 수 있습니다.</h3>
+        </div>
+        <form action="/edu/groupJoin" method="get">
+            <div class="select_searchbar">
+
+                <input type="text" name="user_nm" placeholder="Search Student Name...">
+                <input type="submit" value="">
+
+            </div>
+        </form>
+
+        <div class="select_content">
+
+            <h2 id="table-header">내 학습그룹에 가입요청한 학습자</h2>
+            <table class="table-group">
+                <tr>
+                    <th>학습신청자명</th>
+                    <th>신청자정보</th>
+                    <th>그룹명</th>
+                    <th>학습 콘텐츠</th>
+                    <th>현재인원/모집인원</th>
+                    <th>선택</th>
+                </tr>
+                <tr th:each="joinGroupVO : ${joinGroupList}">
+                    <td id="userId" style="display: none">[[${joinGroupVO.user_id}]]</td>
+                    <td style="display: none">[[${joinGroupVO.sg_no}]]</td>
+                    <td>[[${joinGroupVO.user_nm}]]</td>
+                    <td ><button id="stud_detail_btn" onclick="madalOpener()">상세보기</button></td>
+                    <td>[[${joinGroupVO.sg_name}]]</td>
+                    <td>[[${joinGroupVO.ctb_no}]]</td>
+                    <td>[[${joinGroupVO.sg_aplynum}]] / [[${joinGroupVO.sg_allnum}]]</td>
+
+                    <td><input type="checkbox" name="isCheck" onclick="ischeck(this)"></td>
+                </tr>
+            </table>
+
+            <div class="page">
+                <ul>
+
+                    <th:block th:if="${pageVO.total != 0}">
+
+                        <li><a th:href="@{/edu/groupJoin(currentPage=1, showPage=${pageVO.amount})}"><i
+                                class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                    </th:block>
+
+                    <th:block th:if="${pageVO.prev}">
+                        <li style="margin-right: 5px;"><a
+                                th:href="@{groupJoin(currentPage=${pageVO.startPage - 1}, showPage=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a></li>
+                    </th:block>
+
+
+                    <th:block th:each="pageNum : ${pageVO.pageList}">
+                        <li th:class="${pageVO.pageNum == pageNum ? 'on' : '' }"><a
+                                th:href="@{/edu/groupJoin(currentPage=${pageNum}, showPage=${pageVO.amount})}">[[${pageNum}]]</a></li>
+                    </th:block>
+
+                    <th:block th:if="${pageVO.next}">
+                        <li style="margin-left: 5px;"><a
+                                th:href="@{/edu/groupJoin(currentPage=${pageVO.endPage+1}, showPage=${pageVO.amount})}">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                    </th:block>
+
+                    <th:block th:if="${pageVO.total != 0 }">
+                        <li><a
+                                th:href="@{/edu/groupJoin(currentPage=${pageVO.realEnd}, showPage=${pageVO.amount})}"><i
+                                class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                    </th:block>
+
+                </ul>
+            </div>
+            <button id="group-reject-btn">거절하기</button>
+            <button id="group-apply-btn">승인하기</button>
+
+
+
+    </div>
+    </div>
+</section>
+
+<!-- 학습자 상세보기 모달창 -->
+<section id="create-studDetail-modal" style="display: none">
+
+    <div class="studDetail-modal-container">
+        <i class="fa-solid fa-x fa-2x modal-close" aria-hidden="true"></i>
+        <div class="studDetail_content_container">
+
+        </div>
+    </div>
+
+</section>
+
+</body>
+<script>
+    var applyBtn = document.querySelector("#group-apply-btn");
+    var rejectBtn = document.querySelector("#group-reject-btn");
+
+    var updateList = [];
+
+    function ischeck(){
+       if(event.target.checked){
+           var arr = [];
+           arr.push(event.target.parentElement.parentElement.children[0].innerText);
+           arr.push(event.target.parentElement.parentElement.children[1].innerText)
+           updateList.push(arr);
+           console.log(updateList)
+       }else{
+           for(var i = 0; i < updateList.length; i++){
+               if(updateList[i][0] === event.target.parentElement.parentElement.children[0].innerText
+                   && updateList[i][1] === event.target.parentElement.parentElement.children[1].innerText){
+                   updateList.splice(i,1);
+                   console.log(updateList)
+               }
+           }
+       }
+    }
+
+    applyBtn.onclick = function (){
+        fetch("http://localhost:8989/edu/applierApply", {
+            method : "post",
+            headers :  {
+                "Content-Type": "application/json",
+            },
+            body : JSON.stringify({
+                updateList : updateList,
+                updateStatus : "승인",
+            })
+        })
+            .then((response) => {
+                location.href = "/edu/groupJoin";
+            })
+
+    }
+
+    rejectBtn.onclick = function (){
+        fetch("http://localhost:8989/edu/applierApply", {
+            method : "post",
+            headers :  {
+                "Content-Type": "application/json",
+            },
+            body : JSON.stringify({
+                updateList : updateList,
+                updateStatus : "거절",
+            })
+        })
+            .then((response) => {
+                location.href = "/edu/groupJoin";
+            })
+
+    }
+
+    var createStudDetailModal = document.querySelector("#create-studDetail-modal")
+    var studDetailContainer = document.querySelector(".studDetail_content_container");
+    var studDetailModalContainer = document.querySelector(".studDetail-modal-container")
+    var modalITage = document.querySelector(".studDetail-modal-container i");
+    //모달닫기
+    var modalClose = document.querySelector(".modal-close");
+    modalClose.onclick = function() {
+        studDetailContainer.innerHTML="";
+        createStudDetailModal.style.display="none";
+    }
+
+    function madalOpener(){
+        var userId = document.querySelector("#userId");
+        fetch(`/edu/studentSelect?user_id=${userId.innerText}`)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data)
+                studDetailContainer.innerHTML=`
+            <h2>학습자 상세정보</h2>
+            <table class="table-student">
+                <tr>
+                    <td>이름</td>
+                    <td>${data.user_nm}</td>
+                </tr>
+                <tr>
+                    <td>아이디</td>
+                    <td>${data.user_id}</td>
+                </tr>
+                <tr>
+                    <td>나이</td>
+                    <td>${data.user_age}</td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td>${data.user_gn}</td>
+                </tr>
+                <tr>
+                    <td>연락처</td>
+                    <td>${data.user_pn}</td>
+                </tr>
+                <tr>
+                    <td>보호자연락처</td>
+                    <td>${data.parn_pn}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>`;
+                createStudDetailModal.style.display="block";
+            })
+        console.dir(event.target.getBoundingClientRect().top)
+        console.dir(event.target.getBoundingClientRect().left)
+        studDetailModalContainer.style.top = event.target.getBoundingClientRect().top+-300+"px";
+        studDetailModalContainer.style.left = event.target.getBoundingClientRect().left+"px";
+    }
+
+
+
+</script>
+</html>
