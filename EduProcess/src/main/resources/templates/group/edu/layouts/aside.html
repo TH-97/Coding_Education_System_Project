@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/aside.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/gpapply/edugroup.css">
+</head>
+<body>
+  <aside th:fragment="aside">
+    <div id="title">
+      <h3>교육자마당</h3>
+    </div>
+    <div id="side">
+      <ul>
+        <a href="/groupRegist" style="color: black"><li class="menu"><img src="/img/group/home.png">학습그룹등록</li></a>
+        <a href="/groupSelect" style="color: black"><li class="menu"><img src="/img/group/home.png">학습그룹조회</li></a>
+        <a href="/groupJoin" style="color: black"><li class="menu"><img src="/img/group/home.png">그룹 가입 승인</li></a>
+        <li class="menu"><img src="/img/group/home.png">교육자료조회</li>
+        <li class="menu"><img src="/img/group/search.png">숙제 생성</li>
+        <li class="menu"><img src="/img/group/search.png">숙제 배포</li>
+        <li class="menu"><img src="/img/group/search.png">숙제 평가</li>
+      </ul>
+    </div>
+    <script src="/js/aside.js"></script>
+  </aside>
+</body>
+
+
+</html>

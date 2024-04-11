@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>휴대폰 인증</title>
+<link rel=stylesheet href="/css/sendAuth_pw.css">
+</head>
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+	<div class = "container">
+		<h2>비밀번호 찾기(휴대폰 인증)</h2>
+		<div class="find_pw_description">입력하시면 휴대전화로 발송된<br>
+		인증번호를 입력하여 주세요.
+</div>
+		<form action="/auth/authCheck_pw" method="post">
+				<input type="hidden" name="user_pn" th:value="${user_pn}"> 
+				<input type="text"	name="auth_nm" required placeholder="인증번호 입력">
+			<button type="submit">인증</button>
+		</form>
+		<div id="timer">03:00</div>
+		<div id="expired"></div>
+	</div>
+</body>
+<script src="/js/sendAuth_pw.js"></script>
+</html>

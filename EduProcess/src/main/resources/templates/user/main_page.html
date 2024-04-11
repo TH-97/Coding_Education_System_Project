@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
   <title>Document</title>
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/main_page.css">
-  <link rel="stylesheet" href="/css/all.css">
-</head>
-<body>
 
+  <link rel="stylesheet" href="/css/main_page.css">
+
+</head>
+
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
 
   <section>
@@ -21,36 +16,17 @@
       <div class="section_item"></div>
     </div>
 
-    <!-- 모달창 -->
-    <div id="modal" class="hidden">
-      <div class="modal-content">
-        <div id="logo2">로고</div>
-        <div>
-          <form action="/loginForm" method="post" id="textBox">
-          <input type="text" name = "username" placeholder="아이디">
-          <input type="text" name = "password" placeholder="비밀번호">
-          <button id="loginBtn2">로그인</button>
-          </form>
-        </div>
-        <div id="alink" style="border: none;">
-          <p>
-            <a style="border: none;" href="">아이디(이메일)찾기</a>
-            <a style="padding-left: 4px;" href="">비밀번호 찾기</a>
-            <a style="padding-left: 4px;" href="">회원가입</a>
-          </p>
-        </div>
-        <div id="simpleBox">
-          <hr id="line">
-          <span id="simpleLogin">간편 로그인</span>
-          <div>
-            <div id="kakao"><img src="kakao_icon.png" alt=""></div>
-          </div>
-        </div>
-        <button id="close-modal">X</button>
-      </div>
-    </div>
-    <!-- 모달창 끝 -->
+
   </section>
 </body>
   <script src="/js/main_page.js"></script>
+ 	<script th:inline = "javascript">
+        //모델에서 전달된 값을 가져와서 alert로 표시
+        var message = '[[${message}]]';
+        console.log(message)
+        var msg = JSON.parse(message)
+        if(msg != null){
+        	alert(msg);
+        }
+    </script>
 </html>
