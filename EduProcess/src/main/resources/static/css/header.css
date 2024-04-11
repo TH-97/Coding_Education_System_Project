@@ -1,6 +1,6 @@
 
 #header{ display: flex;justify-content: space-between;height: 55px;width: 1280px; margin: 0 auto;}
-
+section{width: 1280px; margin: 0 auto}
 #logo{width: 200px;}
 #header img {width: 100%;}
 #header-content{width: 65%; display: flex;justify-content: space-around;}

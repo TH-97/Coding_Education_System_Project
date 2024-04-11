@@ -38,17 +38,18 @@
     </insert>
 
     <select id="getT" resultType="AdminVO">
-        SELECT thumbnail_path
+        SELECT *
         FROM content
+        where con_nm = #{con_nm}
     </select>
     <select id="getF" resultType="AdminVO">
-        SELECT file_path
+        SELECT *
         FROM content c
         JOIN cont_file f ON c.con_nm = f.con_nm
-        WHERE c.con_nm = "디비테스트8"
+        WHERE c.con_nm = #{con_nm}
     </select>
 
-    <select id="getContnet" resultType="AdminVO">
+    <select id="getContent" resultType="AdminVO">
         select con_nm , thumbnail_path
         from content
     </select>

@@ -1,8 +1,12 @@
 package com.project.geomin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
+import com.project.geomin.admin.service.AdminService;
+import com.project.geomin.command.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +40,10 @@ public class UserController {
 	@Autowired
 	@Qualifier("userService")
 	private UserService userService;
+
+	@Autowired
+	@Qualifier("AdminService")
+	private AdminService service;
 	
 //	private MyUserDetails myUserDetails;
 
@@ -95,7 +103,9 @@ public class UserController {
 	}
 
 	@GetMapping("/mainPage")
-	public String mainPage(){
+	public String mainPage(Model model){
+		List<AdminVO> list = service.getContent();
+		model.addAttribute("list",list);
 		return "user/main_page";
 	}
 	@GetMapping("/conMa")

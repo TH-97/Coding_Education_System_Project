@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+
+<section>
+    <img style="width: 60%" th:src="${content.thumbnail_path}">
+
+    <h3 th:text="${content.con_nm}"></h3>
+    <p th:if="${content.cate_no == 1}">자바</p>
+    <p th:if="${content.cate_no == 2}">파이썬</p>
+    <p th:if="${content.cate_no == 3}">C++</p>
+    <p th:text="${content.con_lv}"></p>
+    <h2 th:text="${content.con_description}"></h2>
+    <div id="files">
+        <div th:each="item : ${content_list}">
+            <input type="hidden" th:src="${item.file_path}">
+            <button class="files" th:text="${item.file_nm}"></button>
+        </div>
+    </div>
+</section>
+
+</body>
+<script>
+    var files = document.getElementById("files")
+
+    files.addEventListener("click", ()=>{
+       console.log(event.currentTarget.children)
+       //  console.log(event.target.textContent)
+        for (var i of event.currentTarget.children){
+            if(i.children[1].textContent === event.target.textContent){
+                console.log(i.children[0].src)
+                window.open(`/video?src=${i.children[0].src}`, "", "width=400,height=300")
+            }
+        }
+    });
+
+</script>
+</html>

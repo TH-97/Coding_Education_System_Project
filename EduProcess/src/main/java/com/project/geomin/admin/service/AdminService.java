@@ -3,6 +3,8 @@ package com.project.geomin.admin.service;
 import com.project.geomin.command.AdminVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface AdminService {
     public void insertInformation(@Param("con_nm")String con_nm,
                                   @Param("cate_no")String cate_no,
@@ -19,8 +21,9 @@ public interface AdminService {
                             @Param("file_path")String file_path,
                             @Param("service_class1")String service_class1);
 
-    public AdminVO getT(AdminVO vo);
-    public AdminVO getF(AdminVO vo);
+    public AdminVO getT(@Param("content_name")String con_nm);
+    public List<AdminVO> getF(@Param("content_name")String con_nm);
 
-    public AdminVO getContent();
+    public List<AdminVO> getContent();
+
 }

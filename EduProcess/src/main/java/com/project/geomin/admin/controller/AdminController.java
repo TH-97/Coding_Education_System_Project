@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +17,22 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @GetMapping("/test")
-    public String test(Model model){
-        AdminVO vo = new AdminVO();
-        AdminVO T = adminService.getT(vo);
-        AdminVO F = adminService.getF(vo);
-        List<AdminVO> list = new ArrayList<>();
-        list.add(T);
-        list.add(F);
 
-        model.addAttribute("list",list);
-
-        return "test";
+    @PostMapping("/content")
+    public String content(Model model,@RequestParam("content_name")String content_name){
+        System.out.println(content_name);
+        AdminVO T = adminService.getT(content_name);
+        System.out.println(T);
+        List<AdminVO> F = adminService.getF(content_name);
+        System.out.println(F);
+        model.addAttribute("content",T);
+        model.addAttribute("content_list", F);
+        return "user/user_content";
+    }
+    @GetMapping("/video")
+    public String video(Model model,@RequestParam("src") String src){
+        model.addAttribute("src",src);
+        return "user/video";
     }
 
-    @GetMapping("/mainPage")
-    public String mainPage(){
-        List<AdminVO> list = new ArrayList<>();
-        return "user/main_page";
-    }
 }

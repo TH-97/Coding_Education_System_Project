@@ -16,6 +16,14 @@
       <div class="section_item"></div>
     </div>
 
+    <div class="contents" th:each="item : ${list}">
+        <form class="formContent" action="/content" method="post">
+        <img th:src="${item.thumbnail_path}">
+        <p th:text="${item.con_nm}"></p>
+            <input type="hidden" name="content_name" th:value="${item.con_nm}">
+        </form>
+    </div>
+
 
   </section>
 </body>
@@ -29,4 +37,5 @@
         	alert(msg);
         }
     </script>
+
 </html>
