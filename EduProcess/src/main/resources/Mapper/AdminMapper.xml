@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.geomin.admin.service.AdminMapper">
+    <insert id="insertInformation">
+        insert into content(
+            con_nm,
+            cate_no,
+            con_price,
+            con_discount,
+            con_description,
+            con_lv,
+            thumbnail,
+            thumbnail_path,
+            service_class)
+        values (#{con_nm},
+                #{cate_no},
+                #{con_price},
+                #{con_discount},
+                #{con_description},
+                #{con_lv},
+                #{thumbnail},
+                #{thumbnail_path},
+                #{service_class})
+    </insert>
+
+    <insert id="insertInformation2">
+        insert into cont_file(
+            con_nm,
+            file_nm,
+            file_path,
+            service_class)
+        values (#{con_nm},
+                #{file_nm},
+                #{file_path},
+                #{service_class1})
+    </insert>
+
+    <select id="getT" resultType="AdminVO">
+        SELECT thumbnail_path
+        FROM content
+    </select>
+    <select id="getF" resultType="AdminVO">
+        SELECT file_path
+        FROM content c
+        JOIN cont_file f ON c.con_nm = f.con_nm
+        WHERE c.con_nm = "디비테스트8"
+    </select>
+
+    <select id="getContnet" resultType="AdminVO">
+        select con_nm , thumbnail_path
+        from content
+    </select>
+</mapper>

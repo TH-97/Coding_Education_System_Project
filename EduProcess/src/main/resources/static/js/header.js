@@ -12,6 +12,10 @@ closeModalButton.addEventListener('click', () => {
     modal.style.display = "none"
 });
 
-var logoutBtn = document.querySelector("#logoutBtn");
+var dropbtn = document.querySelector('.dropbtn');
 var loginBtn = document.querySelector("#loginBtn");
-if (logoutBtn !== null)loginBtn.style.display = "none";
+if (dropbtn !== null)loginBtn.style.display = "none";
+function toggleDropdown() {
+  var dropdownContent = document.querySelector('.dropdown-content');
+  dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+}

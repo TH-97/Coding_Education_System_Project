@@ -6,13 +6,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class CompilerController {
+import com.project.geomin.command.UserVO;
+import com.project.geomin.user.service.UserService;
 
+
+@RestController
+public class APIController {
+	
+	@Autowired
+	@Qualifier("userService")
+	private UserService userService;
+	
     @PostMapping("/compileAndRun")
     public String compileAndRun(@RequestParam("code") String code) throws IOException, InterruptedException {
         // 사용자가 입력한 코드를 파일로 저장
@@ -61,6 +71,19 @@ public class CompilerController {
             System.out.println("컴파일 오류");
             return "컴파일 오류";
         }
+    }
+    @PostMapping("/idCheck")
+    public String idCheck(@RequestParam("user_id") String id) throws IOException, InterruptedException{
+    	UserVO vo = userService.checkLogin(id);
+   if(id =="") {
+       return "";
+   }
+   if(vo != null) {
+	   return "중복된 아이디입니다";
+   }else {
+	   System.out.println("id = " + id);
+	   return "사용가능한 아이디입니다";
+   }
     }
 
     // 프로세스의 출력을 읽는 스레드 클래스
