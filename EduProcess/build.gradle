@@ -48,8 +48,12 @@ dependencies {
 	
 	implementation 'net.nurigo:sdk:4.2.7'
 
+
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
 	//aws SDK
 	implementation 'software.amazon.awssdk:aws-sdk-java:2.20.43'
+
 
 
 

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<th:block th:replace="~{/edu/layouts/font_css :: font_css}"></th:block>
+
+<body>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+
+<section id="group_content">
+    <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+
+    <div class="group_content_container">
+
+        <div class="group_content_header">
+            <h1>학습그룹조회</h1>
+            <br>
+            <h3>내 학습그룹을 클릭해서 조회할 수 있습니다.</h3>
+        </div>
+        <form action="/edu/groupSelect" method="get">
+         <div class="select_searchbar">
+                <input type="text" name="user_nm" placeholder="Search Group Name or Student Name...">
+                <input type="submit" value="">
+         </div>
+        </form>
+
+        <div class="select_content">
+
+            <h2 id="table-header">내 학습그룹</h2>
+            <table class="table-group">
+                <tr>
+                    <th>그룹명</th>
+                    <th>레벨</th>
+                    <th>현재인원/총원</th>
+                    <th>학습 콘텐츠명</th>
+                    <th>교육자명</th>
+                    <th>그룹상태</th>
+                    <th>선택</th>
+                </tr>
+                <tr th:each="groupVO : ${groupList}">
+                    <td style="display: none">[[${groupVO.sg_no}]]</td>
+                    <td>[[${groupVO.sg_name}]]</td>
+                    <td>[[${groupVO.sg_level}]]</td>
+                    <td>[[${groupVO.sg_aplynum}]]명 / [[${groupVO.sg_allnum}]]명</td>
+                    <td>[[${groupVO.ctb_no}]]</td>
+                    <td>[[${groupVO.user_nm}]]</td>
+                    <td>[[${groupVO.sg_status}]]</td>
+                    <td><input type="radio" name="sg_check" onclick="GroupRadioCheck(this)"></td>
+                </tr>
+
+
+            </table>
+            <button id="group-delete-btn">삭제하기</button>
+            <button id="group-update-btn">수정하기</button>
+
+
+            <h2>내 학습그룹 구성원</h2>
+            <table class="table-student">
+                <tr>
+                    <th>그룹명</th>
+                    <th>학습자명</th>
+                    <th>평가점수</th>
+                    <th>상세보기</th>
+                    <th>그룹퇴출</th>
+                </tr>
+                <tr th:each="vo : ${groupStudentList}">
+                    <td>[[${vo.sg_name}]]</td>
+                    <td>[[${vo.user_nm}]]</td>
+                    <td>[[${vo.jg_score}]]</td>
+                    <td><button th:onclick="madalOpener([[${vo.user_id}]])">상세보기</button></td>
+                    <td><button th:onclick="deleteJoinStud([[${vo.user_id}]], [[${vo.sg_no}]])">그룹퇴출</button></td>
+                </tr>
+
+            </table>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 학습자 상세보기 모달창 -->
+<section id="create-studDetail-modal" style="display: none">
+
+    <div class="studDetail-modal-container">
+        <i class="fa-solid fa-x fa-2x modal-close" aria-hidden="true"></i>
+        <div class="studDetail_content_container">
+
+        </div>
+    </div>
+
+</section>
+
+
+
+</body>
+
+
+<script>
+
+
+    var createStudDetailModal = document.querySelector("#create-studDetail-modal")
+    var studDetailContainer = document.querySelector(".studDetail_content_container");
+    //모달닫기
+    var modalClose = document.querySelector(".modal-close");
+    modalClose.onclick = function() {
+        studDetailContainer.innerHTML="";
+        createStudDetailModal.style.display="none";
+    }
+
+
+    //모달켜고 데이터 삽입
+    function madalOpener(userId){
+        fetch(`/edu/studentSelect?user_id=${userId}`)
+            .then((res) => {
+                return res.json();
+        })
+            .then((data) => {
+                console.log(data)
+                studDetailContainer.innerHTML=`
+            <h2>학습자 상세정보</h2>
+            <table class="table-student">
+                <tr>
+                    <td>이름</td>
+                    <td>${data.user_nm}</td>
+                </tr>
+                <tr>
+                    <td>아이디</td>
+                    <td>${data.user_id}</td>
+                </tr>
+                <tr>
+                    <td>나이</td>
+                    <td>${data.user_age}</td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td>${data.user_gn}</td>
+                </tr>
+                <tr>
+                    <td>연락처</td>
+                    <td>${data.user_pn}</td>
+                </tr>
+                <tr>
+                    <td>보호자연락처</td>
+                    <td>${data.parn_pn}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>`;
+                createStudDetailModal.style.display="block";
+            })
+    }
+
+    //그룹에서 학습자 방출
+    function deleteJoinStud(userId, sgNo){
+        console.log(userId, sgNo)
+        if(confirm("학습자를 방출하시겠습니까?")){
+            event.target.parentElement.parentElement.remove()
+            fetch("/edu/deleteJoinStud",{
+                method : "post",
+                headers :  {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    user_id : userId,
+                    sg_no : sgNo,
+                }),
+            })
+                .then(function (res){
+                    console.log(res)
+                })
+        }
+    }
+
+
+    //그룹학습자 조회
+    var tableGroup = document.querySelector(".table-group");
+    var talbeStud = document.querySelector(".table-student");
+    var selectContent = document.querySelector(".select_content");
+    var studDetailModalContainer = document.querySelector(".studDetail-modal-container")
+    tableGroup.onclick = function (){
+        if(event.target.tagName !== "TD") return;
+        const SGNO = event.target.parentElement.firstElementChild.innerText;
+
+
+        fetch(`/edu/groupStudSelect?sg_no=${SGNO}`)
+            .then(function (res){
+                return res.json();
+            })
+            .then((data)=>{
+                console.log(data)
+                talbeStud.innerHTML = `
+                <tr>
+                    <th>그룹명</th>
+                    <th>학습자명</th>
+                    <th>평가점수</th>
+                    <th>상세보기</th>
+                    <th>그룹퇴출</th>
+                </tr>`;
+                for(var vo of data.groupStudentList){
+                    var tr = document.createElement("tr");
+                    tr.innerHTML = `
+                    <td>${vo.sg_name}</td>
+                    <td>${vo.user_nm}</td>
+                    <td>${vo.jg_score}</td>
+                    <td><button id="stud_detail_btn" onclick="madalOpener('${vo.user_id}')">상세보기</button></td>
+                    <td><button id="stud_delete_btn" onclick="deleteJoinStud('${vo.user_id}', '${vo.sg_no}')">그룹퇴출</button></td>`;
+                    talbeStud.appendChild(tr);
+                }
+
+                var div = document.createElement("div");
+                div.classList.add("page");
+                div.innerHTML=``
+
+
+
+            })
+        studDetailModalContainer.style.top = event.target.getBoundingClientRect().top+"px";
+        studDetailModalContainer.style.left = event.target.getBoundingClientRect().left+"px";
+
+    }
+
+    //radio 선택후 그룹 수정,삭제
+    var checkMap = new Map();
+    var groupDeleteBtn = document.querySelector("#group-delete-btn");
+    var groupUpdateBtn = document.querySelector("#group-update-btn");
+    function GroupRadioCheck(){
+        console.log(event.target.parentElement.parentElement.children[0].innerText)
+        checkMap.set('sg_no', event.target.parentElement.parentElement.children[0].innerText)
+        console.log(checkMap)
+    }
+
+    //그룹수정버튼이벤트
+    groupUpdateBtn.onclick = function (){
+        if(checkMap.size === 0){
+            alert("수정할 그룹을 선택해주세요")
+            return;
+        }
+        const sg_no = checkMap.get("sg_no");
+        location.href = "/edu/groupUpdate?sg_no="+sg_no;
+
+    }
+
+    //그룹삭제버튼이벤트
+    groupDeleteBtn.onclick = function (){
+        if(checkMap.size === 0){
+            alert("삭제할 그룹을 선택해주세요")
+            return;
+        }
+        if(!confirm("그룹과 관련된 모든게 삭제됩니다.\n 정말로 삭제하시겠습까?")){
+            return;
+        }
+        const sg_no = checkMap.get("sg_no");
+
+        fetch("/edu/groupDelete", {
+            method : "post",
+            headers :  {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                sg_no : sg_no,
+            }),
+        })
+            .then(function (res){
+                console.log(res)
+                location.href = "/edu/groupSelect";
+            })
+
+    }
+
+
+
+
+</script>
+
+</html>
