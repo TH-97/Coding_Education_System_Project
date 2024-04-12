@@ -1,0 +1,123 @@
+
+.detailbox {
+    margin-top: 50px;
+    width: 1000px;
+    height: 400px;
+    margin: 0 auto;
+}
+.detailbox1 {
+    margin-top: 50px;
+    width: 1000px;
+    height: 400px;
+}
+.detailbox2 {
+    width: 1000px;
+    height: 400px;
+}
+.detailbox3 {
+    width: 1000px;
+    height: 400px;
+}
+.mkwork {
+    margin-left: 150px;
+}
+.mkwork2 {
+    margin-left: 124px;
+    margin-bottom: 20px;
+}
+
+.homelist {
+    margin-left: 150px;
+    margin-bottom: 20px;
+}
+.hbtn {
+    float: right;
+    margin-top: 10px;
+    color: #ddd;
+    background-color: black;
+    border-style: none;
+    border-radius: 8px;
+    width: 70px;
+    height: 30px;
+    cursor: pointer;
+}
+.sbtn {
+    float: right;
+}
+.hbtn2 {
+    text-align: center;
+    color: #ddd;
+    background-color: black;
+    border-style: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.workdetail {
+    width: 620px;
+    height: 900px;
+}
+.comarea {
+    border: 1px solid #777;
+    float: right;
+    width: 950px;
+    height: 800px;
+}
+.subtn {
+    float: right;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    top: 0;
+    border-style: none;
+    background-color: #5da886;
+    border-radius: 3px;
+}
+
+
+.regist_content{
+    margin-top: 100px;
+}
+.regist_content_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.regist_content_container span{
+    width: 100px;
+    font-weight: bold;
+}
+.regist_content_container li{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+.regist_content_container select{
+    padding: 10px;
+    width: 400px;
+    box-sizing: border-box;
+}
+.regist_content_container li textarea{
+    padding: 10px;
+    width: 400px;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+.regist_content_container li input[type="text"],
+input[type="date"]{
+    width: 400px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+
+#regist_btn{
+    width: 70px;height: 40px; background-color: black;
+    border: none; color: white; border-radius: 4px;
+    margin-right: 35px;
+    float: right;
+}
+
