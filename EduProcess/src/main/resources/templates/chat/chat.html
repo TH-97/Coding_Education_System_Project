@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            [[${enterRoom.get(0).roomNumber}]]
+            [[${enterRoom.rc_no}]]
         </div>
         
 
@@ -28,10 +28,13 @@
 
 </html>
 
-<script>
+<script th:inline="javascript">
             $(document).ready(function(){
 
-            const username = window.prompt("사용자 닉네임?");
+            const username = [[${#authentication.getPrincipal.getUserVO.user_nm}]];
+            const userid = [[${#authentication.getPrincipal.getUserVO.user_id}]];
+
+
 
             $("#disconn").on("click", (e) => {
             	closeSocket(e);
@@ -43,7 +46,7 @@
             
   
 			console.log()
-            const websocket = new WebSocket("ws://172.30.1.52:8989/ws/chat/[[${enterRoom.get(0).roomNumber}]]");
+            const websocket = new WebSocket("ws://172.30.1.52:8989/ws/chat/"+[[${enterRoom.rc_no}]]);
 
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
@@ -52,67 +55,89 @@
             $('#msg').keypress(function(e){
                 if(e.keyCode===13) send();
             });
+            function getNowDate(){
+                const date = new Date();
+
+                return  {
+                    year : date.getFullYear(),
+                    month : date.getMonth(),
+                    day : date.getDay(),
+                    time : date.getHours(),
+                    minutes : date.getMinutes()
+                }
+            }
             
             function send(){
-
                 let msg = document.getElementById("msg");
 
-                console.log(username + ":" + msg.value);
-                websocket.send(username + ":" + msg.value);
+                console.log(`${username} : ${msg.value}`);
+                websocket.send(JSON.stringify({
+                    user_id : userid,
+                    mc_content : msg.value,
+                    rc_usage : [[${enterRoom.rc_usage}]],
+                    rc_no : [[${enterRoom.rc_no}]]
+                }));
                 msg.value = '';
             }
             
             //채팅창에서 나갔을 때
             function closeSocket(evt) {
-                var str = username + ": 님이 방을 나가셨습니다.";
-                websocket.send(str);
+                var str =  `${username} 님이 퇴장하셨습니다.`;
+                websocket.send(JSON.stringify({
+                    user_id : userid,
+                    mc_content : str,
+                }));
                 websocket.close();
                 location.href="/room";
             }
             
             //채팅창에 들어왔을 때
             function onOpen(evt) {
-                var str = username + ": 님이 입장하셨습니다.";
-                websocket.send(str);
+                var str =  `${username} 님이 입장하셨습니다.`;
+                websocket.send(JSON.stringify({
+                    user_id : userid,
+                    mc_content : str,
+                }));
             }
 
             function onMessage(msg) {
-            	console.log(msg)
-                var data = msg.data;
-                var sessionId = null;
+                const data = JSON.parse(msg.data);
                 //데이터를 보낸 사람
-                var message = null;
-                var arr = data.split(":");
+                var sessionId = data.user_id;
+                var message = data.msg;
+                var dateObj  = getNowDate();
 
-                for(var i=0; i<arr.length; i++){
-                    console.log('arr[' + i + ']: ' + arr[i]);
-                }
-
-                var cur_session = username;
+                var cur_session = userid;
 
                 //현재 세션에 로그인 한 사람
                 console.log("cur_session : " + cur_session);
-                sessionId = arr[0];
-                message = arr[1];
+
+
 
                 console.log("sessionID : " + sessionId);
                 console.log("cur_session : " + cur_session);
 
-                //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-                if(sessionId == cur_session){
-                    var str = "<div class='col-6'>";
-                    str += "<div class='alert alert-secondary'>";
-                    str += "<b>" + sessionId + " : " + message + "</b>";
-                    str += "</div></div>";
-                    $("#msgArea").append(str);
+                    //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
+                    if(sessionId == cur_session){
+                        var str = "<div>";
+                        str += "<div>";
+                        str += "<b>" + sessionId + "</b><br>";
+                        str += "<b>" + message + "</b>";
+                        str += "<b>" + "[ " + dateObj.time + " : "+ dateObj.minutes + " ]" + "</b>";
+                        str += "</div></div>";
+                        $("#msgArea").append(str);
+                    }
+                    else{
+                        var str = "<div>";
+                        str += "<div>";
+                        str += "<b>" + sessionId + "</b><br>";
+                        str += "<b>" + message + "</b>";
+                        str += "<b>" + "[ " + dateObj.time + " : "+ dateObj.minutes + " ]" + "</b>";
+                        str += "</div></div>";
+                        $("#msgArea").append(str);
+                    }
                 }
-                else{
-                    var str = "<div class='col-6'>";
-                    str += "<div class='alert alert-warning'>";
-                    str += "<b>" + sessionId + " : " + message + "</b>";
-                    str += "</div></div>";
-                    $("#msgArea").append(str);
-                }
-            }
+
+
             })
 </script>
