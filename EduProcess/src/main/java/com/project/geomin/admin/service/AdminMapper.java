@@ -4,6 +4,8 @@ import com.project.geomin.command.AdminVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface AdminMapper {
     public void insertInformation(@Param("con_nm")String con_nm,
@@ -19,7 +21,7 @@ public interface AdminMapper {
                             @Param("file_nm")String file_nm,
                             @Param("file_path")String file_path,
                             @Param("service_class1")String service_class1);
-    public AdminVO getT(AdminVO vo);
-    public AdminVO getF(AdminVO vo);
-    public AdminVO getContent();
+    public AdminVO getT(@Param("con_nm")String con_nm);
+    public List<AdminVO> getF(@Param("con_nm")String con_nm);
+    public List<AdminVO> getContent();
 }

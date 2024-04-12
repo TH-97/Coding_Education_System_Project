@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("AdminService")
 public class AdminServiceImpl implements AdminService{
     @Autowired
@@ -41,17 +43,18 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public AdminVO getT(AdminVO vo) {
-        return adminMapper.getT(vo);
+    public AdminVO getT(String con_nm) {
+
+        return adminMapper.getT(con_nm);
     }
 
     @Override
-    public AdminVO getF(AdminVO vo) {
-        return adminMapper.getF(vo);
+    public List<AdminVO> getF(String con_nm) {
+        return adminMapper.getF(con_nm);
     }
 
     @Override
-    public AdminVO getContent() {
+    public List<AdminVO> getContent() {
        return adminMapper.getContent();
     }
 
