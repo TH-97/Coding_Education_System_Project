@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class adminRestController {
@@ -31,9 +32,9 @@ public class adminRestController {
                             ){
 
 
-        if (cate_no == "자바"){
+        if (Objects.equals(cate_no, "자바")){
             cate_no = String.valueOf(1);
-        } else if (cate_no == "파이썬") {
+        } else if (Objects.equals(cate_no, "파이썬")) {
             cate_no = String.valueOf(2);
         } else {
             cate_no = String.valueOf(3);

@@ -108,8 +108,6 @@ public class UserController {
 		model.addAttribute("list",list);
 		return "user/main_page";
 	}
-	@GetMapping("/conMa")
-	public String conMa(){ return "user/content";}
 	
 	@GetMapping("/kakao")
 	public String kakao(@RequestParam("code") String code,Model model) {

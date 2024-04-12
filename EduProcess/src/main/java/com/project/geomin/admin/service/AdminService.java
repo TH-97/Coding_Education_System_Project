@@ -26,4 +26,5 @@ public interface AdminService {
 
     public List<AdminVO> getContent();
 
+
 }

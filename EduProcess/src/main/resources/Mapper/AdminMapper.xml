@@ -50,7 +50,7 @@
     </select>
 
     <select id="getContent" resultType="AdminVO">
-        select con_nm , thumbnail_path
+        select *
         from content
     </select>
 </mapper>
