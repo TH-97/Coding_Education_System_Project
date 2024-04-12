@@ -10,6 +10,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,44 @@ public class S3Service {
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
             //System.exit(1); //프로그램 종료
+        }
+    }
+    public void delete(String con_nm){
+
+        AwsBasicCredentials credentials = AwsBasicCredentials.create(aws_access_key_id, aws_secret_access_key);
+        Region region = Region.AP_NORTHEAST_2; //리전
+        S3Client s3 = S3Client.builder()
+                .credentialsProvider(StaticCredentialsProvider.create(credentials))
+                .region(region)
+                .build();
+
+
+        ArrayList<ObjectIdentifier> keys = new ArrayList<>();
+
+        ObjectIdentifier objectId;
+        objectId = ObjectIdentifier.builder()
+                .key(con_nm + "/")
+                .build();
+
+
+        keys.add(objectId);
+        // Delete multiple objects in one request.
+        Delete del = Delete.builder()
+                .objects(keys)
+                .build();
+
+        try {
+            DeleteObjectsRequest multiObjectDeleteRequest = DeleteObjectsRequest.builder()
+                    .bucket(aws_target_bucket)
+                    .delete(del)
+                    .build();
+
+            s3.deleteObjects(multiObjectDeleteRequest);
+            System.out.println("Multiple objects are deleted!");
+
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            //System.exit(1);
         }
     }
 }

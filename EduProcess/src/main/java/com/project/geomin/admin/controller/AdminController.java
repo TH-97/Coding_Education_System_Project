@@ -1,5 +1,6 @@
 package com.project.geomin.admin.controller;
 
+import com.project.geomin.admin.aws.s3.S3Service;
 import com.project.geomin.admin.service.AdminService;
 import com.project.geomin.command.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Autowired
+    S3Service s3Service;
     @Autowired
     AdminService adminService;
 
@@ -47,6 +51,9 @@ public class AdminController {
     @PostMapping("/delete_content")
     public String delete_content(@RequestParam(value = "con_nm", required= false) String con_nm){
         System.out.println(con_nm);
+        s3Service.delete(con_nm);
+        adminService.deleteContent(con_nm);
+        System.out.println("삭제완료");
         return "user/content";
     }
 
