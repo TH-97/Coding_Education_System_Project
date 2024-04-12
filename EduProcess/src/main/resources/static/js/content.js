@@ -176,3 +176,5 @@ regi.addEventListener("click", ()=>{
         .catch(err => alert('업로드에 실패했습니다:' + err) );
 
 });
+
+//삭제 기능

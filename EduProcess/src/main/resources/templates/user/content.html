@@ -24,10 +24,33 @@
         <div id="con-ma-regi-btn">
             <button id="regiBtn">등록하기</button>
         </div>
-        <div>
+        <div style="width: 800px; margin-top: 50px">
+            <table class="table-group" style="width: 100%;">
+                <tr>
+                    <th>상품 이름</th>
+                    <th>카테고리</th>
+                    <th>가격</th>
+                    <th>난이도</th>
+                </tr>
+                <tr th:each="item : ${list}">
+                    <form action="/admin/delete_content" method="post">
+                        <input name="con_nm" type="hidden" th:value="${item.con_nm}">
+                        <td th:text="${item.con_nm}"></td>
+                        <td th:if="${item.cate_no == '1'}">자바</td>
+                        <td th:if="${item.cate_no == '2'}">파이썬</td>
+                        <td th:if="${item.cate_no == '3'}">C++</td>
+                        <td th:text="${item.con_price}"></td>
+                        <td th:text="${item.con_lv}"></td>
+                        <td>
+                            <button type="submit">삭제</button>
+                        </td>
+                    </form>
+                </tr>
+            </table>
 
         </div>
     </div>
+
 </section>
 <!-- 모달창 -->
 <div id="con-modal" class="hidden">

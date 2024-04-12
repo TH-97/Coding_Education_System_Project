@@ -27,6 +27,10 @@ public class SecurityConfig{
 
 	@Autowired
 	private MyUserDetailsService myuserDetails;
+	
+	@Autowired
+	private OAuthDetailsService oauthDetailsService;
+	
 
 	@Bean
 	public BCryptPasswordEncoder encoder() {
@@ -69,7 +73,7 @@ public class SecurityConfig{
 		.and()
 		.authorizeHttpRequests()
 
-		.antMatchers("/admin/**").hasAnyRole("ADMIN","MASTER")
+//		.antMatchers("/admin/**").hasAnyRole("ADMIN","MASTER")
 //		.anyRequest().authenticated()
 		.anyRequest().permitAll()
 		.and()
@@ -82,14 +86,25 @@ public class SecurityConfig{
 		.and()
 		.exceptionHandling().accessDeniedPage("/user/user_deny")
 		.and()	
-		.logout().logoutUrl("/logout").logoutSuccessUrl("/user/mainPage");
+		.logout().logoutUrl("/logout").logoutSuccessUrl("/user/mainPage")
+		
+		.and()
+		.oauth2Login()
+		//3시간동안안됨 이유가 뭔가 트러블 슈팅
+		.redirectionEndpoint()
+        .baseUri("/login/oauth2/code/google") // 기본 리디렉션 URI 설정
+        .and()
+		.loginPage("/user/login") // 로그인 페이지 URL
+		.successHandler( GoogleSuccessHandler() )
+		 .userInfoEndpoint()  //OAuth2 로그인 성공 후 가져올 설정들
+         .userService(oauthDetailsService);  // 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
 		
 		http.rememberMe()
 		.key("geomin") //리멤버미를 쿠키로 동작시키는데 그때, 쿠키에 저장되는 토큰값을 만들 비밀키
 		.tokenValiditySeconds(604800) //1주일 동안 유효한 토큰
 		.rememberMeParameter("remember-me") //화면에서 전달되는 checkbox 파라미터 값
 		.userDetailsService(myuserDetails) //리멤버미 토큰이 있을때 실행시킬 로그인시도 서비스
-		.authenticationSuccessHandler(authenticationSuccessHandler());
+		.authenticationSuccessHandler(authenticationSuccessHandler()); 
 //		.and()
 //		.addFilter(new CustomLoginFilter(authenticationManager));
 		
@@ -101,6 +116,11 @@ public class SecurityConfig{
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new	CustomSuccessHandler();
+	}
+	
+	@Bean
+	public AuthenticationSuccessHandler GoogleSuccessHandler() {
+		return new	com.project.geomin.handler.GoogleSuccessHandler();
 	}
 	
 	@Bean

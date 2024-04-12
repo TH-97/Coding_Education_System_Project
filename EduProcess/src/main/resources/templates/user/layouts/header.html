@@ -1,6 +1,6 @@
 <header th:fragment="header">
     <div id="header">
-        <div id="logo"><img src="/img/logo.png" alt=""></div>
+        <div id="logo"><a href="/user/mainPage"> <img src="/img/logo.png" alt=""></a></div>
         <div id="header-content">
             <p>이용안내</p>
             <p>학습서비스</p>
@@ -25,7 +25,7 @@
     <!-- 모달창 -->
     <div id="modal" class="hidden">
         <div class="modal-content">
-            <div id="logo2">로고</div>
+            <div id="logo2"><img class ="logo2" src="/img/logo.png" alt=""></div>
             <div>
                 <form action="/loginForm" method="post" id="textBox">
                     <input type="text" name = "username" placeholder="아이디">
@@ -44,8 +44,9 @@
                 <hr id="line">
                 <span id="simpleLogin">간편 로그인</span>
                 <div>
-                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=hGxkco0a05QxwVjiglkx&state=STATE_STRING&redirect_uri=http://127.0.0.1:8989/user/naver"><img class = "social" src="/img/naver_official.png"></a><br>
-                    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5b36e517cda6ce71a97d292f2d6e5388&redirect_uri=http://127.0.0.1:8989/user/kakao"><img class = "social" src="/img/kakao_login.png"></a>
+                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=hGxkco0a05QxwVjiglkx&state=STATE_STRING&redirect_uri=http://127.0.0.1:8989/user/naver"><img class = "social" src="/img/naver.png"></a>
+                    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5b36e517cda6ce71a97d292f2d6e5388&redirect_uri=http://127.0.0.1:8989/user/kakao"><img class = "social" src="/img/Kakao.png"></a>
+                    <a href="/oauth2/authorization/google"><img class = "social" src="/img/Google.png"></a>
                 </div>
             </div>
             <button id="close-modal">X</button>

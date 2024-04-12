@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .files {
+            width: 100%;
+            border: 1px solid #999999;
+        }
+        .time{
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+
+<section style="margin-top: 30px">
+    <div style="margin: 0 auto; width: 60%; display: flex; flex-direction: column;">
+        <h1 th:text="${content.con_nm}"></h1>
+        <div>
+            <h4>라뷰 평점</h4> <h4>수강생 20명</h4>
+        </div>
+        <br>
+        <img style="width: 100%" th:src="${content.thumbnail_path}">
+        <br>
+        <br>
+        <h3 style="background-color: white; border-bottom: 1px solid red">난이도</h3>
+        <p th:text="${content.con_lv}"></p>
+        <br>
+        <br>
+        <br>
+        <h3 style="background-color: white; border-bottom: 1px solid red">상세내용</h3>
+        <h3 th:text="${content.con_description}"></h3>
+        <br>
+        <br>
+        <br>
+        <h3 style="background-color: white; border-bottom: 1px solid red">커리큘럼</h3>
+        <br>
+        <div id="files">
+            <div th:each="item : ${content_list}">
+                <input type="hidden" th:src="${item.file_path}">
+                <div class="files" th:text="${item.file_nm}" style="display: flex; justify-content: space-between; padding: 10px 10px">
+
+                </div>
+                <video style="display: none" th:src="${item.file_path}"></video>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</section>
+
+</body>
+<script>
+    var files = document.getElementById("files")
+
+    files.addEventListener("click", () => {
+        console.log(event.currentTarget.children)
+        //  console.log(event.target.textContent)
+        for (var i of event.currentTarget.children) {
+            if (i.children[1].textContent === event.target.textContent) {
+                console.log(i.children[0].src)
+                window.open(`/admin/video?src=${i.children[0].src}`, "", "width=800,height=480,top=50%,left=50%")
+            }
+        }
+    });
+    (function () {
+        setTimeout(function ()
+        {
+            var video = document.querySelectorAll(".files")
+            for (var v of video) {
+                console.log(v.parentElement.children[2])
+                const currentTime = v.parentElement.children[2].duration
+                console.log(currentTime)
+                const minutes = Math.floor(currentTime / 60);
+                const seconds = Math.floor(currentTime % 60);
+
+                const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                console.log(formattedTime);
+                const timeElement = document.createElement('div');
+                timeElement.classList.add('time'); // 'time' 클래스 추가
+                timeElement.textContent = formattedTime;
+                v.append(timeElement);
+            }
+        },700);
+    })();
+
+</script>
+</html>

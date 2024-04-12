@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
-  <title>Document</title>
+    <title>Document</title>
 
-  <link rel="stylesheet" href="/css/main_page.css">
+    <link rel="stylesheet" href="/css/main_page.css">
 
 </head>
 
@@ -11,22 +11,38 @@
 <th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
 
-  <section>
+<section>
     <div id="section">
-      <div class="section_item"></div>
+        <div class="section_item"></div>
     </div>
 
+    <div class="contents" th:each="item : ${list}" style="width: 350px">
+        <form class="formContent" action="/admin/content" method="post">
+            <div style="width: 100%; text-align: center">
+                <img th:src="${item.thumbnail_path}" style="border-radius: 10px;width: 350px;height: 200px">
+                <h3 th:text="${item.con_nm}"></h3>
+                <input type="hidden" name="content_name" th:value="${item.con_nm}">
+            </div>
+        </form>
+    </div>
+	<div sec:authorize="isAuthenticated()">
+		[[${#authentication.principal}]]
+		[[${#authentication.principal.username}]] <!-- 디테일 안에 들어있는  getter username-->
+		[[${#authentication.principal.password}]] <!-- 디테일 안에 들어있는  getter password -->
+		[[${#authentication.principal.role}]] <!-- 디테일 안에 들어있는  getter role -->
+	</div>
 
-  </section>
+</section>
 </body>
-  <script src="/js/main_page.js"></script>
- 	<script th:inline = "javascript">
-        //모델에서 전달된 값을 가져와서 alert로 표시
-        var message = '[[${message}]]';
-        console.log(message)
-        var msg = JSON.parse(message)
-        if(msg != null){
-        	alert(msg);
-        }
-    </script>
+<script src="/js/main_page.js"></script>
+<script th:inline="javascript">
+    //모델에서 전달된 값을 가져와서 alert로 표시
+    var message = '[[${message}]]';
+    console.log(message)
+    var msg = JSON.parse(message)
+    if (msg != null) {
+        alert(msg);
+    }
+</script>
+
 </html>

@@ -34,6 +34,7 @@
 
 .chat_content_container li{
     width: 260px;
+    height: 80px;
 
 }
 .chat_content_container li h3{
@@ -43,7 +44,8 @@
 
 
 }
-.invite_list{
+.invite_list,
+.chat_content_container li input[type="text"]{
     display: block;
     text-align: center;
     width: 70%;
@@ -52,18 +54,21 @@
     border-radius: 5px;
     border: 2px solid black;
     font-weight: bold;
+    box-sizing: border-box;
 }
-.chat_content_container li button{
+
+.chat_content_container input[type="submit"]{
     width: 70%;
     height: 40px;
     background-color: white;
     border-radius: 5px;
     border: 2px solid black;
-    margin: 0 auto;
+    margin: 30px auto 0 auto;
+
     display: block;
     font-weight: bold;
 }
-.chat_content_container li button:active{
+.chat_content_container input[type="submit"]:active{
     border: 3px solid #5DA886;
 }
 

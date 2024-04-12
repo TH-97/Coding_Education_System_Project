@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.geomin.student.service.WorkMapper">
+    <select id="getList" resultType="WorkVO">
+        SELECT * FROM hw_distribution lef LIMIT #{cri.pageStart}, #{cri.amount};
+    </select>
+    <select id="getTotal" resultType="int">
+        select count(*)
+        from hw_distribution
+    </select>
+    
+    <insert id="regist">
+        INSERT INTO hw_distribution (
+            h_name,
+            h_detail,
+            h_level,
+            h_dead,
+            h_reg_ymd,
+            sg_no
+        ) VALUES (
+                  #{h_name},
+                  #{h_detail},
+                  #{h_level},
+                  #{h_dead},
+                  date_format(now(), '%Y%m%d'),
+                  1
+                         )
+    </insert>
+
+    <select id="getDetail" resultType="WorkVO">
+        SELECT * FROM hw_distribution
+        WHERE h_no = #{h_no}
+    </select>
+</mapper>

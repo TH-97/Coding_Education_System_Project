@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <title> 회원가입</title>
+     <link rel = stylesheet href ="/css/join.css">
+     
+</head>
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+
+<div class="container">
+    <h2>구글계정 회원가입</h2>
+    <form action="/user/googleJoin" method="post">
+         <input type="hidden"  name="user_id"  th:value="${#authentication.principal.username}">
+         <input type="hidden"  name="user_nm"  th:value="${#authentication.principal.name}">
+         
+        
+        <label for="stud_age">나이</label>
+        <input type="number" name="user_age" required placeholder ="12">
+        
+        <label for="stud_pn">연락처</label>
+        <input type="text" name="user_pn" placeholder="-을빼고 입력하여주세요">
+        
+        <label for="parn_pn">보호자연락처</label>
+        <input type="text" name="parn_pn" placeholder="미성년자일경우 작성해주세요">
+        
+        <label for="성별" style="width:150px;display:inline-block;" >성별</label>
+        <span style="font-size:12px; margin-right:2px;">남자</span><input type="radio" name="user_gn" value="M" checked>
+        <span style="font-size:12px; margin-right:2px;">여자</span><input type="radio" name="user_gn" value="F">
+        
+        <input type="submit" value="가입하기">
+    </form>
+    
+</div>
+
+</body>
+ <script src="/js/join.js"></script>
+</html>
