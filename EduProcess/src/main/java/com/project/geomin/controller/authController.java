@@ -1,4 +1,4 @@
-package com.project.geomin.controller;
+	package com.project.geomin.controller;
 
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
