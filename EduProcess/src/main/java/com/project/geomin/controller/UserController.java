@@ -19,6 +19,7 @@ import com.project.geomin.command.UserVO;
 import com.project.geomin.user.security.MyUserDetails;
 import com.project.geomin.user.service.KakaoAPI;
 import com.project.geomin.user.service.NaverAPI;
+import com.project.geomin.user.service.UserMapper;
 import com.project.geomin.user.service.UserService;
 
 @Controller
@@ -115,6 +116,25 @@ public class UserController {
 		return "user/kakao";
 	}
 	
+	@PostMapping("/googleJoin")
+	public String googleJoin(UserVO vo,Model model){
+		
+		System.out.println("구글vo조인 : " + vo);
+		vo.setRole("ROLE_stud");
+		if(userService.aLogin(vo.getUser_pn()) !=null){
+			model.addAttribute("message","이미 가입된 전화번호가 있습니다");
+			return "user/main_page";
+		}
+		int a = userService.join(vo);
+
+		if(a==1) {
+			return "user/success";
+		}else {
+			return "user/alert";
+
+		}
+	}
+	
 	@GetMapping("/naver")
 	public String naver(@RequestParam("code") String code ,Model model)  {
 		
@@ -123,31 +143,27 @@ public class UserController {
 		HashMap<String , Object> userInfo =naverAPI.getUserInfo(access_token);
 		System.out.println("결과: " +userInfo.toString());
 		
-		Random random = new Random();
-		
-		int randomNumber = random.nextInt(999999);
-		
-		model.addAttribute("password",String.format("%06d", randomNumber));
-		
 		//네이버 회원가입이 안되어있으면 회원가입 , 아니면 로그인
 		String id = "@"+String.valueOf(userInfo.get("naver_account"));
-		System.out.println(id);
+		System.out.println("naver아이디 : " +id);
 		UserVO vo = userService.login(id);
 		if(vo ==null) {
-			UserVO userVO = new UserVO();
-			userVO.setRole("ROLE_stud");
-			userVO.setUser_age(2024- Integer.valueOf(String.valueOf(userInfo.get("age"))));
-			userVO.setUser_gn(String.valueOf(userInfo.get("gender")));
-			userVO.setUser_id("@"+String.valueOf(userInfo.get("naver_account")));
-			userVO.setUser_pn(String.valueOf(userInfo.get("mobile")));
-			userVO.setUser_pw(bc.encode(String.format("%06d", randomNumber)));
-			userVO.setUser_nm(String.valueOf(userInfo.get("name")));
+			
+			vo = UserVO.builder()
+				 .user_id("@"+String.valueOf(userInfo.get("naver_account")))
+				 .user_age(2024- Integer.valueOf(String.valueOf(userInfo.get("age"))))
+				 .user_gn(String.valueOf(userInfo.get("gender")))
+				 .role("ROLE_stud")
+				 .user_nm(String.valueOf(userInfo.get("name")))
+				 .user_pn(String.valueOf(userInfo.get("mobile")))
+				 .build();
+				 System.out.println(vo);
 			if(userService.aLogin(String.valueOf(userInfo.get("mobile"))) !=null){
 				//이미 가입된 전화번호가 있다.
 				model.addAttribute("message","이미 가입된 전화번호가 있습니다");
 				return "user/main_page";
 			}
-			int a = userService.join(userVO);
+			int a = userService.join(vo);
 			if(a ==1) {
 			return "user/success";
 			}else {
@@ -193,7 +209,17 @@ public class UserController {
 		userService.updatePW(pn,bcPw);
 		model.addAttribute("message","비밀번호가 재설정 되었습니다. 다시 로그인 하여 주십시오");
 		//메시지 담고 메인페이지로
-		return "";
+		return "redirect:/user/mainPage";
+	}
+	
+	@GetMapping("/homeWork")
+	public String homeWork() {
+		return "code/homeWork";
+	}
+	
+	@GetMapping("/GoogleJoin")
+	public String GoogleJoin() {
+		return "user/GoogleJoin";
 	}
 	
 }
