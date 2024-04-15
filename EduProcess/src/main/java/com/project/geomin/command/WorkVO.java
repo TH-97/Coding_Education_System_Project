@@ -17,4 +17,5 @@ public class WorkVO {
     private String h_reg_ymd;
     private String h_dead;
     private String sg_no; //fk
+    private String sg_name;
 }
