@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <aside th:fragment="aside">
+    <div id="title">
+      <h3>게시판</h3>
+    </div>
+    <div id="side">
+        <ul>
+        <li onclick="redirectTo('/board/list')" th:class="${#httpServletRequest.getRequestURI().equals('/board/list')} ? 'menu active' : 'menu'"><img src="/img/QNA.png">질문과답변</li>
+        <li onclick="redirectTo('/board/faq_list')" th:class="${#httpServletRequest.getRequestURI().equals('/board/faq_list')} ? 'menu active' : 'menu'"><img src="/img/FAQ.png">FAQ</li>
+        <li onclick="redirectTo('/board/regist_p')" th:class="${#httpServletRequest.getRequestURI().equals('/board/regist_p')} ? 'menu active' : 'menu' "><img src="/img/regi.png">강사 등록</li>
+        </ul>
+    </div>
+    <script src="/js/aside.js"></script>
+    <script>
+    function redirectTo(url) {
+        window.location.href = url;
+      }
+    </script>
+  </aside>
+</body>
+
+</html>

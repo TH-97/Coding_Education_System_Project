@@ -1,0 +1,109 @@
+#list_content{padding : 0px 100px; width: 1000px; height: auto;}
+
+/* 공통 영역 스타일*/
+#list_content{
+    display: flex; width: 1280px; margin: 0 auto;
+}
+.list_content_container{
+    padding:50px;
+    padding-left:250px;
+    width: 100%;
+}
+.list_content_header > h1{font-size: 50px;}
+.list_content_header > h3{color: #999;}
+
+/* 공통 검색 바*/
+.select_searchbar{
+    width: 100%;
+    display: flex;
+    margin: 30px 0;
+}
+.select_searchbar input[type="text"]{
+    width: 350px;
+    height: 35px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+}
+
+.select_searchbar input[type="submit"]{
+    width: 35px;
+    height: 35px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: url("/img/list/search.png");
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: 3px;
+    background-color: white;
+}
+.select_searchbar input[type="text"]:focus{
+    outline: none;
+    border: 3px solid #5DA886;
+}
+.select_searchbar input[type="submit"]:active{
+    border: 3px solid #5DA886;
+}
+
+/*학습그룹 등록*/
+
+.regist_edu{
+    margin-top: 100px;
+}
+.regist_edu_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.regist_edu_container span{
+    width: 100px;
+    font-weight: bold;
+}
+.regist_edu_container li{
+    width: 100%;
+    display: flex;
+    justify-edu: space-around;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+.regist_edu_container select{
+    padding: 10px;
+    width: 400px;
+    box-sizing: border-box;
+}
+.regist_edu_container li textarea{
+    padding: 10px;
+    width: 400px;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+.regist_edu_container li input[type="text"],
+input[type="date"]{
+    width: 400px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+
+#regist_btn{
+    width: 70px;height: 40px; background-color: black;
+    border: none; color: white; border-radius: 4px;
+    margin-right: 35px;
+    float: right;
+}
+#add_btn{
+    width: 70px;height: 40px; background-color: #5DA886;
+    border: none; color: white; border-radius: 4px;
+    margin-right: 35px;
+}
+ .resume {
+     border: 1px solid #ccc;
+     padding: 10px;
+     margin: 10px;
+     width: 140px; /* 이력서 카드의 너비 */
+     display: inline-block; /* 인라인 블록 요소로 배치하여 옆으로 쌓이게 함 */
+     vertical-align: top; /* 위쪽 정렬 */
+        }

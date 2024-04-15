@@ -4,13 +4,21 @@
 
 <mapper namespace="com.project.geomin.student.service.WorkMapper">
     <select id="getList" resultType="WorkVO">
-        SELECT * FROM hw_distribution lef LIMIT #{cri.pageStart}, #{cri.amount};
+        SELECT hw_distribution.*, study_group.sg_name
+        FROM hw_distribution
+                 LEFT JOIN study_group ON hw_distribution.sg_no = study_group.sg_no
+            LIMIT #{cri.pageStart}, #{cri.amount};
+
+    </select>
+    <select id="selectGroup"  resultType="GroupVO">
+        SELECT sg_name, sg_no
+        FROM study_group;
+
     </select>
     <select id="getTotal" resultType="int">
         select count(*)
         from hw_distribution
     </select>
-    
     <insert id="regist">
         INSERT INTO hw_distribution (
             h_name,

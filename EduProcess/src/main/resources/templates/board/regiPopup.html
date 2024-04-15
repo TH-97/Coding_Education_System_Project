@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이력서 입력</title>
+</head>
+<body>
+    <h2>이력서 입력</h2>
+    <form id="experienceForm">
+        <label for="company">회사명:</label>
+        <input type="text" id="company" name="company"><br><br>
+
+        <label for="position">직책:</label>
+        <input type="text" id="position" name="position"><br><br>
+
+        <label for="duration">기간:</label>
+        <input type="text" id="duration" name="duration"><br><br>
+
+		 <button onclick="sendResumeData()">이력서 전송</button>
+    </form>
+
+    <script>
+
+    function sendResumeData() {
+        var company = document.getElementById("company").value;
+        var position = document.getElementById("position").value;
+        var duration = document.getElementById("duration").value;
+
+        // 이력서 정보를 객체로 묶음
+        var resumeData = {
+            company: company,
+            position: position,
+            duration: duration,
+        };
+		
+        // 부모 페이지로 데이터 전달
+        window.opener.passDataToParent(resumeData);
+        // 팝업 창 닫기 (선택 사항)
+        window.close();
+    }
+    </script>
+</body>
+</html>

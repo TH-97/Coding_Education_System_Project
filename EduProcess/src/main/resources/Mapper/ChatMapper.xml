@@ -3,10 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.geomin.chat.service.ChatMapper">
     <insert id="CreateChatRoom">
-        insert into room_chat(rc_no, rc_title ,rc_num , rc_usage) values (#{rc_no}, #{rc_title}, 1, 'one')
+        insert into room_chat(rc_no, rc_title , rc_usage) values (#{rc_no}, #{rc_title}, 'one')
+    </insert>
+    <insert id="groupChatCreate">
+        insert into room_chat(rc_no, rc_title , rc_usage) values (#{rc_no}, #{rc_title}, 'group')
     </insert>
     <select id="selectmyRoom" resultType="JoinChatVO">
-        select * from join_chat j left join room_chat r on j.rc_no = r.rc_no
+        select j.*, r.*, u.user_nm from join_chat j left join room_chat r on j.rc_no = r.rc_no left join user u on u.user_id = j.user_id
         where j.user_id = #{userId}
 
     </select>
@@ -16,9 +19,71 @@
                                                       left join user u on g.user_id = u.user_id
         where j.user_id = #{userId} and j.jg_confirm = '승인'
     </select>
+    
+    <select id="getMyGroup" resultType="GroupVO">
+        select * from study_group
+        where user_id = #{userId}
+    </select>
+
+    <select id="getMyStudent" resultType="JoinGroupVO">
+        select u.user_id, u.user_nm from join_group j
+        left join user u on j.user_id = u.user_id
+        where sg_no = #{sg_no}
+
+    </select>
+
+    <select id="loadChatting" resultType="ChatMessageVO">
+        select * from message_chat
+        where rc_no = #{rc_no}
+        order by mc_no
+    </select>
+
+    <select id="isAlreadyCreate" resultType="int">
+        select count(*) from join_chat j1
+        inner join join_chat j2 on j1.rc_no = j2.rc_no
+        where j2.user_id = #{otherUserId} and j1.user_id = #{myUserId}
+    </select>
 
     <insert id="oneToOneJoinChat">
-        insert into join_chat values (#{user_id}, #{rc_no}, #{jc_status})
+        insert into join_chat(user_id, rc_no, jc_status) values (#{user_id}, #{rc_no}, #{jc_status})
     </insert>
+
+    <insert id="groupChatJoin">
+
+        insert into join_chat(user_id, rc_no, sg_no, jc_status) values (#{user_id}, #{rc_no}, #{sg_no}, #{jc_status})
+    </insert>
+
+    <insert id="insertChatMessage">
+        insert into message_chat(rc_no, user_id, mc_content, mc_send_date) values (#{rc_no}, #{user_id}, #{mc_content}, NOW())
+    </insert>
+
+    <insert id="saveMessage" parameterType="list" >
+        insert into message_chat(rc_no, user_id, mc_content, mc_send_date)
+        values
+            <foreach collection="list" item="msg" index="idx" separator=",">
+                (
+                 #{msg.rc_no},
+                #{msg.user_id},
+                #{msg.mc_content},
+                NOW()
+                )
+            </foreach>
+
+    </insert>
+
+    <update id="activateChatStatus">
+        update join_chat set  jc_status = "활성화"
+        where user_id not in (#{user_id});
+    </update>
+    <update id="disActivateChatStatus">
+        update join_chat set  jc_status = "비활성화"
+        where user_id = #{userId} and rc_no = #{rcNo}
+    </update>
+
+    <select id="getRcNo" resultType="String">
+        select rc_no from join_chat
+        where sg_no = #{sg_no}
+        limit 1
+    </select>
 
 </mapper>

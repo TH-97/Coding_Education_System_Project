@@ -1,5 +1,7 @@
 package com.project.geomin.student.service;
 
+import com.project.geomin.command.GroupSearchVO;
+import com.project.geomin.command.GroupVO;
 import com.project.geomin.command.WorkVO;
 import com.project.geomin.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,10 @@ public class WorkServiceImpl implements WorkService {
         System.out.println(al.toString());
         return al;
     }
-
+    @Override
+    public ArrayList<GroupVO> selectGroup(GroupVO vo, GroupSearchVO gsvo) {
+        return workMapper.selectGroup(vo, gsvo);
+    }
     @Override
     public int getTotal(Criteria cri, String user_id) {
         return workMapper.getTotal(cri, user_id);

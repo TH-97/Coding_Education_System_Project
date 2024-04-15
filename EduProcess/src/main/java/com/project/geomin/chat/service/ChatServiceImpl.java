@@ -1,13 +1,13 @@
 package com.project.geomin.chat.service;
 
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinChatVO;
-import com.project.geomin.command.RoomVO;
+import com.project.geomin.command.*;
 import com.project.geomin.handler.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.services.chime.model.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service("chatService")
 public class ChatServiceImpl implements  ChatService{
@@ -24,6 +24,21 @@ public class ChatServiceImpl implements  ChatService{
     }
 
     @Override
+    public int groupChatCreate(JoinChatVO vo) {
+        return chatMapper.groupChatCreate(vo);
+    }
+
+    @Override
+    public int groupChatJoin(JoinChatVO vo) {
+        return chatMapper.groupChatJoin(vo);
+    }
+
+    @Override
+    public String getRcNo(JoinChatVO vo) {
+        return chatMapper.getRcNo(vo);
+    }
+
+    @Override
     public ArrayList<RoomVO> selectmyRoom(String userId) {
         return chatMapper.selectmyRoom(userId);
     }
@@ -34,13 +49,45 @@ public class ChatServiceImpl implements  ChatService{
     }
 
     @Override
+    public ArrayList<GroupVO> getMyGroup(String userId) {
+        return chatMapper.getMyGroup(userId);
+    }
+
+    @Override
+    public ArrayList<JoinGroupVO> getMyStudent(GroupVO vo) {
+        return chatMapper.getMyStudent(vo);
+    }
+
+    @Override
+    public ArrayList<ChatMessageVO> loadChatting(RoomVO vo) {
+        return chatMapper.loadChatting(vo);
+    }
+
+    @Override
+    public int saveMessage(List<ChatMessageVO> list) {
+        return chatMapper.saveMessage(list);
+    }
+
+    @Override
+    public int isAlreadyCreate(String myUserId, String otherUserId) {
+        return chatMapper.isAlreadyCreate(myUserId, otherUserId);
+    }
+
+    @Override
     public void oneToOneJoinChat(JoinChatVO vo, String myUserId) {
        if(vo.getUser_id() != null){
            vo.setJc_status("비활성화");
            chatMapper.oneToOneJoinChat(vo);
        }
        vo.setUser_id(myUserId);
-        vo.setJc_status("활성화");
+       vo.setJc_status("비활성화");
        chatMapper.oneToOneJoinChat(vo);
+    }
+
+    @Override
+    public void disActivateChatStatus(String userId, RoomVO vo) {
+        if(vo.getRc_usage().equals("one")){
+            chatMapper.disActivateChatStatus(userId, vo.getRc_no());
+        }
     }
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/aside.css">
+    <link rel="stylesheet" href="/css/content.css">
+
+</head>
+
+<body>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<!--상단바-->
+
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+<section id="con-ma-div">
+    <div>
+        <th:block th:replace="~{/user/layouts/aside :: aside}"></th:block>
+    </div>
+    <div style="padding: 50px 50px; width: 100%">
+        <div id="content_management">
+            <h1>FAQ</h1>
+            <br>
+            <h3>이용자들에게 제공될 FAQ 관리</h3>
+        </div>
+        <div id="con-ma-regi-btn">
+            <button id="regiBtn">등록하기</button>
+        </div>
+        <div style="width: 800px; margin-top: 50px">
+            <table class="table-group" style="width: 100%;">
+                <tr>
+                    <th>자주 묻는 질문</th>
+                    <th>답변</th>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

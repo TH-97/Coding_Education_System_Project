@@ -26,5 +26,6 @@ public interface AdminService {
 
     public List<AdminVO> getContent();
 
+    public void deleteContent(@Param("con_nm")String con_nm);
 
 }

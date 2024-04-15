@@ -24,4 +24,7 @@ public interface AdminMapper {
     public AdminVO getT(@Param("con_nm")String con_nm);
     public List<AdminVO> getF(@Param("con_nm")String con_nm);
     public List<AdminVO> getContent();
+    public void deleteContent(@Param("con_nm")String con_nm);
+
+    public void deleteContent_file(@Param("con_nm")String con_nm);
 }
