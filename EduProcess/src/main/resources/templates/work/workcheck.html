@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/makework.css">
+</head>
+<body>
+<th:block th:replace ="~{/edu/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace ="~{user/layouts/header :: header}"></th:block>
+<section id="group_content">
+    <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+    <div class="detailbox">
+        <div class="group_content_header">
+            <h1>숙제 리스트</h1>
+            <br>
+            <h3>배포한 숙제리스트를 확인할수 있습니다.</h3>
+        </div>
+        <table class="table-group">
+            <tr>
+                <th>숙제명</th>
+                <th>그룹</th>
+                <th>레벨</th>
+                <th>제출기한</th>
+                <th>생성일자</th>
+            </tr>
+            <tr th:each="workeva : ${list}">
+                <td th:text="${workeva.h_name}"></td>
+                <td>고급반</td>
+                <td th:text="${workeva.h_level}"></td>
+                <td th:text="${workeva.h_dead}"></td>
+                <td th:text="${workeva.h_reg_ymd}"></td>
+            </tr>
+        </table>
+        <div class="page"  >
+            <ul>
+                <li><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
+                    <i class="fa fa-angle-double-left"></i><p></p></a></li>
+                <!-- 2. 이전버튼 -->
+                <th:block th:if="${pageVO.prev}">
+                    <li style="margin-right:5px;">
+                        <a th:href="@{workdis(page=${pageVO.start - 1},
+                                                                    amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"> < </i></a>
+                    </li>
+                </th:block>
+                <!-- 1. 페이지 반복-->
+                <th:block th:each="page, status :${pageVO.pageList}">
+                    <li th:class="${page == pageVO.page ? 'on' : ''}">
+                        <a th:href="@{workdis(page=${page},
+                                            amount=${pageVO.amount})}">[[${page}]]</a>
+                    </li>
+                </th:block>
+
+                <!--3. 다음버튼-->
+                <th:block th:if="${pageVO.next}">
+                    <li style="margin-left:5px;">
+                        <a th:href="@{workdis(page=${pageVO.end + 1},
+                                    amount=${pageVO.amount})}"><i
+                                class="fa fa-angle-right" aria-hidden="true">
+
+                        </i> > </a></li>
+                </th:block>
+
+                <li><a th:href="@{workdis(page=${pageVO.realEnd},
+                                            amount=${pageVO.amount})}"><i
+                        class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+</body>
+</html>

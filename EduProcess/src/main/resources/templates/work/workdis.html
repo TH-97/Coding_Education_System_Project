@@ -12,96 +12,107 @@
 <section id="group_content">
     <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
     <div class="detailbox">
-            <div class="group_content_header">
-                <h1>숙제 리스트</h1>
-                <br>
-                <h3>배포한 숙제리스트를 확인할수 있습니다.</h3>
-            </div>
-            <table class="table-group">
-                <tr>
-                    <th>숙제명</th>
-                    <th>그룹</th>
-                    <th>레벨</th>
-                    <th>제출기한</th>
-                    <th>생성일자</th>
-                </tr>
-                <tr th:each="workeva : ${list}">
-                    <td th:text="${workeva.h_name}"></td>
-                    <td>고급반</td>
-                    <td th:text="${workeva.h_level}"></td>
-                    <td th:text="${workeva.h_dead}"></td>
-                    <td th:text="${workeva.h_reg_ymd}"></td>
-                </tr>
-            </table>
-            <div class="page"  >
-                <ul>
-                    <li><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
-                        <i class="fa fa-angle-double-left"></i><p></p></a></li>
-                    <!-- 2. 이전버튼 -->
-                    <th:block th:if="${pageVO.prev}">
-                        <li style="margin-right:5px;">
-                            <a th:href="@{workdis(page=${pageVO.start - 1},
-                                                                    amount=${pageVO.amount})}">
-                                <i class="fa fa-angle-left" aria-hidden="true"> < </i></a>
-                        </li>
-                    </th:block>
-                    <!-- 1. 페이지 반복-->
-                    <th:block th:each="page, status :${pageVO.pageList}">
-                        <li th:class="${page == pageVO.page ? 'on' : ''}">
-                            <a th:href="@{workdis(page=${page},
-                                            amount=${pageVO.amount})}">[[${page}]]</a>
-                        </li>
-                    </th:block>
-
-                    <!--3. 다음버튼-->
-                    <th:block th:if="${pageVO.next}">
-                        <li style="margin-left:5px;">
-                            <a th:href="@{workdis(page=${pageVO.end + 1},
-                                    amount=${pageVO.amount})}"><i
-                                    class="fa fa-angle-right" aria-hidden="true">
-
-                            </i> > </a></li>
-                    </th:block>
-
-                    <li><a th:href="@{workdis(page=${pageVO.realEnd},
-                                            amount=${pageVO.amount})}"><i
-                            class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-                </ul>
+        <div class="group_content_header">
+            <h1>숙제 리스트</h1>
+            <br>
+            <h3>배포한 숙제리스트를 확인할수 있습니다.</h3>
         </div>
-        <div id="homeList_div">
-            <div class="group_content_header">
-                <h1>숙제 배포</h1>
-                <br>
-                <h3>숙제를 학습 그룹에게로 배포할수 있습니다.</h3>
-            </div>
-            <table class="table-group">
+        <table class="table-group">
+            <tr>
+                <th>숙제명</th>
+                <th>그룹</th>
+                <th>레벨</th>
+                <th>제출기한</th>
+                <th>생성일자</th>
+            </tr>
+            <tr th:each="workeva : ${list}" th:class="'work-' + ${workeva.h_no}" th:onclick="'workInfo(' + ${workeva.h_no} + ')'">
+                <td th:class="'h_name-' + ${workeva.h_no}" th:text="${workeva.h_name}"></td>
+                <td>고급반</td>
+                <td th:text="${workeva.h_level}"></td>
+                <td th:class="'h_dead-' + ${workeva.h_no}" th:text="${workeva.h_dead}"></td>
+                <td th:class="'h_reg_ymd-' + ${workeva.h_no}" th:text="${workeva.h_reg_ymd}"></td>
+                <td th:class="'sel'+${workeva.h_no}" style="display: none">
+                    <select th:class="'select'+${workeva.h_no}" onChange="getValue(this)">
+                        <option th:each="group : ${gList}" th:value="${group.sg_no}" th:text="${group.sg_name}"></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="page">
+            <ul>
+                <li><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
+                    <i class="fa fa-angle-double-left"></i><p></p></a></li>
+                <!-- 2. 이전버튼 -->
+                <th:block th:if="${pageVO.prev}">
+                    <li style="margin-right:5px;">
+                        <a th:href="@{workdis(page=${pageVO.start - 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"> < </i></a>
+                    </li>
+                </th:block>
+                <!-- 1. 페이지 반복-->
+                <th:block th:each="page, status :${pageVO.pageList}">
+                    <li th:class="${page == pageVO.page ? 'on' : ''}">
+                        <a th:href="@{workdis(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
+                    </li>
+                </th:block>
+                <!--3. 다음버튼-->
+                <th:block th:if="${pageVO.next}">
+                    <li style="margin-left:5px;">
+                        <a th:href="@{workdis(page=${pageVO.end + 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i> >
+                        </a>
+                    </li>
+                </th:block>
+                <li><a th:href="@{workdis(page=${pageVO.realEnd}, amount=${pageVO.amount})}">
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+        <div id="homeworkDistribution" style="display: none;">
+            <table class="table-group" id="test">
                 <tr>
-                    <th>그룹명</th>
                     <th>숙제명</th>
                     <th>제출 기한</th>
                     <th>생성 일자</th>
+                    <th>학생 그룹</th>
                 </tr>
-                <tr  th:each="workeva : ${list}">
-                    <td>자바 기초</td>
-                    <td>자바 기초 알아보기</td>
-                    <td th:text="${workeva.h_dead}"></td>
-                    <td th:text="${workeva.h_reg_ymd}"></td>
+                <tr id="selectedHomeworkRow">
+                    <!-- 여기에 선택된 숙제 정보가 들어갈 것입니다. -->
                 </tr>
             </table>
             <button type="submit" class="hbtn">전송하기</button>
         </div>
-
     </div>
+
 </section>
-</body>
-<script>
-    function selectAll(selectAll)  {
-        const checkboxes = document.getElementsByName('all');
-        console.log(1);
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = selectAll.checked;
-            console.log(2);
-        })
+<script th:inline="javascript">
+    function workInfo(workevano) {
+
+        var h_name = document.querySelector('.h_name-'+workevano);
+        var h_dead = document.querySelector('.h_dead-'+workevano);
+        var h_reg_ymd = document.querySelector('.h_reg_ymd-'+workevano);
+        var selectedHomeworkRow = document.getElementById("test");
+        var select = document.querySelector('.sel'+workevano);
+        var select2 = select.cloneNode(true);
+        select2.style.display='';
+        var tr = document.createElement("tr");
+
+        tr.appendChild(h_name.cloneNode(true));
+        tr.appendChild(h_dead.cloneNode(true));
+        tr.appendChild(h_reg_ymd.cloneNode(true));
+        tr.appendChild(select2.cloneNode(true));
+        selectedHomeworkRow.appendChild(tr);
+        // selectedHomeworkRow.append(h_name);
+        // selectedHomeworkRow.append(h_dead);
+        // selectedHomeworkRow.append(h_reg_ymd);
+
+        var homeworkDistribution = document.getElementById("homeworkDistribution");
+        homeworkDistribution.style.display = "block";
+    }
+    function getValue(selectElement) {
+        var selectedValue = selectElement.value;
+        console.log(selectedValue); // 선택된 sg_no 값
     }
 </script>
+</body>
+
 </html>
