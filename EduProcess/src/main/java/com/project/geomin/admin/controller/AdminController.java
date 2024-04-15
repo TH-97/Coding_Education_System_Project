@@ -53,5 +53,17 @@ public class AdminController {
         adminService.deleteContent(con_nm);
         return "user/content";
     }
+    @GetMapping("/FAQ")
+    public String FAQ(){
+        System.out.println("들어옴");
+
+        return "admin/FAQ";
+    }
+    @GetMapping("/Q&A")
+    public String QA(){
+        System.out.println("들어옴");
+        return "admin/Q&A";
+    }
+
 
 }
