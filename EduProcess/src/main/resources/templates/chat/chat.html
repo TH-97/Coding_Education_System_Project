@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>chatting</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="/css/gpapply/room.css">
+    <link rel="stylesheet" href="/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #9bbbd4;">
 
+        <section id="chat-wrap">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h1>[[${enterRoom.rc_title}]]</h1>
+                    <button type="button" id="disconn">뒤로가기</button>
+                    <button type="button" >채팅방 나가기</button>
+                </div>
+                <div class="chat-content">
+                    <div id="msgArea" style="font-size: 12px">
+                        <th:block th:each="chatVO : ${chatList}">
+                        <div class='chat-box' th:if="${chatVO.user_id == #authentication.getPrincipal.getUserVO.user_id}">
+                            <p style='text-align: right'>[[${chatVO.user_id}]]</p>
+                            <div class='right'>
+                                <p style="margin-right: 10px;">[[${chatVO.mc_send_date}]]</p>
+                                <p class="chat-msg me">[[${chatVO.mc_content}]]</p>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <body>
-        <div class="container">
-            <div class="col-6">
-                <label><b>채팅방</b></label>
-            </div>
-            <div>
-                <div id="msgArea" class="col"></div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-                            <button class="btn btn-outline-secondary" type="button" id="disconn">나가기</button>
+                           </div>
                         </div>
+                        <div class='chat-box' th:if="${chatVO.user_id != #authentication.getPrincipal.getUserVO.user_id}">
+                            <p style='text-align: left'>[[${chatVO.user_id}]]</p>
+                            <div class='left'>
+                                <p class="chat-msg">[[${chatVO.mc_content}]]</p>
+                                <p style="margin-left: 10px;">[[${chatVO.mc_send_date}]]</p>
+
+                           </div>
+                        </div>
+                        </th:block>
                     </div>
                 </div>
+
+               <div class="chat-input">
+                    <div class="chat-input-append">
+                        <textarea name="" id="msg" cols="30" rows="10"></textarea>
+                        <!-- <input type="text" id="msg" > -->
+                        
+                        <button type="button" id="button-send">전송</button>
+                       
+                    </div>
+               </div>
             </div>
-            [[${enterRoom.rc_no}]]
-        </div>
-        
+        </section>
 
 </body>
 
@@ -33,7 +61,7 @@
 
             const username = [[${#authentication.getPrincipal.getUserVO.user_nm}]];
             const userid = [[${#authentication.getPrincipal.getUserVO.user_id}]];
-
+            prepareScroll()
 
 
             $("#disconn").on("click", (e) => {
@@ -46,7 +74,7 @@
             
   
 			console.log()
-            const websocket = new WebSocket("ws://172.30.1.52:8989/ws/chat/"+[[${enterRoom.rc_no}]]);
+            const websocket = new WebSocket("ws:/172.30.1.52:8989/ws/chat/"+[[${enterRoom.rc_no}]]);
 
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
@@ -70,6 +98,7 @@
             function send(){
                 let msg = document.getElementById("msg");
 
+
                 console.log(`${username} : ${msg.value}`);
                 websocket.send(JSON.stringify({
                     user_id : userid,
@@ -78,7 +107,24 @@
                     rc_no : [[${enterRoom.rc_no}]]
                 }));
                 msg.value = '';
+
             }
+            function prepareScroll() {
+                window.setTimeout(scrollUl, 50);
+
+            }
+            function scrollUl() {
+                    // 채팅창 form 안의 ul 요소, (ul 요소 안에 채팅 내용들이 li 요소로 입력된다.)
+                let chatContent = document.querySelector(".chat-content");
+                chatContent.scrollTop= chatContent.scrollHeight;
+                console.log(chatContent.scrollTop)
+                console.log(chatContent.scrollHeight)
+                    //
+            }
+
+
+
+
             
             //채팅창에서 나갔을 때
             function closeSocket(evt) {
@@ -86,6 +132,8 @@
                 websocket.send(JSON.stringify({
                     user_id : userid,
                     mc_content : str,
+                    rc_usage : "close",
+                    rc_no : [[${enterRoom.rc_no}]]
                 }));
                 websocket.close();
                 location.href="/room";
@@ -97,6 +145,8 @@
                 websocket.send(JSON.stringify({
                     user_id : userid,
                     mc_content : str,
+                    rc_usage : "open",
+                    rc_no : [[${enterRoom.rc_no}]]
                 }));
             }
 
@@ -104,9 +154,9 @@
                 const data = JSON.parse(msg.data);
                 //데이터를 보낸 사람
                 var sessionId = data.user_id;
-                var message = data.msg;
+                var message = data.mc_content;
                 var dateObj  = getNowDate();
-
+                var rcUsage = data.rc_usage;
                 var cur_session = userid;
 
                 //현재 세션에 로그인 한 사람
@@ -116,26 +166,44 @@
 
                 console.log("sessionID : " + sessionId);
                 console.log("cur_session : " + cur_session);
+                if(rcUsage == "open"){
+                    var str = "<div class='chat-box'>";
+                    str += "<p class='chat-msg' style='display: block; text-align: center;'>" + message + "</p>";
+                    str += "</div>";
+                    $("#msgArea").append(str);
+                    return;
+                }else if(rcUsage == "close"){
+                    var str = "<div class='chat-box'>";
+                    str += "<p class='chat-msg' style='display: block; text-align: center;'>" + message + "</p>";
+                    str += "</div>";
+                    $("#msgArea").append(str);
+                    return;
+
+                }
 
                     //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
                     if(sessionId == cur_session){
-                        var str = "<div>";
-                        str += "<div>";
-                        str += "<b>" + sessionId + "</b><br>";
-                        str += "<b>" + message + "</b>";
-                        str += "<b>" + "[ " + dateObj.time + " : "+ dateObj.minutes + " ]" + "</b>";
+                        var str = "<div class='chat-box'>";
+                        str += "<p style='text-align: right'>" + sessionId + "</p>";
+                        str += "<div class='right'>";
+                        str += "<p style='margin-right: 10px;'>" +  dateObj.time + " : "+ dateObj.minutes  + "</p>";
+                        str += "<p class='chat-msg me'>" + message + "</p>";
+
                         str += "</div></div>";
                         $("#msgArea").append(str);
                     }
+
+
                     else{
-                        var str = "<div>";
-                        str += "<div>";
-                        str += "<b>" + sessionId + "</b><br>";
-                        str += "<b>" + message + "</b>";
-                        str += "<b>" + "[ " + dateObj.time + " : "+ dateObj.minutes + " ]" + "</b>";
+                        var str = "<div class='chat-box'>";
+                        str += "<p style='text-align: left'>" + sessionId + "</p>";
+                        str += "<div class='left'>";
+                        str += "<p class='chat-msg'>" + message + "</p>";
+                        str += "<p style='margin-left: 10px;'>"  + dateObj.time + " : "+ dateObj.minutes + "</p>";
                         str += "</div></div>";
                         $("#msgArea").append(str);
                     }
+                prepareScroll()
                 }
 
 

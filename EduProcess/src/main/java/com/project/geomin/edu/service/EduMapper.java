@@ -16,7 +16,7 @@ public interface EduMapper {
     public void groupRegist(GroupVO vo);
     public void studentApply(JoinGroupVO vo);
 
-
+    int getSgNo();
 
 
     //조회 관련

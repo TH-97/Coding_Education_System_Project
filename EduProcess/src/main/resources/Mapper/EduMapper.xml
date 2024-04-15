@@ -22,6 +22,10 @@
                       and u.user_nm LIKE concat('%',#{gsvo.user_nm},'%')
                 </if>
     </select>
+
+    <select id="getSgNo" resultType="int">
+        select max(sg_no) + 1 from study_group
+    </select>
     <select id="selectGroupPK" parameterType="GroupVO" resultType="GroupVO">
         select s.*, u.user_nm, ifnull(c.sg_aplynum, 0) as sg_aplynum from study_group s left join user u on s.user_id = u.user_id
                      left join

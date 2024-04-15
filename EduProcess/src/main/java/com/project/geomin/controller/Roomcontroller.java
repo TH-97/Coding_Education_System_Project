@@ -1,16 +1,17 @@
 package com.project.geomin.controller;
 
 import com.project.geomin.chat.service.ChatService;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinChatVO;
-import com.project.geomin.command.JoinGroupVO;
-import com.project.geomin.command.RoomVO;
+import com.project.geomin.command.*;
 import com.project.geomin.handler.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -35,19 +36,26 @@ public class Roomcontroller {
 	}
 
 	@GetMapping("/moveChatting")
-	public String moveChatting(RoomVO vo , Model model) {
-
+	public String moveChatting(Principal principal,RoomVO vo , Model model) {
 		model.addAttribute("enterRoom", vo);
-
+		model.addAttribute("chatList", chatService.loadChatting(vo));
+		chatService.disActivateChatStatus(principal.getName(), vo);
 		return "chat/chat";
 	}
 
 	@PostMapping("/createRoomDB")
-	public String createRoomDB(Principal principal, JoinChatVO vo){
+	public String createRoomDB(Principal principal, JoinChatVO vo, RedirectAttributes ra){
 		String userId = principal.getName();
 		System.out.println(vo);
 		String roomName = vo.getRc_title();
 		System.out.println(roomName);
+
+
+		if(chatService.isAlreadyCreate(userId ,vo.getUser_id()) != 0){
+			ra.addFlashAttribute("msg", "이미 존재하는 채팅방 입니다.");
+			return "redirect:/room";
+		}
+
 
 		if(roomName != null && !roomName.trim().equals("") ) {
 			//DB방만들기
@@ -69,7 +77,7 @@ public class Roomcontroller {
 		System.out.println(vo);
 		String roomName = vo.getRc_title();
 		System.out.println(roomName);
-		
+
 		if(roomName != null && !roomName.trim().equals("") ) {
 			//DB방만들기
 			JoinChatVO room = new JoinChatVO();
@@ -78,6 +86,8 @@ public class Roomcontroller {
 			chatService.CreateChatRoom(room);
 			chatService.oneToOneJoinChat(room, userId);
 		}
+
+
 
 	}
 
@@ -88,6 +98,25 @@ public class Roomcontroller {
 		String userId = principal.getName();
 		ArrayList<GroupVO> myTeacherList = chatService.getMyTeacher(userId);
 		return myTeacherList;
+	}
+	@ResponseBody
+	@GetMapping("/chat/getMyGroup")
+	public List<GroupVO> getMyGroup(Principal principal) {
+		String userId = principal.getName();
+		ArrayList<GroupVO> MyGroupList = chatService.getMyGroup(userId);
+		return MyGroupList;
+	}
+
+	@ResponseBody
+	@GetMapping("/chat/getMyStudent")
+	public ResponseEntity<ArrayList<JoinGroupVO>> myStudent(GroupVO vo) {
+		if(vo.getSg_no() == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		ArrayList<JoinGroupVO> myStudentList = chatService.getMyStudent(vo);
+		System.out.println(myStudentList);
+
+		return new ResponseEntity<>(myStudentList, HttpStatus.OK);
 	}
 
 }

@@ -12,8 +12,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,6 +27,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	//웹소켓에 접속한 유저들의 세션을 관리하기 위한 자료구조
 	@Getter
 	static final HashMap<String, HashMap<String, WebSocketSession>> ROOMMap = new HashMap<>();
+
+	//한 트랙젝션에 메시지를 저장하기위한 용도
+	HashMap<String, ArrayList<ChatMessageVO>> messageList = new HashMap<>();
 
 
 	//웹소켓 연결시
@@ -55,6 +57,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			HashMap<String, WebSocketSession> map = new HashMap<>();
 			map.put(session.getId(), session);
 			ROOMMap.put(roomNumber, map);
+			ArrayList<ChatMessageVO> vo =  new ArrayList<>();
+			messageList.put(roomNumber, vo);
 		}
 
 		
@@ -66,6 +70,14 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("나가거든 얘기좀");
 		String roomNumber = session.getUri().toString().split("/")[5];
+
+		//나갈때 디비에 메시지 내역 한번에 저장
+		ArrayList<ChatMessageVO> messagelist = messageList.get(roomNumber);
+		if(!messagelist.isEmpty()){
+			chatMapper.saveMessage(messagelist);
+			messagelist.clear();
+		}
+
 		for(Entry<String, HashMap<String, WebSocketSession>> Roomkey : ROOMMap.entrySet()) {
 			if(Roomkey.getKey().equals(roomNumber)) {
 				Roomkey.getValue().remove(session.getId());
@@ -83,22 +95,26 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		String roomNumber = session.getUri().toString().split("/")[5];
 		System.out.println(roomNumber + "뿡");
 
+		//1대1채팅만 채팅내역을 디비에 저장
+		ChatMessageVO messageVO = objectMapper.readValue(message.getPayload(), ChatMessageVO.class);
+		System.out.println(messageVO);
+
 
 		for(Entry<String, HashMap<String, WebSocketSession>> Roomkey : ROOMMap.entrySet()) {
 				if(Roomkey.getKey().equals(roomNumber)) {
 					for(Entry<String, WebSocketSession>  userKey : Roomkey.getValue().entrySet()) {
 						userKey.getValue().sendMessage(message);
+						if(messageVO.getRc_usage().equals("one")){
+							messageList.get(roomNumber).add(messageVO);
+							System.out.println(messageList.get(roomNumber));
+							chatMapper.activateChatStatus(messageVO);
+						}
+
 					}
 					break;
 				}
 		}
-		//1대1채팅만 채팅내역을 디비에 저장 후
-		//
-		ChatMessageVO vo = objectMapper.readValue(message.getPayload(), ChatMessageVO.class);
-		System.out.println(vo);
-		if(vo.getRc_usage().equals("one")){
 
-		}
 	}
 
 

@@ -1,5 +1,6 @@
 package com.project.geomin.controller;
 
+import com.project.geomin.chat.service.ChatService;
 import com.project.geomin.command.*;
 import com.project.geomin.edu.service.Criteria;
 import com.project.geomin.edu.service.EduService;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping("/edu")
 @Controller
@@ -29,14 +27,35 @@ public class EduController {
 	@Qualifier("eduservice")
 	private EduService eduService;
 
+	@Autowired
+	@Qualifier("chatService")
+	private ChatService chatService;
+
 	//교육자 그룹 등록
 	@GetMapping("/groupRegist")
 	public String groupRegist() {
 		return "edu/groupRegist";
 	}
 	@PostMapping("/groupRegistDB")
-	public String groupRegistDB(GroupVO vo){
+	public String groupRegistDB(GroupVO vo, Principal principal){
+		//그룹방 생성
 		eduService.groupRegist(vo);
+		int sgNo = eduService.getSgNo();
+
+		//채팅방도 생성
+		JoinChatVO joinChatVO = new JoinChatVO();
+		joinChatVO.setRc_title(vo.getSg_name()+"의 채팅방");
+		joinChatVO.setRc_no(UUID.randomUUID().toString());
+		System.out.println(joinChatVO);
+		chatService.groupChatCreate(joinChatVO);
+
+
+
+		//일단 선생님 채팅방에 등록
+		joinChatVO.setSg_no(sgNo);
+		joinChatVO.setUser_id(principal.getName());
+		joinChatVO.setJc_status("활성화");
+		chatService.groupChatJoin(joinChatVO);
 		return "redirect:/edu/groupSelect";
 	}
 	@GetMapping("/groupUpdate")
@@ -128,6 +147,20 @@ public class EduController {
 		System.out.println(map);
 		//전체 승인로직
 		eduService.applierApply(map);
+		List<String> list = (List<String>)map.get("updateList");
+		String userId = list.get(0);
+		Integer sgNo = Integer.parseInt(list.get(1));
+
+		JoinChatVO joinChatVO = new JoinChatVO();
+		joinChatVO.setSg_no(sgNo);
+		joinChatVO.setUser_id(userId);
+		//채팅방번호 조회
+		String rcNo = chatService.getRcNo(joinChatVO);
+
+		//그룹방 가입
+		joinChatVO.setRc_no(rcNo);
+		joinChatVO.setJc_status("활성화");
+
 		return "OK";
 	}
 
