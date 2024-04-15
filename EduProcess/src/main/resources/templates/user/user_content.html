@@ -75,27 +75,6 @@
             }
         }
     });
-    (function () {
-        setTimeout(function ()
-        {
-            var video = document.querySelectorAll(".files")
-            for (var v of video) {
-                console.log(v.parentElement.children[2])
-                const currentTime = v.parentElement.children[2].duration
-                console.log(currentTime)
-                const minutes = Math.floor(currentTime / 60);
-                const seconds = Math.floor(currentTime % 60);
-
-                const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-                console.log(formattedTime);
-                const timeElement = document.createElement('div');
-                timeElement.classList.add('time'); // 'time' 클래스 추가
-                timeElement.textContent = formattedTime;
-                v.append(timeElement);
-            }
-        },700);
-    })();
 
 </script>
 </html>

@@ -29,14 +29,13 @@ public class AdminController {
         List<AdminVO> list = adminService.getContent();
 
         model.addAttribute("list",list);
-        System.out.println(list);
         return "user/content";
     }
     @PostMapping("/content")
     public String content(Model model,@RequestParam("content_name")String content_name){
-        System.out.println(content_name);
+
         AdminVO T = adminService.getT(content_name);
-        System.out.println(T);
+
         List<AdminVO> F = adminService.getF(content_name);
         System.out.println(F);
         model.addAttribute("content",T);
@@ -50,10 +49,8 @@ public class AdminController {
     }
     @PostMapping("/delete_content")
     public String delete_content(@RequestParam(value = "con_nm", required= false) String con_nm){
-        System.out.println(con_nm);
         s3Service.delete(con_nm);
         adminService.deleteContent(con_nm);
-        System.out.println("삭제완료");
         return "user/content";
     }
 

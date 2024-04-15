@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.DoubleStream;
 
 @Service
@@ -51,17 +52,7 @@ public class S3Service {
 
             // s3.putObject(putOb, RequestBody.fromFile(new File(objectPath))); //로컬파일을 읽어서 올리는 경우는 이렇게
             s3.putObject(putOb, RequestBody.fromBytes(objectdata)); //클라이언트에서 입력받은 파일의 바이트데이터
-            System.out.println("Successfully placed " + objectKey + " into bucket " + aws_target_bucket);
 
-//            String key = "테스트/0썸네일";
-//            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-//                    .bucket(aws_target_bucket)
-//                    .key(key)
-//                    .build();
-//
-//            ResponseInputStream<GetObjectResponse> res = s3.getObject(getObjectRequest);
-//
-//            System.out.println( "여기가 중요"+ res.key());
 
 
 
@@ -71,42 +62,46 @@ public class S3Service {
             //System.exit(1); //프로그램 종료
         }
     }
-    public void delete(String con_nm){
+    public void delete(String con_nm) {
 
         AwsBasicCredentials credentials = AwsBasicCredentials.create(aws_access_key_id, aws_secret_access_key);
-        Region region = Region.AP_NORTHEAST_2; //리전
+        Region region = Region.AP_NORTHEAST_2; // 사용하는 리전으로 변경
         S3Client s3 = S3Client.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(credentials))
                 .region(region)
                 .build();
 
-
-        ArrayList<ObjectIdentifier> keys = new ArrayList<>();
-
-        ObjectIdentifier objectId;
-        objectId = ObjectIdentifier.builder()
-                .key(con_nm + "/")
-                .build();
-
-
-        keys.add(objectId);
-        // Delete multiple objects in one request.
-        Delete del = Delete.builder()
-                .objects(keys)
-                .build();
+        ArrayList<ObjectIdentifier> keys = new ArrayList<>(); // 객체 키를 위한 String 리스트 사용
 
         try {
+            ListObjectsRequest listObjects = ListObjectsRequest
+                    .builder()
+                    .prefix(con_nm + "/")
+                    .bucket(aws_target_bucket)
+                    .build();
+
+            ListObjectsResponse res = s3.listObjects(listObjects);
+            List<S3Object> objects = res.contents();
+
+            for (S3Object myValue : objects) {
+                System.out.println("객체 삭제: " + myValue.key());
+                ObjectIdentifier objectId = ObjectIdentifier.builder()
+                        .key(myValue.key())
+                        .build();
+                keys.add(objectId);
+            }
+
             DeleteObjectsRequest multiObjectDeleteRequest = DeleteObjectsRequest.builder()
                     .bucket(aws_target_bucket)
-                    .delete(del)
+                    .delete(Delete.builder().objects(keys).build())
                     .build();
 
             s3.deleteObjects(multiObjectDeleteRequest);
-            System.out.println("Multiple objects are deleted!");
+
+            System.out.println("객체 삭제 완료!");
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            //System.exit(1);
         }
     }
 }
