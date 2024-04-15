@@ -53,4 +53,14 @@
         select *
         from content
     </select>
+
+    <delete id="deleteContent">
+        DELETE FROM content
+        WHERE con_nm = #{con_nm};
+    </delete>
+
+    <delete id="deleteContent_file">
+        DELETE FROM cont_file
+        WHERE con_nm = #{con_nm};
+    </delete>
 </mapper>

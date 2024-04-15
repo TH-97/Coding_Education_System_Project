@@ -58,4 +58,10 @@ public class AdminServiceImpl implements AdminService{
        return adminMapper.getContent();
     }
 
+    @Override
+    public void deleteContent(String con_nm) {
+        adminMapper.deleteContent(con_nm);
+        adminMapper.deleteContent_file(con_nm);
+    }
+
 }

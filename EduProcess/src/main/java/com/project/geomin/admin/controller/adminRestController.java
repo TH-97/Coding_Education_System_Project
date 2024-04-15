@@ -78,6 +78,5 @@ public class adminRestController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
