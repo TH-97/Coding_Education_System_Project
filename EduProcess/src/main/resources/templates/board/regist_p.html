@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+
+<link rel = "stylesheet" href="/css/boardAside.css">
+<link rel = "stylesheet" href="/css/regist_p.css">
+<body>
+  <section id="list_content">
+  <th:block th:replace="~{/board/layouts/aside :: aside}"></th:block>
+  	<div class="list_content_container">
+
+      <div class="list_content_header">
+        <h1>강사 등록</h1>
+        <br>
+        <h3>컨텐츠를 구매하시려면 먼저 강사 등록을 하여주십시오</h3>
+      </div>
+      <form action="/board/regist_educator" method="post">
+      <div class="regist_edu">
+          <ul class="regist_edu_container">
+            <li><span>성함</span><input type="text" name="edu_name" placeholder="성함을 입력하세요" required></li>
+            <li><span>가르칠 과목</span>
+				<select name="edu_sub">
+					<option value="Java">Java</option>
+					<option value="Python">Python</option>
+					<option value="C++">C++</option>
+				</select>
+           	</li>
+
+          </ul>
+      <h2>경력</h2>
+    <div id="experienceList"></div>
+	
+      </div>
+
+        <button type="button" onclick="addExperience()" id="add_btn">경력 추가</button>
+        <input type="submit" value="등록하기" id="regist_btn" onclick="submitForm()">
+      </form>
+    </div>
+  </section>
+
+<script src="/js/regist_p.js"></script>
+  
+</body>
+</html>
