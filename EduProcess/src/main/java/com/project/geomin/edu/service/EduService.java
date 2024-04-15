@@ -14,6 +14,8 @@ public interface EduService {
     public void groupRegist(GroupVO vo);
     public void studentApply(JoinGroupVO vo);
 
+    int getSgNo();
+
 
 
 

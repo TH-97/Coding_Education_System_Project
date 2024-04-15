@@ -27,6 +27,11 @@ public class EduServiceImpl implements EduService{
     }
 
     @Override
+    public int getSgNo() {
+        return eduMapper.getSgNo();
+    }
+
+    @Override
     public  ArrayList<JoinGroupVO> selectStudent(JoinGroupVO vo) {
         return eduMapper.selectStudent(vo);
     }

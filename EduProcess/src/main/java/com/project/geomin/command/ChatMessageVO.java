@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatMessageVO{
-    private Integer mc_no;
-    private Integer rc_no;
+    private String mc_no;
+    private String rc_no;
     private String user_id;
     private String user_nm;
     private String mc_content;

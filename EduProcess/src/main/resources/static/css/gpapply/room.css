@@ -1,3 +1,20 @@
+*{
+    margin:0;
+    padding:0;
+    overflow: hidden;
+}
+.roomList button{
+    width: 50px;
+    height: 23px;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+.roomList button:active{
+    opacity: 0.5;
+}
 #create-chat-modal{
     position: absolute;
     top: 0;
@@ -28,7 +45,7 @@
     padding: 40px 30px;
     background-color: #5DA886;
     color: white;
-    margin-top: 100px;
+    margin-top: 40px;
 
 }
 
@@ -71,10 +88,22 @@
 .chat_content_container input[type="submit"]:active{
     border: 3px solid #5DA886;
 }
+.modal-open{
+    width: 100px;
+    height: 46px;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+.modal-open:active{
+    opacity: 0.5;
+}
 
 .chat-modal-container i{
     position: relative;
-    top: 150px;
+    top: 90px;
     right: -130px;
     cursor: pointer;
     color: white;
@@ -110,10 +139,128 @@ tr:hover,
 
 .container h1{
     text-align: center;
-    margin: 50px 0;
+    margin: 40px 0;
 }
 
 .roomCreate td{
     border-top: 1px solid #ddd;
     cursor: pointer;
+}
+
+/*채팅방 css*/
+#chat-wrap{
+    width: 500px;
+    height: 600px;
+    margin: 0 auto;
+    background-color: #9bbbd4;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.chat-container{
+    display: flex;
+
+    box-sizing: border-box;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.chat-container > div{
+
+    box-sizing: border-box;
+}
+.chat-header{
+    padding: 10px;
+    height: 100px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat-header h1{
+    font-size: 36px;
+    margin-left: 50px;
+}
+.chat-header button{
+    height: 50px;
+    background:#fef01b;
+    border: none;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-weight: bold;
+}
+.chat-content{
+    height: 400px;
+    overflow: auto scroll;
+    padding: 10px;
+}
+
+.chat-input button{
+    float: right;
+    margin: 10px;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 10%;
+    height: 60px;
+    background:#fef01b;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.chat-input-append{
+    position: relative;
+    height: 100px;
+}
+
+.chat-input textarea{
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    height: 100px;
+
+    resize: none;
+}
+.chat-input textarea:focus{
+    outline: none;
+    border: 2px solid black;
+}
+.chat-box > p{
+    margin: 10px 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.chat-msg{
+
+    border-radius: 5px;
+    padding: 10px;
+    background: white;
+
+}
+.right{
+    text-align: right;
+    margin-right: 20px;
+
+
+}
+.right p{
+    display: inline-block;
+    margin: 0;
+
+    font-weight: bold;
+}
+.me{
+    background:#fef01b;
+}
+
+.left{
+    text-align: left;
+    margin-left: 20px;
+
+}
+.left p{
+    display: inline-block;
+    margin: 0;
+    font-weight: bold;
 }
