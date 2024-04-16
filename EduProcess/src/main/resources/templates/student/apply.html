@@ -24,7 +24,7 @@
         </form>
 
         <div class="select_content">
-
+            <form name="moveContentDetail" action="/admin/content" method="post">
             <h2 id="table-header">학습그룹 리스트</h2>
             <table class="table-group">
                 <tr>
@@ -32,24 +32,29 @@
                     <th>레벨</th>
                     <th>현재인원/모집인원</th>
                     <th>학습 콘텐츠</th>
-                    <th>교육자명</th>
+                    <th>콘텐츠 바로가기</th>
+                    <th>그룹장명</th>
                     <th>진행기간</th>
                     <th>그룹소개</th>
                     <th>신청하기</th>
 
                 </tr>
-                <tr th:each="groupVO : ${groupList}">
+                <tr th:each="groupVO : ${groupList}" >
                     <td>[[${groupVO.sg_name}]]</td>
                     <td>[[${groupVO.sg_level}]]</td>
                     <td>[[${groupVO.sg_aplynum}]] / [[${groupVO.sg_allnum}]]명</td>
-                    <td>[[${groupVO.ctb_no}]]</td>
+                    <td>[[${groupVO.con_nm}]]</td>
+                    <td><img width="100px" th:src="@{${groupVO.thumbnail_path}}" onclick="contentDetail(this)"></td>
                     <td>[[${groupVO.user_nm}]]</td>
                     <td>[[${groupVO.sg_start_date}]] ~<br> [[${groupVO.sg_end_date}]]</td>
                     <td>[[${groupVO.sg_content}]]</td>
-                    <td><button class="student-apply-btn" th:onclick="|location.href='@{/student/groupApply(sg_no=${groupVO.sg_no}, user_id=${#authentication.getPrincipal.getUserVO.user_id})}'|">신청하기</button></td>
+                    <td><button type="button" class="student-apply-btn" th:onclick="|location.href='@{/student/groupApply(sg_no=${groupVO.sg_no}, user_id=${#authentication.getPrincipal.getUserVO.user_id})}'|">신청하기</button></td>
                 </tr>
 
             </table>
+                <input type="hidden" name="content_name" id="inputConName" value="">
+            </form>
+
             <div class="page">
                 <ul>
 
@@ -89,13 +94,14 @@
 
 
             <h2>내가 신청한 그룹 리스트</h2>
+
             <table class="table-group">
                 <tr>
                     <th>그룹명</th>
                     <th>레벨</th>
                     <th>현재인원/모집인원</th>
                     <th>학습 콘텐츠</th>
-                    <th>교육자명</th>
+                    <th>그룹장명</th>
                     <th>진행기간</th>
                     <th>그룹소개</th>
                     <th>상태</th>
@@ -107,7 +113,7 @@
                     <td>[[${myGroupVO.sg_name}]]</td>
                     <td>[[${myGroupVO.sg_level}]]</td>
                     <td>[[${myGroupVO.sg_aplynum}]] / [[${myGroupVO.sg_allnum}]]명</td>
-                    <td>[[${myGroupVO.ctb_no}]]</td>
+                    <td>[[${myGroupVO.con_nm}]]</td>
                     <td>[[${myGroupVO.user_nm}]]</td>
                     <td>[[${myGroupVO.sg_start_date}]] ~<br> [[${myGroupVO.sg_end_date}]]</td>
                     <td>[[${myGroupVO.sg_content}]]</td>
@@ -115,9 +121,8 @@
                     <td>[[${myGroupVO.jg_confirm}]]</td>
                     <td><button class="student-cancel-btn" onclick="aplyCancel(this)" th:if="${myGroupVO.jg_confirm != '승인'}">신청취소</button></td>
                 </tr>
-
-
             </table>
+
 
 
 
@@ -149,6 +154,15 @@
         })
         alert("신청이 취소되었습니다.")
         event.target.parentElement.parentElement.remove();
+
+    }
+    const inputConName = document.querySelector("#inputConName");
+
+    function contentDetail(){
+        console.log(event.target)
+        const conName = event.target.parentElement.parentElement.children[3].innerText;
+        inputConName.value = conName;
+        document.moveContentDetail.submit();
 
     }
 

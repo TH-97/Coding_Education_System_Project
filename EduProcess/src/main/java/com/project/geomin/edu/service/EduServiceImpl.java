@@ -1,9 +1,6 @@
 package com.project.geomin.edu.service;
 
-import com.project.geomin.command.GroupSearchVO;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinGroupVO;
-import com.project.geomin.command.UserVO;
+import com.project.geomin.command.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,6 +96,11 @@ public class EduServiceImpl implements EduService{
     @Override
     public int noSearchSelectPageTotal(String userId) {
         return eduMapper.noSearchSelectPageTotal(userId);
+    }
+
+    @Override
+    public List<ContentVO> selectMyContents(String userId) {
+        return eduMapper.selectMyContents(userId);
     }
 }
 

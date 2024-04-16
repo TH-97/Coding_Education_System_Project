@@ -1,9 +1,6 @@
 package com.project.geomin.edu.service;
 
-import com.project.geomin.command.GroupSearchVO;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinGroupVO;
-import com.project.geomin.command.UserVO;
+import com.project.geomin.command.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -44,4 +41,8 @@ public interface EduMapper {
     ////////////////////페이지네이션
     int selectPageTotal(@Param("userId") String userId, @Param("search") GroupSearchVO searchVO);
     int noSearchSelectPageTotal(String userId);
+
+    //////////////////콘텐츠
+    //내콘텐츠 조회
+    List<ContentVO> selectMyContents(String userId);
 }

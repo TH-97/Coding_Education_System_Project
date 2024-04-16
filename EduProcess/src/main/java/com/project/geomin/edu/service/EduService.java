@@ -1,9 +1,6 @@
 package com.project.geomin.edu.service;
 
-import com.project.geomin.command.GroupSearchVO;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinGroupVO;
-import com.project.geomin.command.UserVO;
+import com.project.geomin.command.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
@@ -15,10 +12,6 @@ public interface EduService {
     public void studentApply(JoinGroupVO vo);
 
     int getSgNo();
-
-
-
-
 
     //조회 관련
     //학습그룹학습자 조회
@@ -46,4 +39,12 @@ public interface EduService {
     //////////////////페이지네이션
     int selectPageTotal(String userId, GroupSearchVO searchVO);
     int noSearchSelectPageTotal(String userId);
+
+
+
+    /////////////////////////컨텐츠
+    //내콘텐츠 조회
+    List<ContentVO> selectMyContents(String userId);
+
+
 }
