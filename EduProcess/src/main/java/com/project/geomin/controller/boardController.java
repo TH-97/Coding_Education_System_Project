@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.geomin.board.service.boardService;
-import com.project.geomin.command.registEduVO;
+import com.project.geomin.command.RegistEduVO;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,8 +50,8 @@ public class boardController {
 	}
 	
 	@PostMapping("/regist_educator1")
-	public @ResponseBody String  regist_educator1(@RequestBody List<registEduVO> vo) {
-		for (registEduVO experience : vo) {
+	public @ResponseBody String  regist_educator1(@RequestBody List<RegistEduVO> vo) {
+		for (RegistEduVO experience : vo) {
             System.out.println("Company: " + experience.getCompany());
             System.out.println("Position: " + experience.getPosition());
             System.out.println("Duration: " + experience.getDuration());
