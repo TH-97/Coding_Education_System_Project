@@ -47,12 +47,14 @@ public class WorkController {
 
         return "work/workdis";
     }
-    @GetMapping("/workeva")
-    public String list2(Model model, Criteria cri, HttpSession session) {
-        String user_id = (String)session.getAttribute("user_id");
-        ArrayList<WorkVO> list2 = workService.getList(cri,user_id); //데이터
-        int total=workService.getTotal(cri,user_id);
-        PageeeVO pageVo = new PageeeVO(cri, total);
+//    @GetMapping("/workeva")
+//    public String list2(Model model, Criteria cri, HttpSession session) {
+//        String user_id = (String) session.getAttribute("user_id");
+//        ArrayList<WorkVO> list2 = workService.getList(cri, user_id); //데이터
+//        int total = workService.getTotal(cri, user_id);
+//        PageeeVO pageVo = new PageeeVO(cri, total);
+//        return "work/workeva";
+//    }
     @GetMapping("/makework")
     public String reg() {
         return "work/makework";
