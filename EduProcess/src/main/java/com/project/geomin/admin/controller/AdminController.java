@@ -3,6 +3,8 @@ package com.project.geomin.admin.controller;
 import com.project.geomin.admin.aws.s3.S3Service;
 import com.project.geomin.admin.service.AdminService;
 import com.project.geomin.command.AdminVO;
+import com.project.geomin.command.ReviewVO;
+import com.project.geomin.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class AdminController {
     @Autowired
     @Qualifier("AdminService")
     AdminService adminService;
+    @Autowired
+    @Qualifier("ReviewService")
+    ReviewService reviewService;
 
 
     @GetMapping("/conMa")
@@ -43,6 +48,28 @@ public class AdminController {
         model.addAttribute("content",T);
         model.addAttribute("content_list", F);
         return "user/user_content";
+    }
+    @PostMapping("/reviewSave")
+    public String reviewSace(Model model,@RequestParam("content_name")String content_name,
+                             @RequestParam("textarea")String textarea,
+                             @RequestParam("reviewStar")int reviewStar){
+
+        System.out.println(content_name);
+        System.out.println(reviewStar);
+        System.out.println(textarea);
+        //리뷰 저장
+        reviewService.inputReview(content_name,reviewStar,textarea);
+        //모든 리뷰 가져오기
+        List<ReviewVO> reviewList = reviewService.getReview(content_name);
+        //컨텐츠 가져오기
+        AdminVO T = adminService.getT(content_name);
+        List<AdminVO> F = adminService.getF(content_name);
+
+        model.addAttribute("content",T);
+        model.addAttribute("content_list", F);
+
+        return "user/user_content";
+
     }
     @GetMapping("/video")
     public String video(Model model,@RequestParam("src") String src){
