@@ -1,9 +1,6 @@
 package com.project.geomin.controller;
 
-import com.project.geomin.command.GroupSearchVO;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.PageeeVO;
-import com.project.geomin.command.WorkVO;
+import com.project.geomin.command.*;
 import com.project.geomin.student.service.WorkService;
 import com.project.geomin.user.security.MyUserDetails;
 import com.project.geomin.util.Criteria;
@@ -13,17 +10,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 @Controller
 @RequestMapping("/work")
 public class WorkController {
@@ -53,7 +47,12 @@ public class WorkController {
 
         return "work/workdis";
     }
-
+    @GetMapping("/workeva")
+    public String list2(Model model, Criteria cri, HttpSession session) {
+        String user_id = (String)session.getAttribute("user_id");
+        ArrayList<WorkVO> list2 = workService.getList(cri,user_id); //데이터
+        int total=workService.getTotal(cri,user_id);
+        PageeeVO pageVo = new PageeeVO(cri, total);
     @GetMapping("/makework")
     public String reg() {
         return "work/makework";
@@ -80,11 +79,16 @@ public class WorkController {
         return "/work/worksub";
     }
     @PostMapping("/subForm")
-    public String subForm(WorkVO vo, RedirectAttributes ra){
-        System.out.println(1);
-        System.out.println(vo);
-        System.out.println(1);
-        ra.addAttribute("sg_no", vo.getSg_no());
+    public String subForm(@RequestBody Map<String, Object> map){
+        System.out.println("ffffff");
+        System.out.println(map.toString());
+        List<Map<String,String>> list=(List<Map<String, String>>) map.get("selectedValues");
+        for(Map<String,String> map2 :list){
+            String h_no = map2.get("workNo");
+            String sg_no = map2.get("groupNo");
+            int n = workService.insertHw(h_no,sg_no);
+        }
         return "redirect:/work/workdis";
     }
+
 }
