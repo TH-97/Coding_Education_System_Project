@@ -15,4 +15,5 @@ public interface WorkService {
     public int getTotal(Criteria cri, String user_id);
     public int regist(WorkVO vo);
     public WorkVO getDetail(int user_id);
+    public int insertHw(String h_no,String sg_no);
 }

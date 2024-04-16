@@ -16,4 +16,5 @@ public interface WorkMapper {
     ArrayList<GroupVO> selectGroup(@Param("gvo") GroupVO gvo, @Param("gsvo") GroupSearchVO gsvo);
     public int regist(WorkVO vo);
     public WorkVO getDetail(int user_id);
+    public int insertHw(@Param("h_no")String h_no,@Param("sg_no")String sg_no);
 }
