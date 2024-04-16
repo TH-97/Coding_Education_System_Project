@@ -4,6 +4,7 @@ import com.project.geomin.admin.aws.s3.S3Service;
 import com.project.geomin.admin.service.AdminService;
 import com.project.geomin.command.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class AdminController {
     @Autowired
     S3Service s3Service;
     @Autowired
+    @Qualifier("AdminService")
     AdminService adminService;
 
 
@@ -48,9 +50,13 @@ public class AdminController {
         return "user/video";
     }
     @PostMapping("/delete_content")
-    public String delete_content(@RequestParam(value = "con_nm", required= false) String con_nm){
+    public String delete_content(Model model,@RequestParam(value = "con_nm", required= false) String con_nm){
         s3Service.delete(con_nm);
         adminService.deleteContent(con_nm);
+
+        List<AdminVO> list = adminService.getContent();
+
+        model.addAttribute("list",list);
         return "user/content";
     }
     @GetMapping("/FAQ")
