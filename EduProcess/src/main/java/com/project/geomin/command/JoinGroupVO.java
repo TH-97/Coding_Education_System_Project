@@ -15,7 +15,7 @@ public class JoinGroupVO {
     Integer jg_score;
 
     //group table join
-    Integer ctb_no;
+    String con_nm;
     String sg_user_id;
     String sg_user_nm;
     String sg_name;

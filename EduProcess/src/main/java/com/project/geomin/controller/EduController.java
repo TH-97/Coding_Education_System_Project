@@ -33,7 +33,10 @@ public class EduController {
 
 	//교육자 그룹 등록
 	@GetMapping("/groupRegist")
-	public String groupRegist() {
+	public String groupRegist(Principal principal, Model model) {
+		String userId = principal.getName();
+		List<ContentVO> contentList = eduService.selectMyContents(userId);
+		model.addAttribute("contentList", contentList);
 		return "edu/groupRegist";
 	}
 	@PostMapping("/groupRegistDB")
@@ -59,7 +62,10 @@ public class EduController {
 		return "redirect:/edu/groupSelect";
 	}
 	@GetMapping("/groupUpdate")
-	public String groupUpdate(GroupVO vo, Model model){
+	public String groupUpdate(Principal principal, GroupVO vo, Model model){
+		String userId = principal.getName();
+		List<ContentVO> contentList = eduService.selectMyContents(userId);
+		model.addAttribute("contentList", contentList);
 		System.out.println(vo);
 		ArrayList<GroupVO> groupList = eduService.selectGroupPK(vo);
 		model.addAttribute("groupList", groupList.get(0));
@@ -121,7 +127,11 @@ public class EduController {
 
 
 	@GetMapping("/groupContents")
-	public String groupContents(){
+	public String groupContents(Principal principal, Model model){
+		String user_id = principal.getName();
+
+		List<ContentVO> contentList = eduService.selectMyContents(user_id);
+		model.addAttribute("contentList", contentList);
 		return "edu/groupContents";
 	}
 
@@ -147,19 +157,28 @@ public class EduController {
 		System.out.println(map);
 		//전체 승인로직
 		eduService.applierApply(map);
-		List<String> list = (List<String>)map.get("updateList");
-		String userId = list.get(0);
-		Integer sgNo = Integer.parseInt(list.get(1));
+		List<List<String>> list = (List<List<String>>)map.get("updateList");
+		System.out.println(list);
+		for(List<String> arr :list){
+			System.out.println(arr);
+			String userId = arr.get(0);
+			Integer sgNo = Integer.parseInt(arr.get(1));
 
-		JoinChatVO joinChatVO = new JoinChatVO();
-		joinChatVO.setSg_no(sgNo);
-		joinChatVO.setUser_id(userId);
-		//채팅방번호 조회
-		String rcNo = chatService.getRcNo(joinChatVO);
+			JoinChatVO joinChatVO = new JoinChatVO();
+			joinChatVO.setSg_no(sgNo);
+			joinChatVO.setUser_id(userId);
+			//채팅방번호 조회
+			String rcNo = chatService.getRcNo(joinChatVO);
 
-		//그룹방 가입
-		joinChatVO.setRc_no(rcNo);
-		joinChatVO.setJc_status("활성화");
+			//그룹방 가입
+			joinChatVO.setRc_no(rcNo);
+			joinChatVO.setJc_status("활성화");
+		
+			chatService.groupChatJoin(joinChatVO);
+		}
+
+
+
 
 		return "OK";
 	}
@@ -170,6 +189,19 @@ public class EduController {
 	public String groupDelete(@RequestBody Map<String, Object> map){
 		System.out.println(map);
 		String sgNo = (String)map.get("sg_no");
+
+		JoinChatVO joinChatVO = new JoinChatVO();
+		joinChatVO.setSg_no(Integer.parseInt(sgNo));
+
+		String rcNo = chatService.getRcNo(joinChatVO);
+		joinChatVO.setRc_no(rcNo);
+		System.out.println(rcNo);
+
+		chatService.joinChatGroupDelete(joinChatVO);
+		chatService.chatRoomDelete(joinChatVO);
+
+
+
 		eduService.joinGroupDelete(sgNo);
 		eduService.groupDelete(sgNo);
 		return "OK";
@@ -189,8 +221,21 @@ public class EduController {
 	public String deleteJoinStud(@RequestBody JoinGroupVO vo){
 		System.out.println(vo);
 		eduService.deleteJoinStud(vo);
+
+		JoinChatVO joinChatVO = new JoinChatVO();
+		joinChatVO.setSg_no(vo.getSg_no());
+		String rcNo = chatService.getRcNo(joinChatVO);
+		joinChatVO.setRc_no(rcNo);
+		joinChatVO.setUser_id(vo.getUser_id());
+
+		chatService.joinChatOneDelete(joinChatVO);
+
+
 		return "OK";
 	}
+
+
+
 
 
 }

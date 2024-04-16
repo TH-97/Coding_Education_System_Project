@@ -34,8 +34,37 @@ public class ChatServiceImpl implements  ChatService{
     }
 
     @Override
+    public void saveMessage(RoomVO vo) {
+        ArrayList<ChatMessageVO> messagelist = WebSocketHandler.getMessageList().get(vo.getRc_no());
+        if(messagelist != null && !messagelist.isEmpty()){
+            chatMapper.saveMessage(messagelist);
+            messagelist.clear();
+        }
+    }
+
+    @Override
     public String getRcNo(JoinChatVO vo) {
         return chatMapper.getRcNo(vo);
+    }
+
+    @Override
+    public void joinChatGroupDelete(JoinChatVO vo) {
+        chatMapper.joinChatGroupDelete(vo);
+    }
+
+    @Override
+    public void joinChatOneDelete(JoinChatVO vo) {
+        chatMapper.joinChatOneDelete(vo);
+    }
+
+    @Override
+    public void chatRoomDelete(JoinChatVO vo) {
+        chatMapper.chatRoomDelete(vo);
+    }
+
+    @Override
+    public void deleteChatMessage(JoinChatVO vo) {
+        chatMapper.deleteChatMessage(vo);
     }
 
     @Override

@@ -45,4 +45,8 @@ public class WorkServiceImpl implements WorkService {
     public WorkVO getDetail(int user_id) {
         return workMapper.getDetail(user_id);
     }
+
+    public int insertHw(String h_no,String sg_no){
+        return workMapper.insertHw(h_no,sg_no);
+    }
 }

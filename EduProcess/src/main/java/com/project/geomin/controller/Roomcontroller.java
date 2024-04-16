@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -37,12 +38,19 @@ public class Roomcontroller {
 
 	@GetMapping("/moveChatting")
 	public String moveChatting(Principal principal,RoomVO vo , Model model) {
+		//입장전 채팅내용 저장
+		chatService.saveMessage(vo);
+
 		model.addAttribute("enterRoom", vo);
 		model.addAttribute("chatList", chatService.loadChatting(vo));
 		chatService.disActivateChatStatus(principal.getName(), vo);
 		return "chat/chat";
 	}
-
+	@GetMapping("/roomOut")
+	public String roomOut(Principal principal,RoomVO vo) {
+		chatService.disActivateChatStatus(principal.getName(), vo);
+		return "redirect:/room";
+	}
 	@PostMapping("/createRoomDB")
 	public String createRoomDB(Principal principal, JoinChatVO vo, RedirectAttributes ra){
 		String userId = principal.getName();
@@ -117,6 +125,18 @@ public class Roomcontroller {
 		System.out.println(myStudentList);
 
 		return new ResponseEntity<>(myStudentList, HttpStatus.OK);
+	}
+
+	@ResponseBody
+	@PostMapping("/getOutChat")
+	public void getOutChat(@RequestBody Map<String, Object> map){
+		String rgNo = (String)map.get("rcNo");
+		JoinChatVO joinChatVO = new JoinChatVO();
+		joinChatVO.setRc_no(rgNo);
+		chatService.deleteChatMessage(joinChatVO);
+		chatService.joinChatGroupDelete(joinChatVO);
+		chatService.chatRoomDelete(joinChatVO);
+
 	}
 
 }

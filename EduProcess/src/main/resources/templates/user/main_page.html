@@ -5,6 +5,10 @@
 
     <link rel="stylesheet" href="/css/main_page.css">
 
+    <style>
+        #contents-area{display: flex;justify-content: space-around}
+    </style>
+
 </head>
 
 <body>
@@ -15,7 +19,7 @@
     <div id="section">
         <div class="section_item"></div>
     </div>
-
+    <div id="contents-area">
     <div class="contents" th:each="item : ${list}" style="width: 350px">
         <form class="formContent" action="/admin/content" method="post">
             <div style="width: 100%; text-align: center">
@@ -24,6 +28,7 @@
                 <input type="hidden" name="content_name" th:value="${item.con_nm}">
             </div>
         </form>
+    </div>
     </div>
 	<div sec:authorize="isAuthenticated()">
 		[[${#authentication.principal}]]

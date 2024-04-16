@@ -29,7 +29,11 @@
               </select>
             </li>
             <li><span>학습목표</span> <textarea name="sg_content" placeholder="학습목표를 입력하세요" required></textarea></li>
-            <li><span>학습 콘텐츠</span><input type="text" name="ctb_no" placeholder="나중에 교육자가 산 컨텐츠 조회해서 select" required></li>
+            <li><span>학습 콘텐츠</span>
+              <select name="con_nm" >
+                <option th:each="contentVO : ${contentList}" th:value="${contentVO.con_nm}">[[${contentVO.con_nm}]]</option>
+              </select>
+            </li>
             <li><span>학습 시작 기간</span> <input id="start_date" type="date" min="" name="sg_start_date"  onchange="vaildfunc()" required></li>
             <li><span>학습 종료 기간</span><input id="end_date" type="date" name="sg_end_date"required ></li>
             <li><span>그룹방 상태</span>
