@@ -36,9 +36,16 @@ public interface ChatService {
     //그룹채팅 연결
     int groupChatJoin(JoinChatVO vo);
 
+    //1대1메시지 한번에 저장
+    void saveMessage(RoomVO vo);
 
 
     //방번호 조회
     String getRcNo(JoinChatVO vo);
+
+    void joinChatGroupDelete(JoinChatVO vo);
+    void joinChatOneDelete(JoinChatVO vo);
+    void chatRoomDelete(JoinChatVO vo);
+    void deleteChatMessage(JoinChatVO vo);
 
 }

@@ -11,6 +11,8 @@ public class GroupVO {
     String user_id;
     String user_nm;
     Integer ctb_no;
+    String con_nm;
+    String thumbnail_path;
     Integer sg_no;
 
     String sg_name;

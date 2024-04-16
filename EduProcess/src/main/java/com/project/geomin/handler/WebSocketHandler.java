@@ -29,7 +29,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	static final HashMap<String, HashMap<String, WebSocketSession>> ROOMMap = new HashMap<>();
 
 	//한 트랙젝션에 메시지를 저장하기위한 용도
-	HashMap<String, ArrayList<ChatMessageVO>> messageList = new HashMap<>();
+	@Getter
+	static final HashMap<String, ArrayList<ChatMessageVO>> messageList = new HashMap<>();
 
 
 	//웹소켓 연결시
@@ -75,6 +76,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		ArrayList<ChatMessageVO> messagelist = messageList.get(roomNumber);
 		if(!messagelist.isEmpty()){
 			chatMapper.saveMessage(messagelist);
+
+
 			messagelist.clear();
 		}
 

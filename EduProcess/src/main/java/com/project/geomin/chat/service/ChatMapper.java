@@ -43,4 +43,10 @@ public interface ChatMapper {
 
     String getRcNo(JoinChatVO vo);
 
+    void joinChatGroupDelete(JoinChatVO vo);
+    void joinChatOneDelete(JoinChatVO vo);
+    void chatRoomDelete(JoinChatVO vo);
+    void deleteChatMessage(JoinChatVO vo);
+
+
 }

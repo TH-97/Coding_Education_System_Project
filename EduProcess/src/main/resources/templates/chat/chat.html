@@ -14,8 +14,12 @@
             <div class="chat-container">
                 <div class="chat-header">
                     <h1>[[${enterRoom.rc_title}]]</h1>
+                    <div>
                     <button type="button" id="disconn">뒤로가기</button>
-                    <button type="button" >채팅방 나가기</button>
+                     <th:block th:if="${enterRoom.rc_usage == 'one'}">
+                         <button type="button" id="delete-chat" >채팅방 나가기</button>
+                      </th:block>
+                    </div>
                 </div>
                 <div class="chat-content">
                     <div id="msgArea" style="font-size: 12px">
@@ -114,12 +118,12 @@
 
             }
             function scrollUl() {
-                    // 채팅창 form 안의 ul 요소, (ul 요소 안에 채팅 내용들이 li 요소로 입력된다.)
+
                 let chatContent = document.querySelector(".chat-content");
                 chatContent.scrollTop= chatContent.scrollHeight;
                 console.log(chatContent.scrollTop)
                 console.log(chatContent.scrollHeight)
-                    //
+
             }
 
 
@@ -136,7 +140,7 @@
                     rc_no : [[${enterRoom.rc_no}]]
                 }));
                 websocket.close();
-                location.href="/room";
+                location.href="/roomOut?rc_no="+[[${enterRoom.rc_no}]]+"&rc_usage="+[[${enterRoom.rc_usage}]];
             }
             
             //채팅창에 들어왔을 때
@@ -208,4 +212,26 @@
 
 
             })
+
+
+            const deleteChat = document.querySelector("#delete-chat");
+
+            deleteChat.onclick = function (){
+                if(confirm("채팅방에서 아예 나가시겠습니까?")){
+                    fetch("/getOutChat",{
+                        method : "post",
+                        headers :  {
+                            "Content-Type": "application/json",
+                        },
+                        body : JSON.stringify({
+                            rcNo : [[${enterRoom.rc_no}]]
+                        })
+                    })
+                        .then((res)=>{
+                            location.href="/room";
+                        })
+
+                }
+
+            }
 </script>
