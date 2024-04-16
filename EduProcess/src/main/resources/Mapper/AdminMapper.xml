@@ -47,6 +47,7 @@
         FROM content c
         JOIN cont_file f ON c.con_nm = f.con_nm
         WHERE c.con_nm = #{con_nm}
+        ORDER BY f.file_no asc;
     </select>
 
     <select id="getContent" resultType="AdminVO">

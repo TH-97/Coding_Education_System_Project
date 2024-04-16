@@ -8,8 +8,44 @@
             width: 100%;
             border: 1px solid #999999;
         }
-        .time{
+
+        .time {
             right: 10px;
+        }
+        #myform fieldset{
+            display: inline-block;
+            direction: rtl;
+            border:0;
+        }
+        #myform fieldset legend{
+            text-align: right;
+        }
+        #myform input[type=radio]{
+            display: none;
+        }
+        #myform label{
+            font-size: 3em;
+            color: transparent;
+            text-shadow: 0 0 0 #f0f0f0;
+        }
+        #myform label:hover{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+        #myform label:hover ~ label{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+        #myform input[type=radio]:checked ~ label{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+        #reviewContents {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: solid 1.5px #D3D3D3;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
         }
     </style>
 </head>
@@ -18,63 +54,47 @@
 <!--상단바-->
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
 
-<section style="margin-top: 30px">
-    <div style="margin: 0 auto; width: 60%; display: flex; flex-direction: column;">
-        <h1 th:text="${content.con_nm}"></h1>
+<section style="margin-top: 30px;display: flex; justify-content: space-around;min-height: 1000px; max-height: 3000px;">
+    <div style=" width: 60%;">
+        <h1 id="con_nm" th:text="${content.con_nm}"></h1>
         <div>
-            <h4>라뷰 평점</h4> <h4>수강생 20명</h4>
+            <h4>리뷰 평점</h4> <h4>수강생 20명</h4>
         </div>
-        <br>
         <img style="width: 100%" th:src="${content.thumbnail_path}">
-        <br>
-        <br>
         <h3 style="background-color: white; border-bottom: 1px solid red">난이도</h3>
-        <p th:text="${content.con_lv}"></p>
-        <br>
-        <br>
+        <div th:text="${content.con_lv}"></div>
         <br>
         <h3 style="background-color: white; border-bottom: 1px solid red">상세내용</h3>
-        <h3 th:text="${content.con_description}"></h3>
-        <br>
-        <br>
+        <div th:text="${content.con_description}"></div>
         <br>
         <h3 style="background-color: white; border-bottom: 1px solid red">커리큘럼</h3>
-        <br>
         <div id="files">
             <div th:each="item : ${content_list}">
                 <input type="hidden" th:src="${item.file_path}">
-                <div class="files" th:text="${item.file_nm}" style="display: flex; justify-content: space-between; padding: 10px 10px">
+                <div class="files" th:text="${item.file_nm}"
+                     style="display: flex; justify-content: space-between; padding: 10px 10px">
 
                 </div>
                 <video style="display: none" th:src="${item.file_path}"></video>
             </div>
         </div>
+        <br>
+        <h3 style="background-color: white; border-bottom: 1px solid red">리뷰</h3>
+        <button id="review-btn" style="width: 100px;height: 30px;background-color: #5da886;border: none;border-radius: 5px;margin-top: 10px">
+            리뷰작성 하기
+        </button>
+        <div id="review-write"></div>
+        <div></div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <div style="width: 200px;height:300px;position: sticky;border: 1px solid black;border-radius: 4px;right: 80px;top:30px;
+          display: flex; flex-direction: column;text-align: center">
+        <h2>무료</h2>
+        <br>
+        <button style="background-color: #5da886; height: 30px;border: none;">수강하기</button>
+    </div>
+
 </section>
 
 </body>
-<script>
-    var files = document.getElementById("files")
-
-    files.addEventListener("click", () => {
-        console.log(event.currentTarget.children)
-        //  console.log(event.target.textContent)
-        for (var i of event.currentTarget.children) {
-            if (i.children[1].textContent === event.target.textContent) {
-                console.log(i.children[0].src)
-                window.open(`/admin/video?src=${i.children[0].src}`, "", "width=800,height=480,top=50%,left=50%")
-            }
-        }
-    });
-
-</script>
+<script src="/js/user_content.js"></script>
 </html>
