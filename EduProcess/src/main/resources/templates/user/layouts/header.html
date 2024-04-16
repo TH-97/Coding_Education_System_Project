@@ -2,11 +2,12 @@
     <div id="header">
         <div id="logo"><a href="/user/mainPage"> <img src="/img/logo.png" alt=""></a></div>
         <div id="header-content">
-            <p>이용안내</p>
-            <p>학습서비스</p>
-            <p>구독서비스</p>
-            <p>교육자마당</p>
-            <p>운영마당</p>
+            <p><a href="">이용안내</a></p>
+            <p><a href="">학습서비스</a></p>
+            <p><a href="">구독서비스</a></p>
+            <p><a href="">교육자마당</a></p>
+            <p><a href="/board/list">게시판</a></p>
+            <p th:if="${#authorization.expression('hasRole(''ROLE_admin'')')}">운영마당</p>
             <div style="display: flex; align-items: center">
                 <div class="dropdown">
  				<button class="dropbtn" sec:authorize="isAuthenticated()" onclick="toggleDropdown()">내정보</button>
@@ -29,7 +30,7 @@
             <div>
                 <form action="/loginForm" method="post" id="textBox">
                     <input type="text" name = "username" placeholder="아이디">
-                    <input type="text" name = "password" placeholder="비밀번호">
+                    <input type="password" name = "password" placeholder="비밀번호">
                     <button id="loginBtn2">로그인</button>
                 </form>
             </div>

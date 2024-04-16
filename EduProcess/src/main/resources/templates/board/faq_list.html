@@ -5,9 +5,16 @@
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
 
 <link rel = "stylesheet" href="/css/boardAside.css">
-<link rel = "stylesheet" href="/css/boardList.css">
+<link rel = "stylesheet" href="/css/boardFaq.css">
 <body>
-  <section id="list_contents">
+<section class="faq_header">
+  		<div class="faq_header_content">
+  			<h2 class="faq_header_title">FAQ</h2>
+  			<div class="faq_header_sub-title">빠른 답변</div>
+  		</div>
+  	
+  	</section>
+  <section id="faq_contents">
   <th:block th:replace="~{/board/layouts/aside :: aside}"></th:block>
   	
   </section>

@@ -9,8 +9,8 @@ section{width: 1280px; margin: 0 auto}
 #loginBtn:hover{cursor: pointer;}
 .dropbtn:hover{cursor:pointer;}
 p{height: 100%; display: flex; align-items: center;}
-p:hover{color: #5DA886;cursor: pointer;}
-a {text-decoration: none ; outline: none ; color :white}
+/* p:hover{color: #5DA886;cursor: pointer;} */
+a {text-decoration: none ; outline: none ; color:black;}
 
 /* 모달 */
 #modal {

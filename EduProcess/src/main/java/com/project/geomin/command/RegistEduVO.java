@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class registEduVO {
+public class RegistEduVO {
 
 	//강사등록
 	String company;
