@@ -41,9 +41,64 @@ reviewBtn.addEventListener("click", () => {
     );
 });
 
-var reviewSave = document.getElementById("reviewSave")
-var myform = document.getElementById("myform")
-reviewSave.addEventListener("click",()=>{
-    myform.submit();
-});
+// var reviewSave = document.getElementById("reviewSave")
+// var myform = document.getElementById("myform")
+// reviewSave.addEventListener("click",()=>{
+//     myform.submit();
+// });
+//결제
+var IMP = window.IMP;
+IMP.init("imp81710247");
 
+var today = new Date();
+var hours = today.getHours(); // 시
+var minutes = today.getMinutes();  // 분
+var seconds = today.getSeconds();  // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+
+function requestPay() {
+    var name = document.getElementById("con_nm").textContent;
+    var amount = document.getElementById("con_price").textContent.replace("원","");
+    console.log(amount)
+    //회원아이디
+    var buyer_name =document.getElementById("user_id").value;
+    if(buyer_name === ""){
+        alert("로그인 하세요")
+    }else {
+        IMP.request_pay({
+            pg: 'kakaopay',
+            pay_method: 'kakaopay',
+            merchant_uid: "IMP" + makeMerchantUid,
+            name: name,
+            amount: amount,
+            // buyer_name : buyer_name,
+            card: {
+                detail: [
+                    {card_code: "*", enabled: false},     //모든 카드사 비활성화
+                ]
+            }
+        }, function (rsp) { // callback
+            if (rsp.success) {
+                $.ajax({
+                    url: "http://localhost:8989/payment/validate",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        imp_uid: rsp.imp_uid,            // 결제 고유번호
+                        merchant_uid: rsp.merchant_uid,   // 주문번호
+                        amount: rsp.paid_amount,
+                        name: rsp.name,
+                        // buyer_name:buyer_name,
+                        ctb_pay_type: rsp.pay_method,
+                    }),
+                }).done(function (data) {
+
+                    alert("결제 성공" + data)
+                })
+            } else {
+                alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+            }
+        });
+    }
+}
