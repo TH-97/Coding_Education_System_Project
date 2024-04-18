@@ -66,7 +66,7 @@ public class APIController {
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
             String errorLine;
             while ((errorLine = errorReader.readLine()) != null) {
-            	System.out.println(errorLine);
+            	System.out.println("errorLine : "+errorLine);
             }
             errorReader.close();
             StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
@@ -80,7 +80,7 @@ public class APIController {
 
             // 출력 스레드의 결과 가져오기
             String output = outputGobbler.getResult();
-            System.out.println(output);
+            System.out.println("output : " + output);
 
             System.out.println("파일 생성 확인: " + directoryPath);
             return output;
@@ -121,6 +121,12 @@ public class APIController {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }finally {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
