@@ -28,7 +28,7 @@ public class APIController {
     public String compileAndRun(@RequestParam("code") String code,@RequestParam("user_id") String user_id , @RequestParam("homework_num") String hn) throws IOException, InterruptedException {
         // 사용자가 입력한 코드 경로
         String directoryPath ="homework/"+user_id+"/"+hn;
-        System.out.println("user_id : " + user_id + "homework_num : " +hn);
+        System.out.println("user_id : " + user_id + " homework_num : " +hn);
         System.out.println("code : " +code);
 
         // 폴더 객체 생성
@@ -61,7 +61,7 @@ public class APIController {
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
 //            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
             Process runProcess = Runtime.getRuntime().exec("/usr/bin/java -cp /home/ubuntu/"+directoryPath+" Solution");
-            
+            System.out.println("경로: " + "/usr/bin/java -cp /home/ubuntu/"+directoryPath+" Solution");
             // 프로세스의 출력을 읽는 스레드 생성
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
             String errorLine;
