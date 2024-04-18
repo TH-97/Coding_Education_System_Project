@@ -38,16 +38,16 @@
     </insert>
 
     <select id="getT" resultType="AdminVO">
-        SELECT *
-        FROM content
+        select *
+        from content
         where con_nm = #{con_nm}
     </select>
     <select id="getF" resultType="AdminVO">
-        SELECT *
-        FROM content c
-        JOIN cont_file f ON c.con_nm = f.con_nm
-        WHERE c.con_nm = #{con_nm}
-        ORDER BY f.file_no asc;
+        select *
+        from content c
+        join cont_file f ON c.con_nm = f.con_nm
+        where c.con_nm = #{con_nm}
+        order by f.file_no asc;
     </select>
 
     <select id="getContent" resultType="AdminVO">
@@ -56,12 +56,13 @@
     </select>
 
     <delete id="deleteContent">
-        DELETE FROM content
-        WHERE con_nm = #{con_nm};
+        delete from
+        content
+        where con_nm = #{con_nm};
     </delete>
 
     <delete id="deleteContent_file">
-        DELETE FROM cont_file
-        WHERE con_nm = #{con_nm};
+        delete from cont_file
+        where con_nm = #{con_nm};
     </delete>
 </mapper>

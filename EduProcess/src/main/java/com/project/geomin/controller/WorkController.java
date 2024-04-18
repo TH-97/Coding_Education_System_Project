@@ -98,7 +98,9 @@ public class WorkController {
         System.out.println("zz"+list.toString());
         return "work/workcheck";
     }
-    @GetMapping("/index2")
+
+    @GetMapping("/code")
+
     public String detail(@RequestParam("h_no") int h_no,
                          Model model,
                          HttpSession session) {
@@ -109,6 +111,8 @@ public class WorkController {
         model.addAttribute("vo", vo);
         session.setAttribute("modelData",model);
 
-        return "/work/index2";
+
+        return "/work/codeCompiler1";
     }
+
 }

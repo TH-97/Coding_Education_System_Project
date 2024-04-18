@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+
+<link rel = "stylesheet" href="/css/boardAside.css">
+<link rel = "stylesheet" href="/css/regiContents.css">
+<body>
+  <section id="list_content">
+  <th:block th:replace="~{/board/layouts/aside :: aside}"></th:block>
+  	
+  	<div class = "contents">
+  		<form class="regi" action="/board/regist" method="post">
+  			<div class="contents-header">
+  				<textarea id="title" name="q_title" placeholder="제목을 입력하세요"></textarea>
+  			</div>
+  			<textarea class="contents-body" name="q_context" placeholder="- 학습 관련 질문을 남겨주세요. 상세히 작성하면 더 좋아요!
+- 먼저 유사한 질문이 있었는지 검색해보세요.
+- 서로 예의를 지키며 존중하는 문화를 만들어가요."></textarea>
+  			
+  			<div class="contents-footer">
+  			<button type="button" class="cancellation">
+  				취소
+  			</button>
+  			
+  			<button type="submit" class="regiBtn">
+  				등록
+  			</button>
+  			</div>
+  			<input type="hidden" name="user_id" th:value="${#authentication.getPrincipal.getUserVO.user_id}">
+            <input type="hidden" name="q_date" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+  		</form>
+  	</div>
+   </section>
+</body>
+</html>
+  	

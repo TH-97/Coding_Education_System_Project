@@ -1,5 +1,10 @@
 package com.project.geomin.board.service;
 
-public interface boardService {
+import java.util.ArrayList;
 
+import com.project.geomin.command.QuestionVO;
+
+public interface boardService {
+	public int boardRegi(QuestionVO vo);
+	public ArrayList<QuestionVO> questionList(Criteria cri);
 }

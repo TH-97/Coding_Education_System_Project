@@ -17,6 +17,6 @@ public interface WorkMapper {
     public int getTotal2(@Param("cri") Criteria cri, @Param("user_id") String user_id); //전체게시글 수
     ArrayList<GroupVO> selectGroup(@Param("gvo") GroupVO gvo, @Param("gsvo") GroupSearchVO gsvo);
     public int regist(WorkVO vo);
-    public WorkVO getDetail(int h_no);
     public int insertHw(@Param("h_no")String h_no,@Param("sg_no")String sg_no);
+    public WorkVO getDetail(int h_no);
 }
