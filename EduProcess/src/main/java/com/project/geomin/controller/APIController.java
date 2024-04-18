@@ -79,13 +79,14 @@ public class APIController {
             System.out.println("런타임 종료 코드 : " +a );
             if(a == 0) {
             	BufferedReader Reader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
-            	String InputLine;
-            	while ((InputLine = Reader.readLine()) != null) {
-            		
-            		System.out.println("표준값: " +InputLine);
+            	String InputLine ="";
+            	String s;
+            	while ((s = Reader.readLine()) != null) {
+            		InputLine+=s;
+            		System.out.println("표준값: " +s);
             		
             	}
-            	
+            	System.out.println("정산값 : " +InputLine);
             	return InputLine;
             	
 //            	StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
