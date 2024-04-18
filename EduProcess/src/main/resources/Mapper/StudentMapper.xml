@@ -64,5 +64,50 @@
     <delete id="deleteAply" parameterType="JoinGroupVO">
         delete from join_group where user_id = #{user_id} and sg_no = #{sg_no}
     </delete>
+
+    <select id="getNoticeList" resultType="GroupNoticeVO">
+        select * from notice_group
+        where sg_no = #{sgNo} and ng_usage = '공지'
+    </select>
+
+    <select id="getRecordNoticeList" resultType="GroupNoticeVO">
+        select * from notice_group
+        where sg_no =  #{sgNo} and ng_usage = '기록'
+    </select>
+
+    <select id="getNoticeDetail" resultType="GroupNoticeVO">
+        select * from notice_group
+        where ng_no =  #{ngNo}
+    </select>
+
+    <select id="getQuestionList" resultType="GroupQAVO">
+
+        select qg.*, ag.ag_count from question_group qg
+      left join (select q.sg_no, q.qg_no , count(*) as ag_count from answer_group a
+         left join question_group q on a.qg_no = q.qg_no
+                 where q.sg_no = #{sg_no}
+                 group by qg_no) ag on ag.qg_no = qg.qg_no
+        where qg.sg_no = #{sg_no}
+    </select>
+
+    <insert id="noticeRegist">
+        insert into notice_group(sg_no, user_id, ng_title, ng_content, ng_date, ng_usage)
+        values (#{sg_no}, #{user_id}, #{ng_title}, #{ng_content}, DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i'), #{ng_usage})
+    </insert>
+
+    <update id="noticeUpdate">
+        update notice_group set user_id = #{user_id}, ng_title = #{ng_title}, ng_content = #{ng_content}
+        where ng_no = #{ng_no}
+    </update>
+    <delete id="noticeDelete">
+        delete from notice_group where ng_no = #{ng_no}
+    </delete>
+
+    <insert id="QARegist">
+        insert into question_group(sg_no, user_id, qg_title, qg_content, qg_date)
+        values (#{sg_no}, #{user_id}, #{qg_title}, #{qg_content}, DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i'))
+    </insert>
+
+
 </mapper>
 

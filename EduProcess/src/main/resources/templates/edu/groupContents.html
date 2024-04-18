@@ -16,10 +16,12 @@
             <br>
             <h3>스터디그룹에 필요한 학습 자료를 조회할 수 있습니다.</h3>
         </div>
-        <div class="select_searchbar">
-            <input type="text" name="" id="" placeholder="Search Contents Name...">
-            <input type="submit" value="">
-        </div>
+        <form action="/edu/groupContents" method="get">
+            <div class="select_searchbar">
+                <input type="text" name="con_nm" placeholder="Search Contents Name...">
+                <input type="submit" value="">
+            </div>
+        </form>
 
         <div class="select_content">
 
@@ -50,6 +52,46 @@
             </form>
 
         </div>
+
+
+
+        <div class="page">
+            <ul>
+
+                <th:block th:if="${pageVO.total != 0}">
+
+                    <li><a th:href="@{/edu/groupContents(currentPage=1, showPage=${pageVO.amount})}"><i
+                            class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                </th:block>
+
+                <th:block th:if="${pageVO.prev}">
+                    <li style="margin-right: 5px;"><a
+                            th:href="@{groupContents(currentPage=${pageVO.startPage - 1}, showPage=${pageVO.amount})}">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a></li>
+                </th:block>
+
+
+                <th:block th:each="pageNum : ${pageVO.pageList}">
+                    <li th:class="${pageVO.pageNum == pageNum ? 'on' : '' }"><a
+                            th:href="@{/edu/groupContents(currentPage=${pageNum}, showPage=${pageVO.amount})}">[[${pageNum}]]</a></li>
+                </th:block>
+
+                <th:block th:if="${pageVO.next}">
+                    <li style="margin-left: 5px;"><a
+                            th:href="@{/edu/groupContents(currentPage=${pageVO.endPage+1}, showPage=${pageVO.amount})}">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                </th:block>
+
+                <th:block th:if="${pageVO.total != 0 }">
+                    <li><a
+                            th:href="@{/edu/groupContents(currentPage=${pageVO.realEnd}, showPage=${pageVO.amount})}"><i
+                            class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                </th:block>
+
+            </ul>
+        </div>
+
     </div>
 </section>
 </body>

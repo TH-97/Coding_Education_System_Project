@@ -72,7 +72,9 @@ public class APIController {
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
             String errorLine;
             while ((errorLine = errorReader.readLine()) != null) {
-            	System.out.println("errorLine : "+errorLine);
+
+            	System.out.println("error: " +errorLine);
+
             }
             errorReader.close();
             StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
@@ -84,7 +86,9 @@ public class APIController {
             String output = outputGobbler.getResult();
             System.out.println("output : " + output);
 
-            System.out.println("파일 생성 확인: " + directoryPath);
+            System.out.println("파일 생성 확인: " + fileName);
+            System.out.println("output : " +output);
+
             return output;
         } else {
             System.out.println("컴파일 오류");

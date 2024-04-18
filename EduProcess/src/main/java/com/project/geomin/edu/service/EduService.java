@@ -32,6 +32,8 @@ public interface EduService {
     void deleteJoinStud(JoinGroupVO vo);
 
     void applierApply(Map<String, Object> map);
+
+    void groupLeaderApply(JoinGroupVO vo);
     void groupDelete(String sgNo);
     void joinGroupDelete(String sgNo);
 
@@ -44,7 +46,7 @@ public interface EduService {
 
     /////////////////////////컨텐츠
     //내콘텐츠 조회
-    List<ContentVO> selectMyContents(String userId);
-
+    List<ContentVO> selectMyContents(Criteria cri, String userId, GroupSearchVO searchVO);
+    int contentPageTotal(String userId, GroupSearchVO searchVO);
 
 }
