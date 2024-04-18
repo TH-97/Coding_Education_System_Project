@@ -19,6 +19,9 @@ configurations {
 
 repositories {
 	mavenCentral()
+	google()
+	maven { url 'https://jitpack.io' }
+	maven { url "https://maven.google.com" }
 }
 
 dependencies {
@@ -55,6 +58,11 @@ dependencies {
 	implementation 'software.amazon.awssdk:aws-sdk-java:2.20.43'
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	//portOne
+	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
+	//potyOne need Reservation system
+	implementation "com.google.cloud:google-cloud-bigquery:2.11.0"
 
 
 
