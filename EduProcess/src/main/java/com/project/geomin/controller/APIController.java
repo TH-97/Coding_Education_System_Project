@@ -80,6 +80,7 @@ public class APIController {
 
             // 출력 스레드의 결과 가져오기
             String output = outputGobbler.getResult();
+            System.out.println(output);
 
             System.out.println("파일 생성 확인: " + directoryPath);
             return output;
