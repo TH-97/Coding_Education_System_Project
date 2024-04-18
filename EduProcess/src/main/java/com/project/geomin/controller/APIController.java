@@ -51,7 +51,7 @@ public class APIController {
         }
 
         // javac 명령어를 사용하여 코드를 컴파일
-        Process compileProcess = Runtime.getRuntime().exec("javac ~/" +user_id+"/"+hn+"/"+"Solution.java");	
+        Process compileProcess = Runtime.getRuntime().exec(user_id+"/"+hn+"/"+"Solution.java");	
         int exitCode = compileProcess.waitFor(); // 프로세스가 종료될 때까지 대기
         System.out.println("컴파일 종료 코드: " + exitCode);
 
@@ -60,7 +60,7 @@ public class APIController {
         	
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
 //            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
-            Process runProcess = Runtime.getRuntime().exec("javac ~/" +user_id+"/"+hn+"/"+"Solution");
+            Process runProcess = Runtime.getRuntime().exec(user_id+"/"+hn+"/"+"Solution");
             
             // 프로세스의 출력을 읽는 스레드 생성
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
