@@ -66,17 +66,28 @@ public class APIController {
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
             String errorLine;
             while ((errorLine = errorReader.readLine()) != null) {
-
+            	
             	System.out.println("error: " +errorLine);
-
+            	
             }
             errorReader.close();
+            
             
 
 
             int a = runProcess.waitFor();
             System.out.println("런타임 종료 코드 : " +a );
             if(a == 0) {
+            	BufferedReader Reader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
+            	String InputLine;
+            	while ((InputLine = Reader.readLine()) != null) {
+            		
+            		System.out.println("표준값: " +InputLine);
+            		
+            	}
+            	Reader.close();
+            	
+            	
             	StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
             	// 출력 스레드의 결과 가져오기
             	String output = outputGobbler.getResult();
