@@ -42,11 +42,11 @@ public class WorkServiceImpl implements WorkService {
         System.out.println(result);
         return result;
     }
-    public WorkVO getDetail(int user_id) {
-        return workMapper.getDetail(user_id);
-    }
 
     public int insertHw(String h_no,String sg_no){
         return workMapper.insertHw(h_no,sg_no);
+    }
+    public WorkVO getDetail(int h_no) {
+        return workMapper.getDetail(h_no);
     }
 }

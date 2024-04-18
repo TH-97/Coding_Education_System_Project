@@ -37,12 +37,11 @@
                          )
     </insert>
 
-    <select id="getDetail" resultType="WorkVO">
-        SELECT * FROM hw_distribution
-        WHERE h_no = #{h_no}
-    </select>
-
     <insert id="insertHw">
         insert into hw (h_no,sg_no) values(#{h_no},#{sg_no})
     </insert>
+    <select id="getDetail" resultType="WorkVO">
+    SELECT * FROM hw_distribution
+        WHERE h_no = #{h_no}
+    </select>
 </mapper>
