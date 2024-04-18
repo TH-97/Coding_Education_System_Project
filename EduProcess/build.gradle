@@ -19,7 +19,9 @@ configurations {
 
 repositories {
 	mavenCentral()
+	google()
 	maven { url 'https://jitpack.io' }
+	maven { url "https://maven.google.com" }
 }
 
 dependencies {
@@ -59,6 +61,8 @@ dependencies {
 
 	//portOne
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
+	//potyOne need Reservation system
+	implementation "com.google.cloud:google-cloud-bigquery:2.11.0"
 
 
 

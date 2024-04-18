@@ -87,15 +87,32 @@ function requestPay() {
                     data: JSON.stringify({
                         imp_uid: rsp.imp_uid,            // 결제 고유번호
                         merchant_uid: rsp.merchant_uid,   // 주문번호
-                        amount: rsp.paid_amount,
-                        name: rsp.name,
-                        // buyer_name:buyer_name,
-                        ctb_pay_type: rsp.pay_method,
+                        amount: rsp.paid_amount, //가격
+                        name: rsp.name, // 상품 이름
+                        buyer_name:buyer_name, // 구매자 이름
+                        x3: rsp.pay_method, // 결제 수단
                     }),
                 }).done(function (data) {
-
-                    alert("결제 성공" + data)
-                })
+                    if (data === "이미 구매 하셨습니다"){
+                        console.log(data)
+                        return;
+                    }else {
+                        $.ajax({
+                            url: "http://localhost:8989/payment/validate/update", // 실제 엔드포인트로 변경
+                            method: "POST",
+                            data: JSON.stringify({
+                                buyer_name: buyer_name,
+                            }),
+                            success: function(response) {
+                                alert(response); // 서버 응답에 따라 경고 표시
+                            },
+                            error: function(xhr, status, error) {
+                                alert("에러 발생: " + error); // 에러 메시지 표시
+                            }
+                        });
+                        alert(data);
+                    }
+                });
             } else {
                 alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
             }

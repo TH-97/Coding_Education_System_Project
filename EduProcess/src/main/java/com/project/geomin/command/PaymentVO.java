@@ -15,4 +15,9 @@ public class PaymentVO {
     private String name;
     private String buyer_name;
     private int amount;
+    private String ctb_pay_type;
+
+    //찾을때
+    private String ctb_status;
+
 }
