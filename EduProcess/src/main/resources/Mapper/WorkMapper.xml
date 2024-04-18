@@ -4,11 +4,15 @@
 
 <mapper namespace="com.project.geomin.student.service.WorkMapper">
     <select id="getList" resultType="WorkVO">
-        SELECT hw_distribution.*, study_group.sg_name
+        SELECT *, DATE_FORMAT(h_reg_ymd, '%Y-%m-%d') AS formatted_date FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
+    </select>
+    <select id="getList2" resultType="WorkVO">
+        SELECT *
         FROM hw_distribution
-                 LEFT JOIN study_group ON hw_distribution.sg_no = study_group.sg_no
-            LIMIT #{cri.pageStart}, #{cri.amount};
-
+        WHERE h_no IN
+              (SELECT h_no FROM hw WHERE sg_no IN
+                                         (SELECT sg_no FROM join_group WHERE user_id = #{user_id})
+              )LIMIT #{cri.page}, #{cri.amount};
     </select>
     <select id="selectGroup"  resultType="GroupVO">
         SELECT sg_name, sg_no
@@ -18,6 +22,14 @@
     <select id="getTotal" resultType="int">
         select count(*)
         from hw_distribution
+    </select>
+    <select id="getTotal2" resultType="int">
+        SELECT count(*)
+        FROM hw_distribution
+        WHERE h_no IN
+              (SELECT h_no FROM hw WHERE sg_no IN
+                                         (SELECT sg_no FROM join_group WHERE user_id = #{user_id})
+              );
     </select>
     <insert id="regist">
         INSERT INTO hw_distribution (
@@ -37,12 +49,11 @@
                          )
     </insert>
 
+    <insert id="insertHw">
+        insert into hw (h_no,sg_no) values(#{h_no},#{sg_no})
+    </insert>
     <select id="getDetail" resultType="WorkVO">
         SELECT * FROM hw_distribution
         WHERE h_no = #{h_no}
     </select>
-
-    <insert id="insertHw">
-        insert into hw (h_no,sg_no) values(#{h_no},#{sg_no})
-    </insert>
 </mapper>

@@ -30,7 +30,6 @@ public class WorkController {
     public String list(Model model, Criteria cri, Authentication authentication, GroupSearchVO searchVO) {
         MyUserDetails dd = (MyUserDetails)authentication.getPrincipal();
         ArrayList<WorkVO> list = workService.getList(cri, dd.getUsername());
-
         //그룹 가져오기
         GroupVO vo2 = new GroupVO();
         ArrayList<GroupVO> gList = workService.selectGroup(vo2, searchVO);
@@ -39,22 +38,15 @@ public class WorkController {
         PageeeVO pageVo = new PageeeVO(cri, total);
         model.addAttribute("list", list);
         model.addAttribute("pageVO", pageVo);
-        System.out.println("---------------");
+        System.out.println(list.toString());
+        System.out.println("--------list-------");
         System.out.println(gList.toString());
-        System.out.println("----------------");
-
+        System.out.println("-------gList---------");
+        System.out.println("total:" + total);
         //배포
 
         return "work/workdis";
     }
-//    @GetMapping("/workeva")
-//    public String list2(Model model, Criteria cri, HttpSession session) {
-//        String user_id = (String) session.getAttribute("user_id");
-//        ArrayList<WorkVO> list2 = workService.getList(cri, user_id); //데이터
-//        int total = workService.getTotal(cri, user_id);
-//        PageeeVO pageVo = new PageeeVO(cri, total);
-//        return "work/workeva";
-//    }
     @GetMapping("/makework")
     public String reg() {
         return "work/makework";
@@ -84,13 +76,39 @@ public class WorkController {
     public String subForm(@RequestBody Map<String, Object> map){
         System.out.println("ffffff");
         System.out.println(map.toString());
-        List<Map<String,String>> list=(List<Map<String, String>>) map.get("selectedValues");
+        List<Map<String,String>> list = (List<Map<String, String>>) map.get("selectedValues");
         for(Map<String,String> map2 :list){
             String h_no = map2.get("workNo");
             String sg_no = map2.get("groupNo");
             int n = workService.insertHw(h_no,sg_no);
         }
-        return "redirect:/work/workdis";
+        return "redirect:/work/workcheck";
     }
+    @GetMapping("/workcheck")
+    public String list2(Model model, Criteria cri, Authentication authentication) {
+        MyUserDetails dd = (MyUserDetails)authentication.getPrincipal();
+        ArrayList<WorkVO> list = workService.getList2(cri, dd.getUsername());
 
+        int total=workService.getTotal2(cri,dd.getUsername());
+
+        PageeeVO pageVo = new PageeeVO(cri, total);
+        model.addAttribute("list", list);
+        model.addAttribute("pageVO", pageVo);
+        System.out.println("이새끼 실행 안되는구나?");
+        System.out.println("zz"+list.toString());
+        return "work/workcheck";
+    }
+    @GetMapping("/index2")
+    public String detail(@RequestParam("h_no") int h_no,
+                         Model model,
+                         HttpSession session) {
+        WorkVO vo = workService.getDetail(h_no);
+        System.out.println("33333333333333");
+        System.out.println(vo.getH_no());
+        System.out.println("333333333333333");
+        model.addAttribute("vo", vo);
+        session.setAttribute("modelData",model);
+
+        return "/work/index2";
+    }
 }

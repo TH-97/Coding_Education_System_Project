@@ -1,7 +1,10 @@
 package com.project.geomin.user.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import com.project.geomin.command.WorkVO;
+import com.project.geomin.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

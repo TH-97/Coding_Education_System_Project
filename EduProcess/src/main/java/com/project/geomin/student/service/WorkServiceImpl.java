@@ -21,6 +21,15 @@ public class WorkServiceImpl implements WorkService {
 
         ArrayList<WorkVO> al = workMapper.getList(cri, user_id);
         System.out.println(al.toString());
+        System.out.println("--------------------");
+        return al;
+    }
+    @Override
+    public ArrayList<WorkVO> getList2(Criteria cri, String user_id) {
+
+        ArrayList<WorkVO> al = workMapper.getList2(cri, user_id);
+        System.out.println(al.toString());
+        System.out.println("--------------------");
         return al;
     }
     @Override
@@ -28,8 +37,12 @@ public class WorkServiceImpl implements WorkService {
         return workMapper.selectGroup(vo, gsvo);
     }
     @Override
-    public int getTotal(Criteria cri, String user_id) {
-        return workMapper.getTotal(cri, user_id);
+    public int getTotal(Criteria cri, String h_no) {
+        return workMapper.getTotal(cri, h_no);
+    }
+    @Override
+    public int getTotal2(Criteria cri, String h_no) {
+        return workMapper.getTotal2(cri, h_no);
     }
 
     @Override
@@ -42,8 +55,8 @@ public class WorkServiceImpl implements WorkService {
         System.out.println(result);
         return result;
     }
-    public WorkVO getDetail(int user_id) {
-        return workMapper.getDetail(user_id);
+    public WorkVO getDetail(int h_no) {
+        return workMapper.getDetail(h_no);
     }
 
     public int insertHw(String h_no,String sg_no){
