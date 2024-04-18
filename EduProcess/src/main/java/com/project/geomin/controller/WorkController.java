@@ -112,7 +112,7 @@ public class WorkController {
         session.setAttribute("modelData",model);
 
 
-        return "/work/codeCompiler1";
+        return "work/codeCompiler1";
     }
 
 }
