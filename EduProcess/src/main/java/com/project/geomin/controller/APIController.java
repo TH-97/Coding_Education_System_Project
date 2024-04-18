@@ -118,6 +118,7 @@ public class APIController {
             try {
                 while ((line = reader.readLine()) != null) {
                     result.append(line).append("\n");
+                    System.out.println("line : "+line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
