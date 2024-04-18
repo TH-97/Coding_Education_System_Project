@@ -87,13 +87,14 @@ public class APIController {
             	}
             	Reader.close();
             	
+            	return InputLine;
             	
-            	StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
-            	// 출력 스레드의 결과 가져오기
-            	String output = outputGobbler.getResult();
-            	System.out.println("output : " + output);
-            	
-            	return output;
+//            	StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
+//            	// 출력 스레드의 결과 가져오기
+//            	String output = outputGobbler.getResult();
+//            	System.out.println("output : " + output);
+//            	
+//            	return output;
             	
             }else {
             	System.out.println("런타임 오류");
