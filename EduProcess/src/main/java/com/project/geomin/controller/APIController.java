@@ -27,7 +27,7 @@ public class APIController {
     @PostMapping("/compileAndRun")
     public String compileAndRun(@RequestParam("code") String code,@RequestParam("user_id") String user_id , @RequestParam("homework_num") String hn) throws IOException, InterruptedException {
         // 사용자가 입력한 코드 경로
-        String directoryPath = "mkdir -p ~/"+user_id+"/"+hn+"/"+"Solution.java";
+        String directoryPath = "~/"+user_id+"/"+hn+"/"+"Solution.java";
         System.out.println("user_id : " + user_id + "homework_num : " +hn);
         System.out.println("code : " +code);
 
@@ -43,7 +43,7 @@ public class APIController {
             System.out.println("Directory created successfully.");
         }
         
-        try (FileWriter fileWriter = new FileWriter("touch ~/"+user_id+"/"+hn+"/"+"Solution.java")) {
+        try (FileWriter fileWriter = new FileWriter("~/"+user_id+"/"+hn+"/Solution.java")) {
             fileWriter.write(code);
         } catch(IOException e) {
             System.out.println("파일생성실패 : " + e.getMessage());
