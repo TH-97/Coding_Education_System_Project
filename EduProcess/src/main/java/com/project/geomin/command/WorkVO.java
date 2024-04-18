@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 public class WorkVO {
     private Integer h_no;
     private String h_name;
-    private String h_detail;
+    private String h_detail1;
+    private String h_detail2;
+    private String h_detail3;
     private String h_level;
     private String h_reg_ymd;
     private String h_dead;

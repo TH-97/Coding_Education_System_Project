@@ -5,8 +5,10 @@ import com.project.geomin.admin.service.AdminService;
 import com.project.geomin.command.AdminVO;
 import com.project.geomin.command.ReviewVO;
 import com.project.geomin.review.service.ReviewService;
+import com.project.geomin.user.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,11 @@ public class AdminController {
     @Qualifier("ReviewService")
     ReviewService reviewService;
 
+    @GetMapping("/test")
+    public String test(){
 
+        return "test";
+    }
     @GetMapping("/conMa")
     public String conMa(Model model){
         List<AdminVO> list = adminService.getContent();
@@ -39,14 +45,25 @@ public class AdminController {
         return "user/content";
     }
     @PostMapping("/content")
-    public String content(Model model,@RequestParam("content_name")String content_name){
+    public String content(Model model, @RequestParam("content_name")String content_name, Authentication auth) {
 
         AdminVO T = adminService.getT(content_name);
 
         List<AdminVO> F = adminService.getF(content_name);
+
+        String what ="";
+        if (auth != null){
+            MyUserDetails myuser = (MyUserDetails) auth.getPrincipal();
+            what = myuser.getUsername();
+        } else {
+            what = null;
+        }
+
+
         System.out.println(F);
         model.addAttribute("content",T);
         model.addAttribute("content_list", F);
+        model.addAttribute("myuser", what);
         return "user/user_content";
     }
     @PostMapping("/reviewSave")

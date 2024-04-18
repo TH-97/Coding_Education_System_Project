@@ -24,7 +24,7 @@
 FAQ,QNA커뮤니티
 강사등록
 구매,결제 페이지
-
+ssh -i "C:\Users\user\Downloads\java.pem" ubuntu@ec2-52-79-194-111.ap-northeast-2.compute.amazonaws.com
 
 
 결제 -태훈
