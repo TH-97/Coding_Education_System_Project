@@ -108,6 +108,12 @@ public class UserController {
 		model.addAttribute("list",list);
 		return "user/main_page";
 	}
+	@GetMapping("/mainPage2")
+	public String mainPage2(Model model){
+		List<AdminVO> list = adminService.getContent();
+		model.addAttribute("list",list);
+		return "user/main_page2";
+	}
 	
 	@GetMapping("/kakao")
 	public String kakao(@RequestParam("code") String code,Model model) {
