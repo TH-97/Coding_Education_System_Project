@@ -14,6 +14,6 @@ public interface WorkService {
     ArrayList<GroupVO> selectGroup(GroupVO vo, GroupSearchVO gsvo);
     public int getTotal(Criteria cri, String user_id);
     public int regist(WorkVO vo);
-    public WorkVO getDetail(int user_id);
     public int insertHw(String h_no,String sg_no);
+    public WorkVO getDetail(int h_no);
 }

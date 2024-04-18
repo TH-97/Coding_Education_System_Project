@@ -92,5 +92,18 @@ public class WorkController {
         }
         return "redirect:/work/workdis";
     }
+    @GetMapping("/code")
+    public String detail(@RequestParam("h_no") int h_no,
+                         Model model,
+                         HttpSession session) {
+        WorkVO vo = workService.getDetail(h_no);
+        System.out.println("33333333333333");
+        System.out.println(vo.getH_no());
+        System.out.println("333333333333333");
+        model.addAttribute("vo", vo);
+        session.setAttribute("modelData",model);
+
+        return "/work/codeCompiler1";
+    }
 
 }

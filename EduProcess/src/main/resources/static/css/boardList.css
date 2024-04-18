@@ -125,7 +125,7 @@ form.search .search-item .search-by-text {
     color:#ffffff;
     border-radius: 4px;
 }
-.question-list-contatiner {
+.question-list-container {
 	margin-bottom: 40px;
 }
 .question-list-header{
@@ -268,4 +268,51 @@ a{
     width: 0;
     max-width: 520px;
     margin-right: 12px;
+}
+.pagination{
+	font-size :.75rem;
+	justify-content: space-between;
+	align-items: center;
+    display: flex;
+    text-align: center;
+    margin: -.25rem;
+}
+.pagination-previous , .pagination-next{
+	padding-left : .75rem;
+	padding-right : .75rem;
+	white-space:nowrap;
+    min-width: 2.25em;
+    font-size: 1em;
+    justify-content: center;
+    margin: .25rem;
+    text-align: center;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    height: 2.25em;
+    align-items: center;
+    display: flex;
+}
+.pagination-link{
+    min-width: 2.25em;
+    font-size: 1em;
+    padding-left: .5em;
+    padding-right: .5em;
+    justify-content: center;
+    margin: .25rem;
+    text-align: center;
+    display: flex;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    height: 2.25em;
+    align-items: center;
+}
+
+.pagination-link.is-current {
+    background-color: #1dc078;
+    border-color: #1dc078;
+    color: #fff;
+}
+.pagination-list {
+	display: flex;
+	justify-content: center;
 }

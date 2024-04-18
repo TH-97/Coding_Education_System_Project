@@ -4,8 +4,6 @@ import com.project.geomin.command.*;
 import com.project.geomin.handler.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.amazon.awssdk.services.chime.model.Room;
-
 import java.util.ArrayList;
 import java.util.List;
 
