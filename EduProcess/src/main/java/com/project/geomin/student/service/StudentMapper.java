@@ -1,8 +1,6 @@
 package com.project.geomin.student.service;
 
-import com.project.geomin.command.GroupSearchVO;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinGroupVO;
+import com.project.geomin.command.*;
 import com.project.geomin.edu.service.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +22,18 @@ public interface StudentMapper {
     int groupMaxAplyCheck(String userId);
 
     int deleteAply(JoinGroupVO vo);
+
+    ArrayList<GroupNoticeVO> getNoticeList(String sgNo);
+    ArrayList<GroupNoticeVO> getRecordNoticeList(String sgNo);
+
+    ArrayList<GroupQAVO> getQuestionList(String sgNo);
+    GroupNoticeVO getNoticeDetail(String ngNo);
+    int noticeRegist(GroupNoticeVO vo);
+    int noticeUpdate(GroupNoticeVO vo);
+    int noticeDelete(GroupNoticeVO vo);
+
+    int QARegist(GroupQAVO vo);
+
 
 
 

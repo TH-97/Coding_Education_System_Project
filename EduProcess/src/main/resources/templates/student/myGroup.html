@@ -16,10 +16,6 @@
       <br>
       <h3>내가 가입한 학습그룹입니다. 학습그룹방에 입장하여 열심히 공부해보아요.</h3>
     </div>
-    <div class="select_searchbar">
-      <input type="text" name="" id="" placeholder="Search Group Name...">
-      <input type="submit" value="">
-    </div>
 
     <div class="select_content">
 
@@ -44,7 +40,13 @@
           <td>[[${myGroupVO.sg_user_nm}]]</td>
           <td>[[${myGroupVO.sg_start_date}]] ~<br> [[${myGroupVO.sg_end_date}]]</td>
           <td>[[${myGroupVO.sg_content}]]</td>
-          <td><button class="student-apply-btn" th:onclick="|location.href='@{/student/myGroupDetail(sg_no=${myGroupVO.sg_no})}'|">입장하기</button></td>
+          <th:block th:if="${myGroupVO.sg_status == '학습진행중'}">
+            <td><button class="student-apply-btn" th:onclick="|location.href='@{/student/myGroupDetail(sg_no=${myGroupVO.sg_no})}'|">입장하기</button></td>
+          </th:block>
+          <th:block th:if="${myGroupVO.sg_status != '학습진행중'}">
+            <td>신청받는중</td>
+          </th:block>
+
         </tr>
 
 
@@ -60,4 +62,5 @@
 </body>
 
 </html>
+
 

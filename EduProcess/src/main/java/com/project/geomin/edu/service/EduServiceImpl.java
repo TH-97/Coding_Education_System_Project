@@ -79,6 +79,11 @@ public class EduServiceImpl implements EduService{
     }
 
     @Override
+    public void groupLeaderApply(JoinGroupVO vo) {
+        eduMapper.groupLeaderApply(vo);
+    }
+
+    @Override
     public void groupDelete(String sgNo) {
         eduMapper.groupDelete(sgNo);
     }
@@ -99,9 +104,16 @@ public class EduServiceImpl implements EduService{
     }
 
     @Override
-    public List<ContentVO> selectMyContents(String userId) {
-        return eduMapper.selectMyContents(userId);
+    public List<ContentVO> selectMyContents(Criteria cri, String userId, GroupSearchVO searchVO) {
+        return eduMapper.selectMyContents(cri, userId, searchVO);
     }
+
+    @Override
+    public int contentPageTotal(String userId, GroupSearchVO searchVO) {
+        return eduMapper.contentPageTotal(userId, searchVO);
+    }
+
+
 }
 
 

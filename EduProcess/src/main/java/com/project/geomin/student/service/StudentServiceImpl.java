@@ -1,9 +1,7 @@
 package com.project.geomin.student.service;
 
 
-import com.project.geomin.command.GroupSearchVO;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinGroupVO;
+import com.project.geomin.command.*;
 import com.project.geomin.edu.service.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +30,7 @@ public class StudentServiceImpl implements StudentService{
         System.out.println(vo);
         ArrayList<JoinGroupVO> newVO = new ArrayList<>();
         for(JoinGroupVO joinGroupVO : vo){
-            if(joinGroupVO.getJg_confirm().equals("승인") && joinGroupVO.getSg_status().equals("학습진행중")){
+            if(joinGroupVO.getJg_confirm().equals("승인")){
                 newVO.add(joinGroupVO);
             }
         }
@@ -68,6 +66,46 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public int deleteAply(JoinGroupVO vo) {
         return studentMapper.deleteAply(vo);
+    }
+
+    @Override
+    public ArrayList<GroupNoticeVO> getNoticeList(String sgNo) {
+        return studentMapper.getNoticeList(sgNo);
+    }
+
+    @Override
+    public ArrayList<GroupNoticeVO> getRecordNoticeList(String sgNo) {
+        return studentMapper.getRecordNoticeList(sgNo);
+    }
+
+    @Override
+    public ArrayList<GroupQAVO> getQuestionList(String sgNo) {
+        return studentMapper.getQuestionList(sgNo);
+    }
+
+    @Override
+    public GroupNoticeVO getNoticeDetail(String ngNo) {
+        return studentMapper.getNoticeDetail(ngNo);
+    }
+
+    @Override
+    public int noticeRegist(GroupNoticeVO vo) {
+        return studentMapper.noticeRegist(vo);
+    }
+
+    @Override
+    public int noticeUpdate(GroupNoticeVO vo) {
+        return studentMapper.noticeUpdate(vo);
+    }
+
+    @Override
+    public int noticeDelete(GroupNoticeVO vo) {
+        return studentMapper.noticeDelete(vo);
+    }
+
+    @Override
+    public int QARegist(GroupQAVO vo) {
+        return studentMapper.QARegist(vo);
     }
 
 

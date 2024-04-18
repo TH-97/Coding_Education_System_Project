@@ -12,6 +12,7 @@ import java.util.Map;
 public interface EduMapper {
     public void groupRegist(GroupVO vo);
     public void studentApply(JoinGroupVO vo);
+    void groupLeaderApply(JoinGroupVO vo);
 
     int getSgNo();
 
@@ -44,5 +45,6 @@ public interface EduMapper {
 
     //////////////////콘텐츠
     //내콘텐츠 조회
-    List<ContentVO> selectMyContents(String userId);
+    List<ContentVO> selectMyContents(@Param("cri") Criteria cri, @Param("userId") String userId, @Param("search") GroupSearchVO searchVO);
+    int contentPageTotal(@Param("userId") String userId, @Param("search") GroupSearchVO searchVO);
 }
