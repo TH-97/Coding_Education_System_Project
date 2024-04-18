@@ -74,38 +74,67 @@
   			</div>
   			
   			<ul class="question-list">
-  				<li class="question-container">
+  				<li class="question-container" th:each="list : ${questionList}">
   					<a class="click-post" href="">
   						<div class="question">
   							<div class="question_info">
   								<div class="question_title"></div>
   									<div class="title-sub_text">
-  										<span class="question_status">미해결</span>
+  										<span class="question_status">[[${list.status}]]</span>
   									</div>
   									<div class="title_text">
-  									재질문이빈다~~~~~~~~~~~ 이거되나요
+  									[[${list.q_title}]]
   									</div>
   								<p class="question_body">
-  								하이 재질문이ㅣ 아랑사ㅓ 보람
+  								[[${list.q_context}]]
   								</p>
   								<div class="question_footer">
   									<div class="question_footer_info-detail">
-  										<span class="question_info_user_name">임혁진</span>
+  										<span class="question_info_user_name">[[${list.user_id}]]</span>
   										<span>&nbsp;·&nbsp;</span>
-  										<span class="question_info_time">10분전</span>
+  										<span class="question_info_time">[[${list.q_date}]]</span>
   									</div>
   								</div>
   							</div>
   						</div>
   					</a>
   				</li>
+  				
+				  			
   			</ul>
   		
   		
   		</div>
-  		
-  		<nav class="pagination">
-  		</nav>
+  	
+  		<th:block th:if="${not #lists.isEmpty(list)}">
+            <div class="pagination">
+                <ul>
+                    <li class=""><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-left"></i><p></p></a>
+                    </li>
+                    <!-- 2. 이전버튼 -->
+                    <li style="margin-right:5px;" th:if="${pageVO.prev}">
+                        <a class="pagination-previous" th:href="@{workdis(page=${pageVO.start - 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"> </i></a>
+                    </li>
+                    <!-- 1. 페이지 반복-->
+                    <th:block th:each="page, status :${pageVO.pageList}">
+                        <li th:class="${page == pageVO.page ? 'on' : ''}">
+                            <a class="pagination-link" th:href="@{workdis(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
+                        </li>
+                    </th:block>
+                    <!--3. 다음버튼-->
+                    <li style="margin-left:5px;" th:if="${pageVO.next}">
+                        <a class="pagination-next" th:href="@{workdis(page=${pageVO.end + 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i> >
+                        </a>
+                    </li>
+
+                    <li><a th:href="@{workdis(page=${pageVO.realEnd}, amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </th:block>
   	</div>
   	
   	<div class="list_right_side">
@@ -114,5 +143,6 @@
   	
   	</section>
 
+<script src="/js/boardList.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.project.geomin.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,11 +25,25 @@ public class APIController {
 	private UserService userService;
 	
     @PostMapping("/compileAndRun")
-    public String compileAndRun(@RequestParam("code") String code) throws IOException, InterruptedException {
-        // 사용자가 입력한 코드를 파일로 저장
-        String fileName = "C:\\Users\\user\\Desktop\\Solution.java";
+    public String compileAndRun(@RequestParam("code") String code,@RequestParam("user_id") String user_id , @RequestParam("homework_num") String hn) throws IOException, InterruptedException {
+        // 사용자가 입력한 코드 경로
+        String directoryPath = "mkdir -p ~/"+user_id+"/"+hn+"/"+"Solution.java";
+        System.out.println("user_id : " + user_id + "homework_num : " +hn);
+        System.out.println("code : " +code);
 
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
+        // 폴더 객체 생성
+        File directory = new File(directoryPath);
+
+        // 폴더가 존재하지 않으면 폴더 생성
+        if (!directory.exists()) {
+            boolean success = directory.mkdirs(); // 여러 하위 디렉토리를 생성할 경우 mkdirs()를 사용
+            if (!success) {
+                System.err.println("Failed to create directory!");
+            }
+            System.out.println("Directory created successfully.");
+        }
+        
+        try (FileWriter fileWriter = new FileWriter("touch ~/"+user_id+"/"+hn+"/"+"Solution.java")) {
             fileWriter.write(code);
         } catch(IOException e) {
             System.out.println("파일생성실패 : " + e.getMessage());
@@ -36,7 +51,7 @@ public class APIController {
         }
 
         // javac 명령어를 사용하여 코드를 컴파일
-        Process compileProcess = Runtime.getRuntime().exec("javac " + fileName);	
+        Process compileProcess = Runtime.getRuntime().exec("javac ~/" +user_id+"/"+hn+"/"+"Solution.java");	
         int exitCode = compileProcess.waitFor(); // 프로세스가 종료될 때까지 대기
         System.out.println("컴파일 종료 코드: " + exitCode);
 
@@ -44,7 +59,8 @@ public class APIController {
                
         	
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
-            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
+//            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
+            Process runProcess = Runtime.getRuntime().exec("javac ~/" +user_id+"/"+hn+"/"+"Solution");
             
             // 프로세스의 출력을 읽는 스레드 생성
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
@@ -65,7 +81,7 @@ public class APIController {
             // 출력 스레드의 결과 가져오기
             String output = outputGobbler.getResult();
 
-            System.out.println("파일 생성 확인: " + fileName);
+            System.out.println("파일 생성 확인: " + directoryPath);
             return output;
         } else {
             System.out.println("컴파일 오류");
