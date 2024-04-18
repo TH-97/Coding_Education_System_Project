@@ -60,7 +60,7 @@ public class APIController {
         	//"adsdasdasdaads";
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
 //            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
-            Process runProcess = Runtime.getRuntime().exec("/usr/bin/java -cp /home/ubuntu/"+directoryPath+"Solution");
+            Process runProcess = Runtime.getRuntime().exec("/usr/bin/java -cp /home/ubuntu/"+directoryPath+" Solution");
             
             // 프로세스의 출력을 읽는 스레드 생성
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
