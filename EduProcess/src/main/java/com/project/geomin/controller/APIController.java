@@ -80,15 +80,19 @@ public class APIController {
             StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
 
 
+            int a = runProcess.waitFor();
+            if(a == 0) {
+            	// 출력 스레드의 결과 가져오기
+            	String output = outputGobbler.getResult();
+            	System.out.println("output : " + output);
+            	
+            	return output;
+            	
+            }else {
+            	System.out.println("런타임 오류");
+            	return "런타임 오류";
+            }
 
-
-            // 출력 스레드의 결과 가져오기
-            String output = outputGobbler.getResult();
-            System.out.println("output : " + output);
-
-            System.out.println("output : " +output);
-
-            return output;
         } else {
             System.out.println("컴파일 오류");
             return "컴파일 오류";
