@@ -1,13 +1,21 @@
 package com.project.geomin.controller;
 
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.project.geomin.command.WorkVO;
+import com.project.geomin.user.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,17 +26,30 @@ import com.project.geomin.user.service.UserService;
 
 @RestController
 public class APIController {
-	
 	@Autowired
 	@Qualifier("userService")
 	private UserService userService;
 	
     @PostMapping("/compileAndRun")
-    public String compileAndRun(@RequestParam("code") String code) throws IOException, InterruptedException {
-        // 사용자가 입력한 코드를 파일로 저장
-        String fileName = "C:\\Users\\user\\Desktop\\Solution.java";
+    public String compileAndRun(@RequestParam("code") String code,@RequestParam("user_id") String user_id , @RequestParam("homework_num") String hn) throws IOException, InterruptedException {
+        // 사용자가 입력한 코드 경로
+        String directoryPath ="homework/"+user_id+"/"+hn+"/";
+        System.out.println("user_id : " + user_id + "homework_num : " +hn);
+        System.out.println("code : " +code);
 
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
+        // 폴더 객체 생성
+        File directory = new File(directoryPath);
+
+        // 폴더가 존재하지 않으면 폴더 생성
+        if (!directory.exists()) {
+            boolean success = directory.mkdirs(); // 여러 하위 디렉토리를 생성할 경우 mkdirs()를 사용
+            if (!success) {
+                System.err.println("Failed to create directory!");
+            }
+            System.out.println("Directory created successfully.");
+        }
+        
+        try (FileWriter fileWriter = new FileWriter("/home/ubuntu/"+directoryPath+"Solution.java")) {
             fileWriter.write(code);
         } catch(IOException e) {
             System.out.println("파일생성실패 : " + e.getMessage());
@@ -36,7 +57,7 @@ public class APIController {
         }
 
         // javac 명령어를 사용하여 코드를 컴파일
-        Process compileProcess = Runtime.getRuntime().exec("javac " + fileName);	
+        Process compileProcess = Runtime.getRuntime().exec("/usr/bin/javac /home/ubuntu/"+directoryPath+"Solution.java");	
         int exitCode = compileProcess.waitFor(); // 프로세스가 종료될 때까지 대기
         System.out.println("컴파일 종료 코드: " + exitCode);
 
@@ -44,34 +65,37 @@ public class APIController {
                
         	
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
-            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
+//            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
+            Process runProcess = Runtime.getRuntime().exec("/usr/bin/java /home/ubuntu/"+directoryPath+"Solution.java");
             
             // 프로세스의 출력을 읽는 스레드 생성
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
             String errorLine;
             while ((errorLine = errorReader.readLine()) != null) {
-            	System.out.println(errorLine);
+
+            	System.out.println("error: " +errorLine);
+
             }
             errorReader.close();
             StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
 
-            // 스레드 시작
-            outputGobbler.start();
 
-            // 프로세스가 종료될 때까지 대기
-            int exitRunCode = runProcess.waitFor();
-            System.out.println("실행 종료 코드: " + exitRunCode);
+
 
             // 출력 스레드의 결과 가져오기
             String output = outputGobbler.getResult();
+            System.out.println("output : " + output);
 
             System.out.println("파일 생성 확인: " + fileName);
+            System.out.println("output : " +output);
+
             return output;
         } else {
             System.out.println("컴파일 오류");
             return "컴파일 오류";
         }
     }
+
     @PostMapping("/idCheck")
     public String idCheck(@RequestParam("user_id") String id) throws IOException, InterruptedException{
     	UserVO vo = userService.checkLogin(id);
@@ -101,9 +125,16 @@ public class APIController {
             try {
                 while ((line = reader.readLine()) != null) {
                     result.append(line).append("\n");
+                    System.out.println("line : "+line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }finally {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

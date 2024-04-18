@@ -11,6 +11,10 @@
     <insert id="studentApply" parameterType="JoinGroupVO">
         insert into join_group(user_id, sg_no) values(#{user_id}, #{sg_no});
     </insert>
+
+    <insert id="groupLeaderApply" parameterType="JoinGroupVO">
+        insert into join_group(user_id, sg_no, jg_confirm) values(#{user_id}, #{sg_no}, #{jg_confirm});
+    </insert>
     <select id="selectGroup"  resultType="GroupVO">
         select s.*, u.user_nm , ifnull(c.sg_aplynum, 0) as sg_aplynum  from study_group s left join user u on s.user_id = u.user_id
                                                  left join
@@ -122,7 +126,23 @@
         select c.*, cc.cate_nm from cont_buy cb
         left join content c on c.con_nm=cb.con_nm
         left join cont_cate cc on c.cate_no = cc.cate_no
-        where user_id = #{userId};
+        where user_id = #{userId}
+        <if test="search.con_nm != null and search.con_nm != ''">
+            and c.con_nm LIKE concat('%',#{search.con_nm},'%')
+            limit #{cri.startPage}, #{cri.showPage}
+        </if>
+
+    </select>
+
+    <select id="contentPageTotal" resultType="int">
+        select count(*) from cont_buy cb
+        left join content c on c.con_nm=cb.con_nm
+        left join cont_cate cc on c.cate_no = cc.cate_no
+        where user_id = #{userId}
+        <if test="search.con_nm != null and search.con_nm != ''">
+            and c.con_nm LIKE concat('%',#{search.con_nm},'%')
+        </if>
+
     </select>
 
 

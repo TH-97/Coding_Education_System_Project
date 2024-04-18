@@ -20,54 +20,46 @@
         <table class="table-group">
             <tr>
                 <th>숙제명</th>
-                <th>그룹</th>
                 <th>레벨</th>
                 <th>제출기한</th>
                 <th>생성일자</th>
             </tr>
             <tr th:each="workeva : ${list}">
-                <td th:text="${workeva.h_name}"></td>
-                <td>고급반</td>
+                <td><a th:href="@{'/work/index2?h_no=' + ${workeva.h_no}}" th:text="${workeva.h_name}"></a></td>
                 <td th:text="${workeva.h_level}"></td>
                 <td th:text="${workeva.h_dead}"></td>
                 <td th:text="${workeva.h_reg_ymd}"></td>
             </tr>
         </table>
-        <div class="page"  >
-            <ul>
-                <li><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
-                    <i class="fa fa-angle-double-left"></i><p></p></a></li>
-                <!-- 2. 이전버튼 -->
-                <th:block th:if="${pageVO.prev}">
-                    <li style="margin-right:5px;">
-                        <a th:href="@{workdis(page=${pageVO.start - 1},
-                                                                    amount=${pageVO.amount})}">
-                            <i class="fa fa-angle-left" aria-hidden="true"> < </i></a>
+        <th:block th:if="${not #lists.isEmpty(list)}">
+            <div class="page">
+                <ul>
+                    <li><a th:href="@{workcheck(page=1,amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-left"></i><p></p></a>
                     </li>
-                </th:block>
-                <!-- 1. 페이지 반복-->
-                <th:block th:each="page, status :${pageVO.pageList}">
-                    <li th:class="${page == pageVO.page ? 'on' : ''}">
-                        <a th:href="@{workdis(page=${page},
-                                            amount=${pageVO.amount})}">[[${page}]]</a>
+                    <!-- 2. 이전버튼 -->
+                    <li style="margin-right:5px;" th:if="${pageVO.prev}">
+                        <a th:href="@{workcheck(page=${pageVO.start - 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"> </i></a>
                     </li>
-                </th:block>
+                    <!-- 1. 페이지 반복-->
+                    <th:block th:each="page, status :${pageVO.pageList}">
+                        <li th:class="${page == pageVO.page ? 'on' : ''}">
+                            <a th:href="@{workcheck(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
+                        </li>
+                    </th:block>
+                    <!--3. 다음버튼-->
+                    <li style="margin-left:5px;" th:if="${pageVO.next}">
+                        <a th:href="@{workcheck(page=${pageVO.end + 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i> >
+                        </a>
+                    </li>
 
-                <!--3. 다음버튼-->
-                <th:block th:if="${pageVO.next}">
-                    <li style="margin-left:5px;">
-                        <a th:href="@{workdis(page=${pageVO.end + 1},
-                                    amount=${pageVO.amount})}"><i
-                                class="fa fa-angle-right" aria-hidden="true">
-
-                        </i> > </a></li>
-                </th:block>
-
-                <li><a th:href="@{workdis(page=${pageVO.realEnd},
-                                            amount=${pageVO.amount})}"><i
-                        class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-            </ul>
-        </div>
+                    <li><a th:href="@{workcheck(page=${pageVO.realEnd}, amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </th:block>
     </div>
 </section>
 </body>

@@ -35,7 +35,7 @@ public class EduController {
 	@GetMapping("/groupRegist")
 	public String groupRegist(Principal principal, Model model) {
 		String userId = principal.getName();
-		List<ContentVO> contentList = eduService.selectMyContents(userId);
+		List<ContentVO> contentList = eduService.selectMyContents(null , userId, new GroupSearchVO());
 		model.addAttribute("contentList", contentList);
 		return "edu/groupRegist";
 	}
@@ -44,6 +44,13 @@ public class EduController {
 		//그룹방 생성
 		eduService.groupRegist(vo);
 		int sgNo = eduService.getSgNo();
+
+		//그룹장 일단 가입
+		JoinGroupVO joinGroupVO = new JoinGroupVO();
+		joinGroupVO.setSg_no(sgNo);
+		joinGroupVO.setUser_id(principal.getName());
+		joinGroupVO.setJg_confirm("승인");
+		eduService.groupLeaderApply(joinGroupVO);
 
 		//채팅방도 생성
 		JoinChatVO joinChatVO = new JoinChatVO();
@@ -54,7 +61,7 @@ public class EduController {
 
 
 
-		//일단 선생님 채팅방에 등록
+		//그룹장 채팅방에 등록
 		joinChatVO.setSg_no(sgNo);
 		joinChatVO.setUser_id(principal.getName());
 		joinChatVO.setJc_status("활성화");
@@ -64,7 +71,7 @@ public class EduController {
 	@GetMapping("/groupUpdate")
 	public String groupUpdate(Principal principal, GroupVO vo, Model model){
 		String userId = principal.getName();
-		List<ContentVO> contentList = eduService.selectMyContents(userId);
+		List<ContentVO> contentList = eduService.selectMyContents(null , userId, new GroupSearchVO());
 		model.addAttribute("contentList", contentList);
 		System.out.println(vo);
 		ArrayList<GroupVO> groupList = eduService.selectGroupPK(vo);
@@ -127,10 +134,16 @@ public class EduController {
 
 
 	@GetMapping("/groupContents")
-	public String groupContents(Principal principal, Model model){
+	public String groupContents(Principal principal, Model model, Criteria cri, GroupSearchVO searchVO){
 		String user_id = principal.getName();
+		if(cri.getCurrentPage() == null || cri.getShowPage() == null){
+			cri = new Criteria(1,5);
+		}
+		PageVO pageVO = new PageVO(cri, eduService.contentPageTotal(user_id, searchVO));
+		List<ContentVO> contentList = eduService.selectMyContents(cri ,user_id, searchVO);
 
-		List<ContentVO> contentList = eduService.selectMyContents(user_id);
+
+		model.addAttribute("pageVO", pageVO);
 		model.addAttribute("contentList", contentList);
 		return "edu/groupContents";
 	}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<th:block th:replace="~{/student/layouts/font_css :: font_css}"></th:block>
+
+<body>
+<!--상단바-->
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+<section id="group_content">
+    <th:block th:replace="~{/student/layouts/aside :: aside}"></th:block>
+
+
+    <div class="group_content_container">
+
+
+        <div class="group_content_header">
+            <h1>게시판 상세</h1>
+        </div>
+
+
+
+        <div class="group-detail-content">
+
+            <div class="notice-detail-container">
+                <div class="notice-header">
+                    <h1>제목</h1>
+                    <span>작성자</span><span>날짜</span>
+                </div>
+                <div class="notice-content">
+                    내용
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    </div>
+</section>
+
+<div id="noticeModal" style="display: none">
+    <div class="notice-modal-wrap">
+        <div class="notice-modal-container">
+            <h1>게시글 작성하기</h1>
+            <form action="/edu/groupRegistDB" method="post">
+                <div class="regist_content" style="margin-top: 50px">
+                    <ul class="regist_content_container">
+                        <li>
+                            <p class="notice_letter">제목</p>
+                            <input type="text" name="sg_name" placeholder="제목을 입력하세요." required>
+                        </li>
+
+                        <li>
+                            <p class="notice_letter">내용</p>
+                            <textarea name="sg_content" placeholder="내용을 입력하세요." required style="height: 250px"></textarea>
+                        </li>
+                        <li>
+                            <p class="notice_letter">게시판 용도</p>
+                            <select name="sg_status">
+                                <option value="공지">공지사항</option>
+                                <option value="기록">기록게시판</option>
+                            </select>
+                        </li>
+                    </ul>
+
+
+                    <input type="hidden" name="user_nm" th:value="${#authentication.getPrincipal.getUserVO.user_nm}">
+                    <input type="submit" value="등록하기" class="notice_btn" style="margin-right: 0;">
+                    <input type="reset" value="취소하기" class="notice_btn" style="margin-right: 0;" onclick="noticeRegistModalClose()">
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div id="noticeModalView" style="display: none">
+    <div class="notice-modal-wrap">
+        <div class="notice-modal-container">
+            <h1>게시글 작성하기</h1>
+            <form action="/edu/groupRegistDB" method="post">
+                <div class="regist_content" style="margin-top: 50px">
+                    <ul class="regist_content_container">
+                        <li>
+                            <p class="notice_letter">제목</p>
+
+                        </li>
+                        <li>
+                            <p class="notice_letter">작성자</p>
+                            <p class="notice_letter">작성시간</p>
+                        </li>
+
+                        <li>
+                            <p class="notice_letter">내용</p>
+
+                        </li>
+
+                    </ul>
+
+
+                    <input type="hidden" name="user_id" value="[[${userId}]]">
+                    <input type="submit" value="등록하기" class="notice_btn" style="margin-right: 0;">
+                    <input type="reset" value="취소하기" class="notice_btn" style="margin-right: 0;" onclick="noticeRegistModalClose()">
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+
+</html>

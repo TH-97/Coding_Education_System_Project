@@ -16,7 +16,7 @@
         <div class="group_content_header">
             <h1>숙제 리스트</h1>
             <br>
-            <h3>배포한 숙제리스트를 확인할수 있습니다.</h3>
+            <h3>배포할 숙제리스트를 확인할수 있습니다.</h3>
         </div>
         <table class="table-group">
             <tr>
@@ -33,44 +33,49 @@
                 <td th:class="'h_dead-' + ${workeva.h_no}" th:text="${workeva.h_dead}"></td>
                 <td th:class="'h_reg_ymd-' + ${workeva.h_no}" th:text="${workeva.h_reg_ymd}"></td>
                 <td th:class="'sel'+${workeva.h_no}" style="display: none">
-                    <select th:class="'selectTag select'+${workeva.h_no}" onChange="getValue(this)">
+                    <select th:class="'selectTag select'+${workeva.h_no}">
                         <option th:each="group : ${gList}" th:value="${group.sg_no}" th:text="${group.sg_name}" th:attr="data-hno=${workeva.h_no}"></option>
                     </select>
                 </td>
             </tr>
         </table>
-        <div class="page">
-            <ul>
-                <li><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
-                    <i class="fa fa-angle-double-left"></i><p></p></a></li>
-                <!-- 2. 이전버튼 -->
-                <th:block th:if="${pageVO.prev}">
-                    <li style="margin-right:5px;">
+        <th:block th:if="${not #lists.isEmpty(list)}">
+            <div class="page">
+                <ul>
+                    <li><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-left"></i><p></p></a>
+                    </li>
+                    <!-- 2. 이전버튼 -->
+                    <li style="margin-right:5px;" th:if="${pageVO.prev}">
                         <a th:href="@{workdis(page=${pageVO.start - 1}, amount=${pageVO.amount})}">
-                            <i class="fa fa-angle-left" aria-hidden="true"> < </i></a>
+                            <i class="fa fa-angle-left" aria-hidden="true"> </i></a>
                     </li>
-                </th:block>
-                <!-- 1. 페이지 반복-->
-                <th:block th:each="page, status :${pageVO.pageList}">
-                    <li th:class="${page == pageVO.page ? 'on' : ''}">
-                        <a th:href="@{workdis(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
-                    </li>
-                </th:block>
-                <!--3. 다음버튼-->
-                <th:block th:if="${pageVO.next}">
-                    <li style="margin-left:5px;">
+                    <!-- 1. 페이지 반복-->
+                    <th:block th:each="page, status :${pageVO.pageList}">
+                        <li th:class="${page == pageVO.page ? 'on' : ''}">
+                            <a th:href="@{workdis(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
+                        </li>
+                    </th:block>
+                    <!--3. 다음버튼-->
+                    <li style="margin-left:5px;" th:if="${pageVO.next}">
                         <a th:href="@{workdis(page=${pageVO.end + 1}, amount=${pageVO.amount})}">
                             <i class="fa fa-angle-right" aria-hidden="true"></i> >
                         </a>
                     </li>
-                </th:block>
-                <li><a th:href="@{workdis(page=${pageVO.realEnd}, amount=${pageVO.amount})}">
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-            </ul>
-        </div>
+
+                    <li><a th:href="@{workdis(page=${pageVO.realEnd}, amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </th:block>
         <form name="subForm" action="subForm" method="get">
-        <div id="homeworkDistribution" style="display: none;">
-                <table class="table-group" id="test">
+            <div id="homeworkDistribution" style="display: none;">
+                <div class="group_content_header">
+                    <h1>숙제 배포</h1>
+                    <br>
+                    <h3>선택된 숙제리스트를 확인할수 있습니다.</h3>
+                </div>
+                <table class="table-group" id="homeworkPublish">
                     <tr>
                         <th>숙제명</th>
                         <th>제출 기한</th>
@@ -80,31 +85,26 @@
                     <tr id="selectedHomeworkRow">
                     </tr>
                 </table>
-            <button type="button" class="hbtn" onclick="Svts()">전송하기</button>
-        </div>
+                <button type="button" class="hbtn" onclick="publishHomework()">전송하기</button>
+            </div>
         </form>
     </div>
 
 </section>
 <script th:inline="javascript">
-    var selectedValuesMap = new Map();
-    var dataList = [];
+
     function workInfo(workevano) {
+
+        var selectedHomeworkRow = document.getElementById("homeworkPublish");
 
         var h_name = document.querySelector('.h_name-'+workevano);
         var h_dead = document.querySelector('.h_dead-'+workevano);
         var h_reg_ymd = document.querySelector('.h_reg_ymd-'+workevano);
-        var selectedHomeworkRow = document.getElementById("test");
         var select = document.querySelector('.sel'+workevano);
         var select2 = select.cloneNode(true);
+        select2.classList.add("hw-group-select");
         select2.style.display='';
-        var selectTag = document.querySelector(".selectTag");
-        var optionValue = selectTag.options[0].value;
-        selectedValuesMap.set(workevano+'',optionValue);
-        var map = new Map();
-        map.set("workNo",workevano+'');
-        map.set("groupNo",optionValue);
-        dataList.push(Object.fromEntries(map));
+
         var tr = document.createElement("tr");
 
         tr.appendChild(h_name.cloneNode(true));
@@ -113,35 +113,26 @@
         tr.appendChild(select2.cloneNode(true));
         selectedHomeworkRow.appendChild(tr);
 
-
         var homeworkDistribution = document.getElementById("homeworkDistribution");
         homeworkDistribution.style.display = "block";
 
     }
 
+    function publishHomework(){
+        var dataList = [];
+        var selectList = document.querySelectorAll(".hw-group-select .selectTag");
 
+        selectList.forEach(function(select) {
 
-    function getValue(selectElement) {
-        var options = selectElement.options;
-        var map = new Map();
-        for (var i = 0; i < options.length; i++) {
-            if (options[i].selected) {
-                var hNo = options[i].getAttribute('data-hno');
-                if (hNo !== null) {
-                    map.set("workNo",hNo);
-                    map.set("groupNo",option[i].value);
-                    dataList.push(Object.fromEntries(map));
-                }
-            }
-        }
-        console.log(typeof selectedValuesMap)
-        console.log(selectedValuesMap); // 선택된 옵션들의 h_no 값과 텍스트를 가진 맵
-    }
+            var h_no = select.classList[1].replace("select", "");
+            var selectedValue = select.value;
 
-    function  Svts(){
-        console.log('dddd');
-        var selectedValues = Object.fromEntries(selectedValuesMap);
-        // 서버로 보낼 데이터 준비
+            var map = new Map();
+            map.set("workNo",h_no);
+            map.set("groupNo",selectedValue);
+            dataList.push(Object.fromEntries(map));
+        });
+
         var data = {
             selectedValues: dataList
         };
@@ -158,6 +149,8 @@
                 console.error('AJAX request failed:', error);
             }
         });
+        alert("숙제 전송 완료!!")
+        location.reload(true);
     }
 
 

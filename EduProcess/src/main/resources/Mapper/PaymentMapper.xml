@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.geomin.admin.service.PaymentMapper">
+    <select id="check" resultType="int">
+        select count(*) from cont_buy where user_id = #{user_id};
+    </select>
+    <select id="getCtbStatus" resultType="PaymentVO">
+        select ctb_status from cont_buy where user_id = #{user_id}
+    </select>
+    <insert id="insertContentBuy">
+        insert into cont_buy (user_id,con_nm, ctb_pay_type, ctb_start_date, ctb_status,ctb_money)
+        values (#{user_id},#{con_nm},#{ctb_pay_type},DATE_FORMAT(NOW(), '%Y%m%d'), "완료",#{ctb_money});
+    </insert>
+    <update id="updateStatus">
+        update cont_buy
+        set ctb_status = "완료"
+        where user_id = #{user_id};
+    </update>
+</mapper>

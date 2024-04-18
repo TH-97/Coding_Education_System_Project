@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class Criteria {
 
-    private int page;	//페이지번호
-    private int amount; //데이터개수
+    private Integer page;	//페이지번호
+    private Integer amount; //데이터개수
 
     public Criteria() {
         this.page = 1;
@@ -20,7 +20,7 @@ public class Criteria {
     }
 
     public int getPageStart() {
-        return (page - 1) * amount;
+        return (page - 1) * 10;
     }
 
 }

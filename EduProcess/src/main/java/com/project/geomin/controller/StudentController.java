@@ -1,12 +1,10 @@
 package com.project.geomin.controller;
 
-import com.project.geomin.command.GroupSearchVO;
-import com.project.geomin.command.GroupVO;
-import com.project.geomin.command.JoinGroupVO;
-import com.project.geomin.command.PageVO;
+import com.project.geomin.command.*;
 import com.project.geomin.edu.service.Criteria;
 import com.project.geomin.edu.service.EduService;
 import com.project.geomin.student.service.StudentService;
+import com.project.geomin.user.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -17,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @RequestMapping("/student")
@@ -73,10 +72,64 @@ public class StudentController {
     }
 
     @GetMapping("/myGroupDetail")
-    public String myGroupDetail() {
+    public String myGroupDetail(Authentication authentication, @RequestParam("sg_no") String sgNo, Model model) {
+        //로그인유저 정보 가져오기
+        MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
+
+
+        
+        System.out.println(sgNo);
+        //게시판 불러오기
+        model.addAttribute("noticeList",  studentService.getNoticeList(sgNo));
+        model.addAttribute("recordNoticeList",  studentService.getRecordNoticeList(sgNo));
+        model.addAttribute("sgNo",  sgNo);
+        model.addAttribute("userId",  userDetails.getUsername());
+
+        //질문게시판 불러오기
+        model.addAttribute("QAList", studentService.getQuestionList(sgNo));
 
         return "student/myGroupDetail";
     }
+
+
+    @GetMapping("/noticeDetail")
+    public String noticeDetail( @RequestParam("ng_no") String sgNo, Model model) {
+
+
+        return "student/noticeDetail";
+    }
+
+    //공지, 기록게시판
+    @PostMapping("/noticeRegist")
+    public String noticeRegist(GroupNoticeVO vo , Model model, RedirectAttributes ra) {
+        studentService.noticeRegist(vo);
+        ra.addAttribute("sg_no", String.valueOf(vo.getSg_no()));
+        return "redirect:/student/myGroupDetail";
+    }
+    @PostMapping("/noticeUpdate")
+    public String noticeUpdate(GroupNoticeVO vo, Model model, RedirectAttributes ra) {
+        studentService.noticeUpdate(vo);
+        ra.addAttribute("sg_no", String.valueOf(vo.getSg_no()));
+        return "redirect:/student/myGroupDetail";
+    }
+
+    @PostMapping("/noticeDelete")
+    public String noticeDelete(GroupNoticeVO vo, Model model, RedirectAttributes ra) {
+        System.out.println(vo);
+        studentService.noticeDelete(vo);
+        ra.addAttribute("sg_no", String.valueOf(vo.getSg_no()));
+        return "redirect:/student/myGroupDetail";
+    }
+
+    //그룹 묻고 답하기
+    @PostMapping("/QARegist")
+    public String QARegist(GroupQAVO vo, Model model, RedirectAttributes ra) {
+
+        studentService.QARegist(vo);
+        ra.addAttribute("sg_no", String.valueOf(vo.getSg_no()));
+        return "redirect:/student/myGroupDetail";
+    }
+
 
 
 
@@ -89,5 +142,15 @@ public class StudentController {
         vo.setSg_no(Integer.parseInt((String) map.get("sgNo")));
         studentService.deleteAply(vo);
 
+    }
+
+    @ResponseBody
+    @GetMapping("getNoticeDetail")
+    public Map<String ,GroupNoticeVO> getNoticeDetail( @RequestParam("ng_no") String ngNo, Model model) {
+        //String userId = principal.getName();'
+        Map<String, GroupNoticeVO> notice = new HashMap<>();
+        notice.put("notice",studentService.getNoticeDetail(ngNo) );
+
+        return notice;
     }
 }
