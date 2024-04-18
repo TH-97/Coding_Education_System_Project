@@ -85,7 +85,6 @@ public class APIController {
             		System.out.println("표준값: " +InputLine);
             		
             	}
-            	Reader.close();
             	
             	return InputLine;
             	
