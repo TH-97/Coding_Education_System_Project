@@ -63,7 +63,7 @@ public class APIController {
 
         if (exitCode == 0) { // 컴파일이 정상적으로 종료된 경우
                
-        	
+        	//"adsdasdasdaads";
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
 //            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
             Process runProcess = Runtime.getRuntime().exec("/usr/bin/java /home/ubuntu/"+directoryPath+"Solution.java");
