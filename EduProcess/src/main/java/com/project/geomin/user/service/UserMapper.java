@@ -1,7 +1,10 @@
 package com.project.geomin.user.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import com.project.geomin.command.WorkVO;
+import com.project.geomin.util.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +23,6 @@ public interface UserMapper {
 	public int auth(Map<String,Object> map);
 	public UserVO aLogin(String pn);
 	public UserVO authCheck(@Param("auth_nm") String auth_nm , @Param("user_pn") String user_pn);
+
+
 }

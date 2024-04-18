@@ -1,5 +1,9 @@
 package com.project.geomin.controller;
 
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -7,8 +11,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.project.geomin.command.WorkVO;
+import com.project.geomin.user.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +26,6 @@ import com.project.geomin.user.service.UserService;
 
 @RestController
 public class APIController {
-	
 	@Autowired
 	@Qualifier("userService")
 	private UserService userService;
@@ -71,12 +77,8 @@ public class APIController {
             errorReader.close();
             StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
 
-            // 스레드 시작
-            outputGobbler.start();
 
-            // 프로세스가 종료될 때까지 대기
-            int exitRunCode = runProcess.waitFor();
-            System.out.println("실행 종료 코드: " + exitRunCode);
+
 
             // 출력 스레드의 결과 가져오기
             String output = outputGobbler.getResult();
@@ -89,6 +91,7 @@ public class APIController {
             return "컴파일 오류";
         }
     }
+
     @PostMapping("/idCheck")
     public String idCheck(@RequestParam("user_id") String id) throws IOException, InterruptedException{
     	UserVO vo = userService.checkLogin(id);

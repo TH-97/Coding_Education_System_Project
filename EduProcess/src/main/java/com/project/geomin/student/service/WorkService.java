@@ -11,8 +11,10 @@ import java.util.List;
 
 public interface WorkService {
     public ArrayList<WorkVO> getList(Criteria cri, String user_id);
+    public ArrayList<WorkVO> getList2(Criteria cri, String user_id);
     ArrayList<GroupVO> selectGroup(GroupVO vo, GroupSearchVO gsvo);
     public int getTotal(Criteria cri, String user_id);
+    public int getTotal2(Criteria cri, String user_id);
     public int regist(WorkVO vo);
     public int insertHw(String h_no,String sg_no);
     public WorkVO getDetail(int h_no);
