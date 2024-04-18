@@ -71,12 +71,13 @@ public class APIController {
 
             }
             errorReader.close();
-            StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
+            
 
 
             int a = runProcess.waitFor();
             System.out.println("런타임 종료 코드 : " +a );
             if(a == 0) {
+            	StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
             	// 출력 스레드의 결과 가져오기
             	String output = outputGobbler.getResult();
             	System.out.println("output : " + output);
