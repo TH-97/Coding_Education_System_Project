@@ -22,8 +22,9 @@
     </select>
     
     <select id="getMyGroup" resultType="GroupVO">
-        select * from study_group
-        where user_id = #{userId}
+        select g.sg_no, g.sg_name from join_group j left join study_group g on j.sg_no = g.sg_no
+        where j.user_id = #{userId} and jg_confirm = '승인'
+
     </select>
 
     <select id="getMyStudent" resultType="JoinGroupVO">

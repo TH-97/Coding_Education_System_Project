@@ -30,7 +30,6 @@
             <table class="table-group">
                 <tr>
                     <th>그룹명</th>
-                    <th>레벨</th>
                     <th>현재인원/총원</th>
                     <th>학습 콘텐츠명</th>
                     <th>교육자명</th>
@@ -40,7 +39,6 @@
                 <tr th:each="groupVO : ${groupList}">
                     <td style="display: none">[[${groupVO.sg_no}]]</td>
                     <td>[[${groupVO.sg_name}]]</td>
-                    <td>[[${groupVO.sg_level}]]</td>
                     <td>[[${groupVO.sg_aplynum}]]명 / [[${groupVO.sg_allnum}]]명</td>
                     <td>[[${groupVO.con_nm}]]</td>
                     <td>[[${groupVO.user_nm}]]</td>
