@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/css/Compiler/index2.css">
 </head>
 <body style="background-color: #34614d;">
-<th:block th:replace ="~{/work/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace ="~{./work/layouts/font_css :: font_css}"></th:block>
   <section>
     <input type="hidden" id="user_id" th:value="${#authentication.principal.username}">
     <input type="hidden" id="homework_num" th:value="${vo.h_no}">

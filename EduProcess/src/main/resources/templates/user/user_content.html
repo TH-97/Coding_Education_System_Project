@@ -54,9 +54,9 @@
     </style>
 </head>
 <body>
-<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{./user/layouts/font_css :: font_css}"></th:block>
 <!--상단바-->
-<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
+<th:block th:replace="~{./user/layouts/header :: header}"></th:block>
 
 <input id="user_id" type="hidden" th:value="${myuser}">
 
