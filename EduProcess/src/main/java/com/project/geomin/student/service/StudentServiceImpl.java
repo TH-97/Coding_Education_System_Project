@@ -6,7 +6,11 @@ import com.project.geomin.edu.service.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service("StudentService")
@@ -25,16 +29,22 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public ArrayList<JoinGroupVO> myJoinGroup(String userId) {
+    public ArrayList<JoinGroupVO> myJoinGroup(String userId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        List<Integer> myGroup = new ArrayList<>();
+
+
         ArrayList<JoinGroupVO> vo = studentMapper.myApplyGroup(userId);
         System.out.println(vo);
         ArrayList<JoinGroupVO> newVO = new ArrayList<>();
         for(JoinGroupVO joinGroupVO : vo){
             if(joinGroupVO.getJg_confirm().equals("승인")){
                 newVO.add(joinGroupVO);
+                myGroup.add(joinGroupVO.getSg_no());
             }
         }
-
+        session.setAttribute("myGroup", myGroup);
         return newVO;
     }
 
@@ -106,6 +116,42 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public int QARegist(GroupQAVO vo) {
         return studentMapper.QARegist(vo);
+    }
+
+    @Override
+    public GroupQAVO getQADetail(String qgNo) {
+        return studentMapper.getQADetail(qgNo);
+    }
+
+    @Override
+    public ArrayList<GroupAnswerVO> getAnswerList(String qgNo) {
+        return studentMapper.getAnswerList(qgNo);
+    }
+
+    @Override
+    public int registAnswer(GroupAnswerVO vo) {
+        return studentMapper.registAnswer(vo);
+    }
+
+    @Override
+    public int answerDelete(Integer agNo) {
+        return studentMapper.answerDelete(agNo);
+    }
+
+    @Override
+    public GroupVO myGroupContent(String sgNo) {
+        return studentMapper.myGroupContent(sgNo);
+    }
+
+    @Override
+    public int buyContentCheck(JoinGroupVO vo) {
+        return studentMapper.buyContentCheck(vo);
+    }
+
+    @Override
+    public void QADel(GroupQAVO vo) {
+        studentMapper.QDel(vo);
+        studentMapper.ADel(vo);
     }
 
 

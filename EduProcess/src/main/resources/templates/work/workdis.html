@@ -21,14 +21,12 @@
         <table class="table-group">
             <tr>
                 <th>숙제명</th>
-                <th>그룹</th>
                 <th>레벨</th>
                 <th>제출기한</th>
                 <th>생성일자</th>
             </tr>
             <tr th:each="workeva : ${list}" th:class="'work-' + ${workeva.h_no}" th:onclick="'workInfo(' + ${workeva.h_no} + ')'">
                 <td th:class="'h_name-' + ${workeva.h_no}" th:text="${workeva.h_name}"></td>
-                <td>고급반</td>
                 <td th:text="${workeva.h_level}"></td>
                 <td th:class="'h_dead-' + ${workeva.h_no}" th:text="${workeva.h_dead}"></td>
                 <td th:class="'h_reg_ymd-' + ${workeva.h_no}" th:text="${workeva.h_reg_ymd}"></td>

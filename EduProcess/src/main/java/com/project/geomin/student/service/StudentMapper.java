@@ -33,6 +33,19 @@ public interface StudentMapper {
     int noticeDelete(GroupNoticeVO vo);
 
     int QARegist(GroupQAVO vo);
+    int QDel(GroupQAVO vo);
+    int ADel(GroupQAVO vo);
+    GroupQAVO getQADetail(String qgNo);
+
+    ArrayList<GroupAnswerVO> getAnswerList(String qgNo);
+
+    int registAnswer(GroupAnswerVO vo);
+
+    int answerDelete(Integer agNo);
+
+    GroupVO myGroupContent(String sgNo);
+
+    int buyContentCheck(JoinGroupVO vo);
 
 
 

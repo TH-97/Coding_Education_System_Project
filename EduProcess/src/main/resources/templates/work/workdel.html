@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/makework.css">
+</head>
+<body>
+<th:block th:replace="~{/edu/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{user/layouts/header :: header}"></th:block>
+<section id="group_content">
+    <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+    <div class="detailbox">
+        <div class="group_content_header">
+            <h1>숙제 리스트</h1>
+            <br>
+            <h3>생성한 숙제리스트를 삭제할수 있습니다.</h3>
+        </div>
+        <table class="table-group">
+            <tr>
+                <th>숙제명</th>
+                <th>레벨</th>
+                <th>제출기한</th>
+                <th>생성일자</th>
+                <th>선택</th>
+            </tr>
+            <tr th:each="workeva : ${list}">
+                <td><a th:href="@{'/work/code?h_no=' + ${workeva.h_no}}" th:text="${workeva.h_name}"></a></td>
+                <td th:text="${workeva.h_level}"></td>
+                <td th:text="${workeva.h_dead}"></td>
+                <td th:text="${workeva.h_reg_ymd}"></td>
+                <td><input type="radio" class="radio-item" name="selected-item" th:value="${workeva.h_no}"></td>
+            </tr>
+            <button onclick="del()" class="delete" style="cursor: pointer">선택 삭제</button>
+
+        </table>
+
+        <th:block th:if="${not #lists.isEmpty(list)}">
+            <div class="page">
+                <ul>
+                    <li><a th:href="@{workdel(page=1,amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-left"></i><p></p></a>
+                    </li>
+                    <li style="margin-right:5px;" th:if="${pageVO.prev}">
+                        <a th:href="@{workdel(page=${pageVO.start - 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-left" aria-hidden="true"> </i></a>
+                    </li>
+                    <th:block th:each="page, status :${pageVO.pageList}">
+                        <li th:class="${page == pageVO.page ? 'on' : ''}">
+                            <a th:href="@{workdel(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
+                        </li>
+                    </th:block>
+                    <li style="margin-left:5px;" th:if="${pageVO.next}">
+                        <a th:href="@{workdel(page=${pageVO.end + 1}, amount=${pageVO.amount})}">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i> >
+                        </a>
+                    </li>
+                    <li><a th:href="@{workdel(page=${pageVO.realEnd}, amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </th:block>
+    </div>
+</section>
+<script>
+    // 선택된 항목의 값을 저장할 변수
+    var selectedValue = null;
+
+    // 라디오 버튼 클릭 시 선택된 항목의 값을 저장
+    document.querySelectorAll('.radio-item').forEach(function(item) {
+        item.addEventListener('change', function() {
+            selectedValue = this.value;
+        });
+    });
+
+    function del(){
+        if(selectedValue) {
+            if(confirm("선택한 숙제를 삭제하시겠습니까?")) {
+                location.href = 'workdell?h_no=' + selectedValue;
+            }
+        } else {
+            alert("삭제할 숙제를 선택하세요.");
+        }
+    }
+
+</script>
+</body>
+</html>

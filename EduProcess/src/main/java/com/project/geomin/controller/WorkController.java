@@ -38,14 +38,21 @@ public class WorkController {
         PageeeVO pageVo = new PageeeVO(cri, total);
         model.addAttribute("list", list);
         model.addAttribute("pageVO", pageVo);
-        System.out.println(list.toString());
-        System.out.println("--------list-------");
-        System.out.println(gList.toString());
-        System.out.println("-------gList---------");
-        System.out.println("total:" + total);
         //배포
 
         return "work/workdis";
+    }
+    @GetMapping("/workdel")
+    public String list3(Model model, Criteria cri, Authentication authentication) {
+        MyUserDetails dd = (MyUserDetails)authentication.getPrincipal();
+        ArrayList<WorkVO> list = workService.getList3(cri, dd.getUsername());
+        //그룹 가져오기
+        int total=workService.getTotal(cri,dd.getUsername());
+        PageeeVO pageVo = new PageeeVO(cri, total);
+        model.addAttribute("list", list);
+        model.addAttribute("pageVO", pageVo);
+
+        return "work/workdel";
     }
     @GetMapping("/makework")
     public String reg() {
@@ -100,7 +107,6 @@ public class WorkController {
     }
 
     @GetMapping("/code")
-
     public String detail(@RequestParam("h_no") int h_no,
                          Model model,
                          HttpSession session) {
@@ -114,5 +120,11 @@ public class WorkController {
 
         return "work/codeCompiler1";
     }
+    @GetMapping("/workdell")
+    public String deleteBoards(@RequestParam("h_no") int h_no) {
+        workService.delete(h_no);
+        return "redirect:workdel";
+    }
+
 
 }

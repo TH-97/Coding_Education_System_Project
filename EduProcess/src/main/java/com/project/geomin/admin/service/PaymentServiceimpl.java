@@ -10,8 +10,8 @@ public class PaymentServiceimpl implements PaymentService{
     public PaymentMapper paymentMapper;
 
     @Override
-    public int check(String user_id) {
-        return paymentMapper.check(user_id);
+    public int check(String user_id,String con_nm) {
+        return paymentMapper.check(user_id,con_nm);
     }
 
     @Override
