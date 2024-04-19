@@ -86,7 +86,6 @@ public class APIController {
             String output = outputGobbler.getResult();
             System.out.println("output : " + output);
 
-            System.out.println("파일 생성 확인: " + fileName);
             System.out.println("output : " +output);
 
             return output;
