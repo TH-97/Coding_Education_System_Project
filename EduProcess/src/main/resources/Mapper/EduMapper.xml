@@ -4,8 +4,8 @@
 
 <mapper namespace="com.project.geomin.edu.service.EduMapper">
     <insert id="groupRegist" parameterType="GroupVO">
-        insert into study_group(user_id, con_nm, sg_name, sg_allnum, sg_start_date,  sg_end_date, sg_level, sg_content, sg_status)
-        values (#{user_id}, #{con_nm}, #{sg_name}, #{sg_allnum}, #{sg_start_date}, #{sg_end_date}, #{sg_level}, #{sg_content}, #{sg_status})
+        insert into study_group(user_id, con_nm, sg_name, sg_allnum, sg_start_date,  sg_end_date, sg_content, sg_status)
+        values (#{user_id}, #{con_nm}, #{sg_name}, #{sg_allnum}, #{sg_start_date}, #{sg_end_date},  #{sg_content}, #{sg_status})
     </insert>
 
     <insert id="studentApply" parameterType="JoinGroupVO">
@@ -58,7 +58,7 @@
     </select>
 
     <select id="myJoinGroup" resultType="JoinGroupVO" >
-        select j.*, g.user_id as sg_user_id, g.con_nm, g.sg_name,  ifnull(c.sg_aplynum, 0) as sg_aplynum, g.sg_allnum, g.sg_start_date, g.sg_end_date, g.sg_level, g.sg_content, g.sg_status, u.user_nm
+        select j.*, g.user_id as sg_user_id, g.con_nm, g.sg_name,  ifnull(c.sg_aplynum, 0) as sg_aplynum, g.sg_allnum, g.sg_start_date, g.sg_end_date,  g.sg_content, g.sg_status, u.user_nm
         from join_group j
                  left join study_group g on j.sg_no = g.sg_no
                 left join user u on j.user_id = u.user_id
@@ -88,7 +88,7 @@
     </delete>
 
     <update id="groupUpdateReal">
-        update study_group set sg_name = #{sg_name}, sg_allnum = #{sg_allnum}, sg_level = #{sg_level},
+        update study_group set sg_name = #{sg_name}, sg_allnum = #{sg_allnum},
                                sg_content = #{sg_content}, con_nm= #{con_nm}, sg_start_date = #{sg_start_date},
                                sg_end_date = #{sg_end_date}, sg_status = #{sg_status}
         where sg_no = #{sg_no}

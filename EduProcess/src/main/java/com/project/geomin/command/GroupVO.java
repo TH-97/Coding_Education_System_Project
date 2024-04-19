@@ -24,4 +24,6 @@ public class GroupVO {
     String sg_content;
     String sg_status;
 
+    String jg_confirm;
+
 }

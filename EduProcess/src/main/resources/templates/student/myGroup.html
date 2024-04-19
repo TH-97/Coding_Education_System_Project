@@ -18,12 +18,11 @@
     </div>
 
     <div class="select_content">
-
+      <form action="/student/myGroupDetail"  name="moveGD">
       <h2 id="table-header">학습그룹 리스트</h2>
       <table class="table-group">
         <tr>
           <th>그룹명</th>
-          <th>레벨</th>
           <th>현재인원/총원</th>
           <th>학습 콘텐츠</th>
           <th>교육자명</th>
@@ -32,26 +31,27 @@
           <th>입장하기</th>
         </tr>
 
-        <tr th:each="myGroupVO : ${myJoinGroup}">
-          <td>[[${myGroupVO.sg_name}]]</td>
-          <td>[[${myGroupVO.sg_level}]]</td>
-          <td>[[${myGroupVO.sg_aplynum}]]명 / [[${myGroupVO.sg_allnum}]]명</td>
-          <td>[[${myGroupVO.con_nm}]]</td>
-          <td>[[${myGroupVO.sg_user_nm}]]</td>
-          <td>[[${myGroupVO.sg_start_date}]] ~<br> [[${myGroupVO.sg_end_date}]]</td>
-          <td>[[${myGroupVO.sg_content}]]</td>
-          <th:block th:if="${myGroupVO.sg_status == '학습진행중'}">
-            <td><button class="student-apply-btn" th:onclick="|location.href='@{/student/myGroupDetail(sg_no=${myGroupVO.sg_no})}'|">입장하기</button></td>
-          </th:block>
-          <th:block th:if="${myGroupVO.sg_status != '학습진행중'}">
-            <td>신청받는중</td>
-          </th:block>
 
-        </tr>
+          <tr th:each="myGroupVO : ${myJoinGroup}">
+            <td>[[${myGroupVO.sg_name}]]</td>
+            <td>[[${myGroupVO.sg_aplynum}]]명 / [[${myGroupVO.sg_allnum}]]명</td>
+            <td>[[${myGroupVO.con_nm}]]</td>
+            <td>[[${myGroupVO.sg_user_nm}]]</td>
+            <td>[[${myGroupVO.sg_start_date}]] ~<br> [[${myGroupVO.sg_end_date}]]</td>
+            <td>[[${myGroupVO.sg_content}]]</td>
+            <th:block th:if="${myGroupVO.sg_status == '학습진행중'}">
+              <td><button class="student-apply-btn" th:onclick="moveGroupDetail([[${myGroupVO.sg_no}]])">입장하기</button></td>
+            </th:block>
+            <th:block th:if="${myGroupVO.sg_status != '학습진행중'}">
+              <td>신청받는중</td>
+            </th:block>
+
+          </tr>
 
 
       </table>
-
+        <input type="hidden" id="sg_no" name="sg_no" value="">
+      </form>
 
 
 
@@ -62,5 +62,11 @@
 </body>
 
 </html>
+<script>
+  function moveGroupDetail(sgNo){
+    document.querySelector("#sg_no").value = sgNo;
+    document.moveGD.submit();
+  }
+</script>
 
 

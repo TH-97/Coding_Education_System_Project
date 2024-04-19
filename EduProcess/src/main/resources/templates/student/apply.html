@@ -29,7 +29,6 @@
             <table class="table-group">
                 <tr>
                     <th>그룹명</th>
-                    <th>레벨</th>
                     <th>현재인원/모집인원</th>
                     <th>학습 콘텐츠</th>
                     <th>콘텐츠 바로가기</th>
@@ -41,14 +40,13 @@
                 </tr>
                 <tr th:each="groupVO : ${groupList}" >
                     <td>[[${groupVO.sg_name}]]</td>
-                    <td>[[${groupVO.sg_level}]]</td>
                     <td>[[${groupVO.sg_aplynum}]] / [[${groupVO.sg_allnum}]]명</td>
                     <td>[[${groupVO.con_nm}]]</td>
                     <td><img width="100px" th:src="@{${groupVO.thumbnail_path}}" onclick="contentDetail(this)"></td>
                     <td>[[${groupVO.user_nm}]]</td>
                     <td>[[${groupVO.sg_start_date}]] ~<br> [[${groupVO.sg_end_date}]]</td>
                     <td>[[${groupVO.sg_content}]]</td>
-                    <td><button type="button" class="student-apply-btn" th:onclick="|location.href='@{/student/groupApply(sg_no=${groupVO.sg_no}, user_id=${#authentication.getPrincipal.getUserVO.user_id})}'|">신청하기</button></td>
+                    <td><button type="button" class="student-apply-btn" th:onclick="|location.href='@{/student/groupApply(sg_no=${groupVO.sg_no}, user_id=${#authentication.getPrincipal.getUserVO.user_id}, con_nm=${groupVO.con_nm})}'|">신청하기</button></td>
                 </tr>
 
             </table>
@@ -98,7 +96,6 @@
             <table class="table-group">
                 <tr>
                     <th>그룹명</th>
-                    <th>레벨</th>
                     <th>현재인원/모집인원</th>
                     <th>학습 콘텐츠</th>
                     <th>그룹장명</th>
@@ -111,7 +108,6 @@
                     <td style="display: none">[[${myGroupVO.user_id}]]</td>
                     <td style="display: none">[[${myGroupVO.sg_no}]]</td>
                     <td>[[${myGroupVO.sg_name}]]</td>
-                    <td>[[${myGroupVO.sg_level}]]</td>
                     <td>[[${myGroupVO.sg_aplynum}]] / [[${myGroupVO.sg_allnum}]]명</td>
                     <td>[[${myGroupVO.con_nm}]]</td>
                     <td>[[${myGroupVO.user_nm}]]</td>

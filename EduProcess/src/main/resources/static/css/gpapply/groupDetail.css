@@ -158,7 +158,18 @@
     align-items: center;
     background-color: rgba(40, 56, 80, 0.8);
 }
+.ag-del-btn{
+    margin-right: 10px;
+    color : red;
+    cursor: pointer;
+}
 
+#notice-del-btn{
+    background-color: red;
+}
+.group_content_header{
+    cursor: pointer;
+}
 
 
 
