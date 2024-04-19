@@ -2,19 +2,19 @@
     <div id="header">
         <div id="logo"><a href="/user/mainPage"> <img src="/img/logo.png" alt=""></a></div>
         <div id="header-content">
-            <p><a href="">이용안내</a></p>
-            <p><a href="">학습서비스</a></p>
-            <p><a href="">구독서비스</a></p>
-            <p><a href="">교육자마당</a></p>
+            <p><a href="/student/apply">학습서비스</a></p>
+            <p><a href="/edu/groupSelect">교육자마당</a></p>
             <p><a href="/board/list">게시판</a></p>
-            <p th:if="${#authorization.expression('hasRole(''ROLE_admin'')')}">운영마당</p>
+            <p th:if="${#authorization.expression('hasRole(''ROLE_admin'')')}"><a href="/admin/conMa">운영마당</a></p>
             <div style="display: flex; align-items: center">
                 <div class="dropdown">
  				<button class="dropbtn" sec:authorize="isAuthenticated()" onclick="toggleDropdown()">내정보</button>
  					 <div class="dropdown-content">
     					<a href="/logout">로그아웃</a>
-  						<a href="#">링크 2</a>
-    					<a href="#">링크 3</a>
+  						<a href="/edu/groupContents">내가 구매한 컨텐츠 보기</a>
+    					<a href="#">빛이가 쓴다는 링크</a>
+                         <a href="/room">채팅방 바로가기</a>
+                         <a href="#">내 정보 보기</a>
  					 </div>
 				</div>
                 <button id="loginBtn">로그인</button>
