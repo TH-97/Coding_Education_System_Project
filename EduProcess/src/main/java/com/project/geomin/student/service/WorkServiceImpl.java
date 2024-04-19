@@ -20,8 +20,6 @@ public class WorkServiceImpl implements WorkService {
     public ArrayList<WorkVO> getList(Criteria cri, String user_id) {
 
         ArrayList<WorkVO> al = workMapper.getList(cri, user_id);
-        System.out.println(al.toString());
-        System.out.println("--------------------");
         return al;
     }
     @Override
@@ -30,6 +28,11 @@ public class WorkServiceImpl implements WorkService {
         ArrayList<WorkVO> al = workMapper.getList2(cri, user_id);
         System.out.println(al.toString());
         System.out.println("--------------------");
+        return al;
+    } @Override
+    public ArrayList<WorkVO> getList3(Criteria cri, String user_id) {
+
+        ArrayList<WorkVO> al = workMapper.getList3(cri, user_id);
         return al;
     }
     @Override
@@ -63,4 +66,9 @@ public class WorkServiceImpl implements WorkService {
     public WorkVO getDetail(int h_no) {
         return workMapper.getDetail(h_no);
     }
+    @Override
+    public void delete(int h_no) {
+        workMapper.delete(h_no);
+    }
+
 }

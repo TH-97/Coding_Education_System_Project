@@ -12,7 +12,10 @@
         WHERE h_no IN
               (SELECT h_no FROM hw WHERE sg_no IN
                                          (SELECT sg_no FROM join_group WHERE user_id = #{user_id})
-              )LIMIT #{cri.page}, #{cri.amount};
+              ) LIMIT #{cri.pageStart}, #{cri.amount};
+    </select>
+    <select id="getList3" resultType="WorkVO">
+        SELECT *, DATE_FORMAT(h_reg_ymd, '%Y-%m-%d') AS formatted_date FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
     </select>
     <select id="selectGroup"  resultType="GroupVO">
         SELECT sg_name, sg_no
@@ -34,18 +37,20 @@
     <insert id="regist">
         INSERT INTO hw_distribution (
             h_name,
-            h_detail,
+            h_detail1,
+            h_detail2,
+            h_detail3,
             h_level,
             h_dead,
-            h_reg_ymd,
-            sg_no
+            h_reg_ymd
         ) VALUES (
                   #{h_name},
-                  #{h_detail},
+                  #{h_detail1},
+                  #{h_detail2},
+                  #{h_detail3},
                   #{h_level},
                   #{h_dead},
-                  date_format(now(), '%Y%m%d'),
-                  1
+                  date_format(now(), '%Y%m%d')
                          )
     </insert>
 
@@ -58,4 +63,9 @@
 
         WHERE h_no = #{h_no}
     </select>
+
+    <delete id="delete">
+        delete from hw_distribution where h_no = #{h_no}
+    </delete>
+
 </mapper>
