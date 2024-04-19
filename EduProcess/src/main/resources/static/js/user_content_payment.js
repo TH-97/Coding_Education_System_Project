@@ -78,8 +78,8 @@ function requestPay() {
     }
 }
 //통합 결제
-var IMP2 = window.IMP;
-IMP2.init("imp67011510");
+// var IMP2 = window.IMP;
+// IMP2.init("imp67011511");
 function requestPay2() {
     var name = document.getElementById("con_nm").textContent;
     var amount = document.getElementById("con_price").textContent.replace("원","");
@@ -103,7 +103,7 @@ function requestPay2() {
                 } else {
                     alert(response);
                     // 이미 구매한 상품이 아닌 경우에만 이하의 코드 실행
-                    IMP2.request_pay({
+                    IMP.request_pay({
                         pg : 'html5_inicis',
                         pay_method : 'card',
                         merchant_uid: "IMP"+makeMerchantUid,
