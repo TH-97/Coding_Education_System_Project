@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,12 +88,6 @@ public class APIController {
             	System.out.println("정산값 : " +InputLine);
             	return InputLine;
             	
-//            	StreamGobbler outputGobbler = new StreamGobbler(runProcess.getInputStream());
-//            	// 출력 스레드의 결과 가져오기
-//            	String output = outputGobbler.getResult();
-//            	System.out.println("output : " + output);
-//            	
-//            	return output;
             	
             }else {
             	System.out.println("런타임 오류");
@@ -122,37 +115,7 @@ public class APIController {
     }
 
     // 프로세스의 출력을 읽는 스레드 클래스
-    class StreamGobbler extends Thread {
-        private BufferedReader reader;
-        private StringBuilder result = new StringBuilder();
-
-        StreamGobbler(InputStream inputStream) {
-            this.reader = new BufferedReader(new InputStreamReader(inputStream));
-        }
-
-        @Override
-        public void run() {
-            String line;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    result.append(line).append("\n");
-                    System.out.println("line : "+line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        String getResult() {
-            return result.toString();
-        }
-    }
+   
 
     
     
