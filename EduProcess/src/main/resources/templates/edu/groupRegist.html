@@ -21,13 +21,6 @@
           <ul class="regist_content_container">
             <li><span>그룹명</span><input type="text" name="sg_name" placeholder="그룹명을 입력하세요" required></li>
             <li><span>모집 인원수</span><input type="text" name="sg_allnum"  placeholder="모집할 인원을 고르세요 (최대 50명)" required></li>
-            <li><span>레벨</span>
-              <select name="sg_level">
-                <option value="초급">초급</option>
-                <option value="중급">중급</option>
-                <option value="고급">고급</option>
-              </select>
-            </li>
             <li><span>학습목표</span> <textarea name="sg_content" placeholder="학습목표를 입력하세요" required></textarea></li>
             <li><span>학습 콘텐츠</span>
               <select name="con_nm" >
@@ -46,9 +39,6 @@
             </li>
           </ul>
 
-        [[${#authentication.getPrincipal.getUserVO.user_id}]]
-        [[${#authentication.getPrincipal.getUserVO.role}]]
-        [[${#authentication.getPrincipal.getUserVO.user_nm}]]
             <input type="hidden" name="user_id" th:value="${#authentication.getPrincipal.getUserVO.user_id}">
             <input type="hidden" name="user_nm" th:value="${#authentication.getPrincipal.getUserVO.user_nm}">
         <input type="submit" value="등록하기" id="regist_btn">

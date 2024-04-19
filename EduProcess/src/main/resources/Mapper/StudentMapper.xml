@@ -19,7 +19,7 @@
     </select>
 
     <select id="myApplyGroup" resultType="JoinGroupVO" >
-        select j.*, g.user_id as sg_user_id, g.con_nm, g.sg_name, ifnull(c.sg_aplynum, 0) as sg_aplynum, g.sg_allnum, g.sg_start_date, g.sg_end_date, g.sg_level, g.sg_content, g.sg_status, u.user_nm, gu.user_nm as sg_user_nm
+        select j.*, g.user_id as sg_user_id, g.con_nm, g.sg_name, ifnull(c.sg_aplynum, 0) as sg_aplynum, g.sg_allnum, g.sg_start_date, g.sg_end_date,  g.sg_content, g.sg_status, u.user_nm, gu.user_nm as sg_user_nm
         from join_group j
                  left join study_group g on j.sg_no = g.sg_no
                 left join user u on j.user_id= u.user_id
@@ -65,19 +65,23 @@
         delete from join_group where user_id = #{user_id} and sg_no = #{sg_no}
     </delete>
 
+<!--    그룹 상세페이지-->
     <select id="getNoticeList" resultType="GroupNoticeVO">
         select * from notice_group
         where sg_no = #{sgNo} and ng_usage = '공지'
+        order by ng_date desc
     </select>
 
     <select id="getRecordNoticeList" resultType="GroupNoticeVO">
         select * from notice_group
         where sg_no =  #{sgNo} and ng_usage = '기록'
+        order by ng_date desc
     </select>
 
     <select id="getNoticeDetail" resultType="GroupNoticeVO">
         select * from notice_group
         where ng_no =  #{ngNo}
+        order by ng_date desc
     </select>
 
     <select id="getQuestionList" resultType="GroupQAVO">
@@ -88,6 +92,7 @@
                  where q.sg_no = #{sg_no}
                  group by qg_no) ag on ag.qg_no = qg.qg_no
         where qg.sg_no = #{sg_no}
+        order by qg.qg_date desc
     </select>
 
     <insert id="noticeRegist">
@@ -108,6 +113,48 @@
         values (#{sg_no}, #{user_id}, #{qg_title}, #{qg_content}, DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i'))
     </insert>
 
+    <select id="getQADetail" resultType="GroupQAVO">
+        select * from question_group
+        where qg_no = #{qgNo}
+        order by qg_date desc
+    </select>
+
+    <select id="getAnswerList" resultType="GroupAnswerVO">
+        select * from answer_group
+        where qg_no = #{qgNo}
+        order by ag_date desc
+    </select>
+
+    <insert id="registAnswer">
+        insert into answer_group(qg_no, user_id, ag_content, ag_date)
+        values (#{qg_no}, #{user_id}, #{ag_content}, DATE_FORMAT(NOW(), '%Y-%m-%d %h:%i'));
+    </insert>
+
+    <delete id="QDel">
+        delete from question_group
+        where qg_no = #{qg_no}
+    </delete>
+
+    <delete id="ADel">
+        delete from answer_group
+        where qg_no = #{qg_no}
+    </delete>
+
+    <delete id="answerDelete">
+        delete from answer_group
+        where ag_no = #{agNo}
+    </delete>
+
+    <select id="myGroupContent" resultType="GroupVO" >
+        select c.con_nm, c.thumbnail_path, s.sg_name, s.sg_content from study_group s
+        left join content c on s.con_nm = c.con_nm
+        where s.sg_no = #{sgNo};
+    </select>
+
+    <select id="buyContentCheck" resultType="int">
+        select count(*) from cont_buy
+        where user_id = #{user_id} and con_nm = #{con_nm} and ctb_status = '완료'
+    </select>
 
 </mapper>
 

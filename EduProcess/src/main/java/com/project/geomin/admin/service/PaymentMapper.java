@@ -3,10 +3,11 @@ package com.project.geomin.admin.service;
 import com.project.geomin.command.PaymentVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 @Mapper
 public interface PaymentMapper {
-    public int check(String user_id);
+    public int check(@Param("user_id") String user_id,@Param("con_nm") String con_nm);
 
     public PaymentVO getCtbStatus(String user_id);
 

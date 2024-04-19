@@ -4,12 +4,12 @@
 
 <mapper namespace="com.project.geomin.admin.service.PaymentMapper">
     <select id="check" resultType="int">
-        select count(*) from cont_buy where user_id = #{user_id};
+        select count(*) from cont_buy where user_id = #{user_id} and con_nm = #{con_nm};
     </select>
     <select id="getCtbStatus" resultType="PaymentVO">
         select ctb_status from cont_buy where user_id = #{user_id}
     </select>
-    <insert id="insertContentBuy">
+    <insert id="insertContentBuy" >
         insert into cont_buy (user_id,con_nm, ctb_pay_type, ctb_start_date, ctb_status,ctb_money)
         values (#{user_id},#{con_nm},#{ctb_pay_type},DATE_FORMAT(NOW(), '%Y%m%d'), "완료",#{ctb_money});
     </insert>

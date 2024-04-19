@@ -57,18 +57,7 @@
 <th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
 <!--상단바-->
 <th:block th:replace="~{/user/layouts/header :: header}"></th:block>
-<!--<th:switch th:value="${#authentication.principal.authenticated}">-->
-<!--    <case th:case="true">-->
-<!--        <input type="hidden" id="user_id" th:value="${#authentication.principal.username}">-->
-<!--    </case>-->
-<!--    <case value="false">-->
-<!--    </case>-->
-<!--</th:switch>-->
 
-<!--<th:block th:switch="${#authentication.principal.username}">-->
-<!--    <span th:case="true"><input type="hidden" id="user_id" th:value="${#authentication.principal.username}"></span>-->
-<!--    <span th:case="false"></span>-->
-<!--</th:block>-->
 <input id="user_id" type="hidden" th:value="${myuser}">
 
 <script>
@@ -104,13 +93,22 @@
             리뷰작성 하기
         </button>
         <div id="review-write"></div>
-        <div></div>
+        <div>
+            <li th:each="reviews : ${review}">
+                <span th:text="${reviews.user_id}"></span>
+                <span th:text="${reviews.star}"></span>
+                <span th:text="${reviews.review_context}"></span>
+                <span th:text="${reviews.review_date}"></span>
+            </li>
+        </div>
     </div>
     <div style="width: 200px;height:300px;position: sticky;border: 1px solid black;border-radius: 4px;right: 80px;top:30px;
           display: flex; flex-direction: column;text-align: center">
         <h2 id="con_price" th:text="${content.con_price}+ '원'"></h2>
         <br>
-        <button type="button" onclick="requestPay()" style="background-color: #5da886; height: 30px;border: none;">수강하기</button>
+        <button type="button" onclick="requestPay()" style="background-color: #5da886; height: 30px;border: none;">카카오페이로 결제하기</button>
+        <br>
+        <button type="button" onclick="requestPay2()" style="background-color: #5da886; height: 30px;border: none;">통합 결제하기</button>
     </div>
 
 </section>

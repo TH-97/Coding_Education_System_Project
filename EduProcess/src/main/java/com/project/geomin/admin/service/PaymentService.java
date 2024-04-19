@@ -4,7 +4,7 @@ import com.project.geomin.command.PaymentVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface PaymentService {
-    public int check(String user_id);
+    public int check(@Param("user_id") String user_id,@Param("con_nm") String con_nm);
     public PaymentVO getCtbStatus(String user_id);
     public void updateStatus(String user_id);
     public void insertContentBuy(@Param("user_id") String user_id,
