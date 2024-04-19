@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/css/Compiler/index2.css">
 </head>
 <body style="background-color: #34614d;">
-<!--<th:block th:replace ="~{/work/layouts/font_css :: font_css}"></th:block>-->
+<th:block th:replace ="~{/work/layouts/font_css :: font_css}"></th:block>
   <section>
     <input type="hidden" class="h_no" th:value="${vo.h_no}" >
     <div id="top" style="padding-left: 12px; line-height: 50px; height: 50px; font-weight: bold;  background-color: #334c48;">[[ ${vo.h_name} ]]</div>
@@ -29,7 +29,7 @@
         <div>
           <p style="border-bottom: 1px solid #334c48; height: 50px; padding-left: 12px; line-height: 50px; color: white">Solution.java</p>
           <form id="codeForm">
-            <textarea id="code" name="code" rows="35" cols="150" style="color: white; font-size: 15px; padding: 10px; border-style: none; background-color: #34614d; border-bottom: 1px solid #334c48; ">public class Solution {
+            <textarea id="code" name="code" rows="35" cols="68" style="color: white; font-size: 15px; padding: 10px; border-style: none; background-color: #34614d; border-bottom: 1px solid #334c48; ">public class Solution {
 
     public static void main(String[] args) {
 		System.out.println(1+2);
