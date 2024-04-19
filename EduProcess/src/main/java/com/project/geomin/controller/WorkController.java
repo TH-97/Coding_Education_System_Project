@@ -118,7 +118,7 @@ public class WorkController {
         session.setAttribute("modelData",model);
 
 
-        return "/work/codeCompiler1";
+        return "work/codeCompiler1";
     }
     @GetMapping("/workdell")
     public String deleteBoards(@RequestParam("h_no") int h_no) {
