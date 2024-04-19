@@ -4,12 +4,14 @@
 
 <mapper namespace="com.project.geomin.review.service.ReviewMapper">
     <insert id="inputReview">
-        INSERT INTO review (con_nm, star, review_context,review_date)
-        VALUES (#{con_nm},#{reviewStar}, #{review_context},DATE_FORMAT(NOW(), '%Y%m%d'), MVN_YMD = DATE_FORMAT(NOW(), '%Y%m%d');
+        INSERT INTO review (con_nm, star, review_context,review_date,user_id)
+        VALUES (#{con_nm},#{star}, #{review_context},DATE_FORMAT(NOW(), '%Y%m%d'),#{user_id});
     </insert>
     <select id="getReview" resultType="ReviewVO">
-        select *
-        from review
-        where con_nm = #{con_nm}
+        select r.review_context, r.review_date, r.user_id,r.star
+        from review r
+        join content c
+        on r.con_nm = c.con_nm
+        where r.con_nm = #{con_nm};
     </select>
 </mapper>

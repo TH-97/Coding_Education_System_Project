@@ -85,7 +85,6 @@ public class APIController {
             // 출력 스레드의 결과 가져오기
             String output = outputGobbler.getResult();
             System.out.println("output : " + output);
-
             System.out.println("output : " +output);
 
             return output;
