@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="/css/makework.css">
 </head>
 <body>
-<th:block th:replace="~{/edu/layouts/font_css :: font_css}"></th:block>
-<th:block th:replace="~{user/layouts/header :: header}"></th:block>
+<th:block th:replace="~{./edu/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{./user/layouts/header :: header}"></th:block>
 <section id="group_content">
-    <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+    <th:block th:replace="~{./edu/layouts/aside :: aside}"></th:block>
     <div class="detailbox">
         <div class="group_content_header">
             <h1>숙제 리스트</h1>

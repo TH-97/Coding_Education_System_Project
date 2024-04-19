@@ -7,15 +7,12 @@ import com.project.geomin.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Controller
@@ -87,7 +84,7 @@ public class WorkController {
         for(Map<String,String> map2 :list){
             String h_no = map2.get("workNo");
             String sg_no = map2.get("groupNo");
-            int n = workService.insertHw(h_no,sg_no);
+            workService.insertHw(h_no,sg_no);
         }
         return "redirect:/work/workcheck";
     }
@@ -101,8 +98,6 @@ public class WorkController {
         PageeeVO pageVo = new PageeeVO(cri, total);
         model.addAttribute("list", list);
         model.addAttribute("pageVO", pageVo);
-        System.out.println("이새끼 실행 안되는구나?");
-        System.out.println("zz"+list.toString());
         return "work/workcheck";
     }
 
@@ -111,9 +106,7 @@ public class WorkController {
                          Model model,
                          HttpSession session) {
         WorkVO vo = workService.getDetail(h_no);
-        System.out.println("33333333333333");
         System.out.println(vo.getH_no());
-        System.out.println("333333333333333");
         model.addAttribute("vo", vo);
         session.setAttribute("modelData",model);
 
