@@ -93,7 +93,14 @@
             리뷰작성 하기
         </button>
         <div id="review-write"></div>
-        <div></div>
+        <div>
+            <li th:each="reviews : ${review}">
+                <span th:text="${reviews.user_id}"></span>
+                <span th:text="${reviews.star}"></span>
+                <span th:text="${reviews.review_context}"></span>
+                <span th:text="${reviews.review_date}"></span>
+            </li>
+        </div>
     </div>
     <div style="width: 200px;height:300px;position: sticky;border: 1px solid black;border-radius: 4px;right: 80px;top:30px;
           display: flex; flex-direction: column;text-align: center">

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.geomin.review.service.ReviewMapper">
+    <insert id="inputReview">
+        INSERT INTO review (con_nm, star, review_context,review_date,user_id)
+        VALUES (#{con_nm},#{star}, #{review_context},DATE_FORMAT(NOW(), '%Y%m%d'),#{user_id});
+    </insert>
+    <select id="getReview" resultType="ReviewVO">
+        select r.review_context, r.review_date, r.user_id,r.star
+        from review r
+        join content c
+        on r.con_nm = c.con_nm
+        where r.con_nm = #{con_nm};
+    </select>
+</mapper>

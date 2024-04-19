@@ -24,9 +24,9 @@ files.addEventListener("click", function() {
                         console.log(i.children[1].textContent)
                         console.log(target)
                         if (i.children[1].textContent === target) {
-
                             console.log("들어옴");
                             console.log(i.children[0].src);
+
                             window.open(`/admin/video?src=${i.children[0].src}`, "", "width=800,height=480,top=50%,left=50%")
                         }
                     }
@@ -62,6 +62,7 @@ reviewBtn.addEventListener("click", () => {
             success: function(response) {
                 if (response === "이미 구매 하셨습니다") {
                     var con_nm = document.getElementById("con_nm").textContent;
+                    console.log(con_nm);
                     // HTML 코드 문자열 생성
                     const formHtml = `<form action="/admin/reviewSave" class="mb-3" name="myform" id="myform" method="post">
   <fieldset>
@@ -77,6 +78,7 @@ reviewBtn.addEventListener("click", () => {
     <textarea name="textarea" class="col-auto form-control" type="text" id="reviewContents" placeholder="좋은 수강평을 남겨주시면 큰 힘이 됩니다"></textarea>
   </div>
   <input type="hidden" value="${con_nm}" name="content_name">
+    <input type="hidden" value="${buyer_name}" name="user_id">
 </form>`;
                     // 기존 내용을 지우고 새로 생성한 HTML 코드를 삽입
                     review.innerHTML = formHtml;
@@ -99,6 +101,7 @@ reviewBtn.addEventListener("click", () => {
 
 var reviewSave = document.getElementById("reviewSave")
 var myform = document.getElementById("myform")
+//리뷰 저장
 reviewSave.addEventListener("click",()=>{
     myform.submit();
 });

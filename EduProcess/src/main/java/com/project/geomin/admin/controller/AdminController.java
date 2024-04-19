@@ -45,11 +45,13 @@ public class AdminController {
         return "user/content";
     }
     @PostMapping("/content")
-    public String content(Model model, @RequestParam("content_name")String content_name, Authentication auth) {
+    public String content(Model model, @RequestParam("content_name")String con_nm, Authentication auth) {
 
-        AdminVO T = adminService.getT(content_name);
+        AdminVO T = adminService.getT(con_nm);
 
-        List<AdminVO> F = adminService.getF(content_name);
+        List<AdminVO> F = adminService.getF(con_nm);
+
+        List<ReviewVO> reviewList = reviewService.getReview(con_nm);
 
         String what ="";
         if (auth != null){
@@ -59,6 +61,7 @@ public class AdminController {
             what = null;
         }
 
+        model.addAttribute("review",reviewList);
 
         System.out.println(F);
         model.addAttribute("content",T);
@@ -67,23 +70,33 @@ public class AdminController {
         return "user/user_content";
     }
     @PostMapping("/reviewSave")
-    public String reviewSace(Model model,@RequestParam("content_name")String content_name,
-                             @RequestParam("textarea")String textarea,
-                             @RequestParam("reviewStar")int reviewStar){
-
-        System.out.println(content_name);
-        System.out.println(reviewStar);
-        System.out.println(textarea);
+    public String reviewSace(Model model,@RequestParam("content_name")String con_nm,
+                             @RequestParam("textarea")String review_context,
+                             @RequestParam("reviewStar")int star,
+                             @RequestParam("user_id")String user_id,
+                             Authentication auth){
         //리뷰 저장
-        reviewService.inputReview(content_name,reviewStar,textarea);
+        reviewService.inputReview(con_nm,star,review_context,user_id);
         //모든 리뷰 가져오기
-        List<ReviewVO> reviewList = reviewService.getReview(content_name);
+        List<ReviewVO> reviewList = reviewService.getReview(con_nm);
+        System.out.println(reviewList);
         //컨텐츠 가져오기
-        AdminVO T = adminService.getT(content_name);
-        List<AdminVO> F = adminService.getF(content_name);
+        AdminVO T = adminService.getT(con_nm);
+        List<AdminVO> F = adminService.getF(con_nm);
 
+        String what ="";
+        if (auth != null){
+            MyUserDetails myuser = (MyUserDetails) auth.getPrincipal();
+            what = myuser.getUsername();
+        } else {
+            what = null;
+        }
+
+        model.addAttribute("review",reviewList);
         model.addAttribute("content",T);
         model.addAttribute("content_list", F);
+
+        model.addAttribute("myuser", what);
 
         return "user/user_content";
 
