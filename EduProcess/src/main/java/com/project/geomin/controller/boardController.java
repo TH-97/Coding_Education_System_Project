@@ -58,18 +58,11 @@ public class boardController {
 	
 	@PostMapping("/regist_educator")
 	public String regist_educator(@RequestParam("edu_name") String edu_name, @RequestParam("edu_sub") String edu_sub) {
-		System.out.println("edu_name : " + edu_name);
-		System.out.println("edu_sub : " + edu_sub);
 		return "board/regist_p";
 	}
 	
 	@PostMapping("/regist_educator1")
 	public @ResponseBody String  regist_educator1(@RequestBody List<RegistEduVO> vo) {
-		for (RegistEduVO experience : vo) {
-            System.out.println("Company: " + experience.getCompany());
-            System.out.println("Position: " + experience.getPosition());
-            System.out.println("Duration: " + experience.getDuration());
-        }
 		return vo.toString();
 	}
 	
