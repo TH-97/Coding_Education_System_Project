@@ -1,3 +1,4 @@
+
 package com.project.geomin.controller;
 
 
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.geomin.command.UserVO;
 import com.project.geomin.user.service.UserService;
 
-
+@ExtendWith(SpringExtension.class) // 스프링 테스트 확장 사용
+@SpringBootTest // 스프링 부트 테스트로 테스트 컨텍스트를 생성합니다.
 @RestController
 public class APIController {
 	@Autowired
@@ -26,13 +28,12 @@ public class APIController {
     @PostMapping("/compileAndRun")
     public String compileAndRun(@RequestParam("code") String code,@RequestParam("user_id") String user_id , @RequestParam("homework_num") String hn) throws IOException, InterruptedException {
         // 사용자가 입력한 코드 경로
-        String directoryPath ="homework/"+user_id+"/"+hn;
+        String directoryPath ="C:\\Users\\ddd\\"+user_id+"\\"+hn;
         System.out.println("user_id : " + user_id + " homework_num : " +hn);
         System.out.println("code : " +code);
 
         // 폴더 객체 생성
         File directory = new File(directoryPath);
-
         // 폴더가 존재하지 않으면 폴더 생성
         if (!directory.exists()) {
             boolean success = directory.mkdirs(); // 여러 하위 디렉토리를 생성할 경우 mkdirs()를 사용
@@ -41,8 +42,7 @@ public class APIController {
             }
             System.out.println("Directory created successfully.");
         }
-        
-        try (FileWriter fileWriter = new FileWriter("/home/ubuntu/"+directoryPath+"/Solution.java")) {
+        try (FileWriter fileWriter = new FileWriter(directoryPath+"\\Solution.java")) {
             fileWriter.write(code);
         } catch(IOException e) {
             System.out.println("파일생성실패 : " + e.getMessage());
@@ -50,18 +50,15 @@ public class APIController {
         }
 
         // javac 명령어를 사용하여 코드를 컴파일
-        Process compileProcess = Runtime.getRuntime().exec("/usr/bin/javac /home/ubuntu/"+directoryPath+"/Solution.java");	
+        Process compileProcess = Runtime.getRuntime().exec("javac " +directoryPath+"\\Solution.java");	
         int exitCode = compileProcess.waitFor(); // 프로세스가 종료될 때까지 대기
         System.out.println("컴파일 종료 코드: " + exitCode);
 
         if (exitCode == 0) { // 컴파일이 정상적으로 종료된 경우
                
-        	//"adsdasdasdaads";
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
-//            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
-            Process runProcess = Runtime.getRuntime().exec("/usr/bin/java -cp /home/ubuntu/"+directoryPath+" Solution");
-            System.out.println("경로: " + "/usr/bin/java -cp /home/ubuntu/"+directoryPath+" Solution");
-            // 프로세스의 출력을 읽는 스레드 생성
+            Process runProcess = Runtime.getRuntime().exec("java -cp "+directoryPath+"\\ Solution");
+            System.out.println("경로: " + "java -cp "+directoryPath+" Solution");
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
             String errorLine;
             while ((errorLine = errorReader.readLine()) != null) {
@@ -82,11 +79,12 @@ public class APIController {
             	String InputLine ="";
             	String s;
             	while ((s = Reader.readLine()) != null) {
-            		InputLine+=s;
+            		InputLine+=s+"\n";
             		System.out.println("표준값: " +s);
             		
             	}
             	System.out.println("정산값 : " +InputLine);
+            	
             	return InputLine;
             	
             	
@@ -116,7 +114,6 @@ public class APIController {
    }
     }
 
-    // 프로세스의 출력을 읽는 스레드 클래스
    
 
     

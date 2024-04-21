@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+</head>
+<body>
+  <!-- 클릭시 동작 -->
+  <button type="button" onclick="loadingStart()">클릭</button>
+  <!-- 모달창과 비슷 -->
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="state-viewer-container">
+      <label class="label-font" id="stateLabel"></label>
+    </div>
+  </div>
+  
+</body>
+<script>
+  /**
+ * 화면 로딩 시작
+ */
+
+function loadingStart() {
+  const loading = document.querySelector('#loading');
+  loading.style.display = 'block';
+  $.ajax({
+    url: "원하는 주소", // 실제 엔드포인트로 변경
+    method: "GET",
+    contentType: "application/json",
+    data: JSON.stringify({
+    데이터이름: 데이터,
+    데이터: 데이터,
+    }),  
+    //동작 완료후 할 행동
+    success: function(response) {
+      loading.style.display = 'none';
+      alert("작업완료")
+    }, error: function(error){
+      alert("에러 발생" + error);
+    }
+    
+  })
+}
+
+/**
+ * 화면 로딩 종료
+ */
+</script>
+</html>
