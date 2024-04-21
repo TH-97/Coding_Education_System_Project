@@ -81,7 +81,6 @@ public class WorkController {
     }
     @PostMapping("/subForm")
     public String subForm(@RequestBody Map<String, Object> map){
-        System.out.println("ffffff");
         System.out.println(map.toString());
         List<Map<String,String>> list = (List<Map<String, String>>) map.get("selectedValues");
         for(Map<String,String> map2 :list){
@@ -101,19 +100,15 @@ public class WorkController {
         PageeeVO pageVo = new PageeeVO(cri, total);
         model.addAttribute("list", list);
         model.addAttribute("pageVO", pageVo);
-        System.out.println("이새끼 실행 안되는구나?");
-        System.out.println("zz"+list.toString());
         return "work/workcheck";
     }
 
     @GetMapping("/code")
-    public String detail(@RequestParam("h_no") int h_no,
+    public String detail(@RequestParam("h_no") int h_no ,
                          Model model,
                          HttpSession session) {
         WorkVO vo = workService.getDetail(h_no);
-        System.out.println("33333333333333");
         System.out.println(vo.getH_no());
-        System.out.println("333333333333333");
         model.addAttribute("vo", vo);
         session.setAttribute("modelData",model);
 
