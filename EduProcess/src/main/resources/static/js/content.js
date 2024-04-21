@@ -164,12 +164,19 @@ regi.addEventListener("click", ()=>{
     formData.append('con_description',con_description.value);
     formData.append('con_lv',con_lv.value);
 
+    const loading = document.querySelector('#loading');
+    loading.style.display = 'block';
 
-    fetch('/cloudUpload', {method: 'post', body: formData})
+    fetch('/cloudUpload', {
+        method: 'post',
+        body: formData}
+
+    )
         .then(response => response.text() )
         .then(data => {
             let result = confirm("업로드가 완료 되었습니다" + data);
             if(result){
+                loading.style.display = 'none';
                 con_modal.style.display ="none";
             }
         })

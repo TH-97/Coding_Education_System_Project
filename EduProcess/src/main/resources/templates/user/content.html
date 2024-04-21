@@ -56,62 +56,85 @@
 <div id="con-modal" class="hidden">
     <div class="con-modal-content">
         <button id="con-close-modal">X</button>
-        <table>
-            <tr>
-                <th class="th1">컨텐츠 이름</th>
-                <td colspan="3"><input type="text" id="con_nm"></td>
-            </tr>
-            <tr>
-                <th class="th1">카테고리</th>
-                <td colspan="3">
-                    <select id="cate_no">
-                        <option>자바</option>
-                        <option>파이썬</option>
-                        <option>C++</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th class="th1">가격</th>
-                <td colspan="3"><input type="text" id="con_price"></td>
-            </tr>
-            <tr>
-                <th class="th1">할인율</th>
-                <td colspan="3"><input type="text" id="con_discount"></td>
-            </tr>
-            <tr>
-                <th class="th1">내용</th>
-                <td colspan="3"><textarea style="width: 100%; height: 70px" id="con_description"></textarea></td>
-            </tr>
-            <tr>
-                <th class="th1">난이도</th>
-                <td colspan="3">
-                    <select id="con_lv">
-                        <option>고급</option>
-                        <option>중급</option>
-                        <option>초급</option>
-                        <option>입문</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th class="th1">썸네일</th>
-                <th>0</th>
-                <th><input id="thumbnail_name" type="text" placeholder="썸네일 이름을 정해주세요"></th>
-                <td>
-                    <div class="thumbnail_box">썸네일을 드래그 해주세요</div>
-                </td>
 
-            </tr>
-            <tbody id="file_div">
-            <tr>
-                <th class="th1">영상</th>
-                <th class="v-index">1</th>
-                <th><input class="file_name" type="text" placeholder="저장할 영상의 이름"></th>
-                <td>
-                    <div class="file_box">영상을 드래그 해주세요</div>
-                </td>
-            </tr>
+        <div class="content-write">
+            <div class="font_title">컨텐츠 타이틀</div>
+            <input type="text" id="con_nm" placeholder="컨텐츠 대포하는 타이틀을 적어주세요">
+        </div>
+        <div class="content-write">
+            <div class="font_title">카테고리</div>
+            <select id="cate_no">
+                <option>자바</option>
+                <option>파이썬</option>
+                <option>C++</option>
+            </select>
+        </div>
+
+        <div class="content-write">
+            <div class="font_title">가격</div>
+            <input type="text" id="con_price" placeholder="컨텐츠 가격을 적어주세요">
+        </div>
+
+        <div class="content-write">
+            <div class="font_title">할인율</div>
+            <input type="text" id="con_discount" placeholder="컨텐츠 할인율을 적어주세요">
+        </div>
+
+        <div class="content-write">
+            <div class="font_title">상세내용</div>
+            <textarea style="width: 100%; height: 70px" id="con_description" placeholder="상세내용을 적어주세요"></textarea>
+        </div>
+
+        <div class="content-write">
+            <div class="font_title">레벨</div>
+            <select id="con_lv">
+                <option>입문</option>
+                <option>초급</option>
+                <option>중급</option>
+                <option>고급</option>
+            </select>
+        </div>
+
+        <div class="content-write">
+            <div style="display: inline" class="font_title">썸네일</div>
+            <div style="visibility: hidden;">0</div>
+            <input id="thumbnail_name" type="text" placeholder="썸네일 이름">
+
+            <div style="border: 1px solid #999999;margin-top: 7px; width: 200px; height: 100px">
+                <div style="color: #999999;text-align: center;line-height: 100px;" class="thumbnail_box">썸네일을 드래그 해주세요</div>
+            </div>
+        </div>
+
+        <div class="content-write">
+            <div style="display: inline" class="th1">영상</div>
+            <div class="v-index" style="visibility: hidden;">1</div>
+            <input class="file_name" type="text" placeholder="영상의 이름">
+
+            <div style="border: 1px solid #999999;margin-top: 7px; width: 200px; height: 100px">
+                <div style="color: #999999;text-align: center;line-height: 100px;" class="file_box">영상을 드래그 해주세요</div>
+            </div>
+        </div>
+
+
+        <table>
+<!--            <tr>-->
+<!--                <th class="th1">썸네일</th>-->
+<!--                <th>0</th>-->
+<!--                <th><input id="thumbnail_name" type="text" placeholder="썸네일 이름을 정해주세요"></th>-->
+<!--                <td>-->
+<!--                    <div class="thumbnail_box">썸네일을 드래그 해주세요</div>-->
+<!--                </td>-->
+
+<!--            </tr>-->
+<!--            <tbody id="file_div">-->
+<!--            <tr>-->
+<!--                <th class="th1">영상</th>-->
+<!--                <th class="v-index">1</th>-->
+<!--                <th><input class="file_name" type="text" placeholder="저장할 영상의 이름"></th>-->
+<!--                <td>-->
+<!--                    <div class="file_box">영상을 드래그 해주세요</div>-->
+<!--                </td>-->
+<!--            </tr>-->
             </tbody>
         </table>
         <div id="btnAera">
@@ -119,6 +142,12 @@
             <button id="popButton">-</button>
         </div>
         <button id="regi">저장하기</button>
+    </div>
+    <div id="loading">
+        <div class="spinner"></div>
+        <div class="state-viewer-container">
+            <label class="label-font" id="stateLabel"></label>
+        </div>
     </div>
 </div>
 <!-- 모달창 끝 -->
