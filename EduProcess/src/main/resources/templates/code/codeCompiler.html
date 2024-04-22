@@ -1,39 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel ="stylesheet" href="/css/codeCompiler.css">
+
 </head>
 <body>
     <h1>Code Compiler</h1>
     <form id="codeForm">
     	<input type="hidden" id="user_id" value="a1234">
     	<input type="hidden" id="homework_num" value="49502">
-    	<div id="code-editor">
-    		<div class="cm-editor k1 k2 k4 k16">
-    			<div class="cm-announced" >
-    				<div>Selection deleted</div>
-    			</div>
-    			<div tabindex="-1" class="cm-scroller">
-    			
-    				<div class="cm-gutters" style="min-height:204px; position:sticky;">
-    					<div class="cm-gutter cm-lineNumbers">
-    						<div class="cm-gutterElement" style="height: 0px; visibility: hidden; pointer-events:none;">100</div>
-    						<div class="cm-gutterElement cm-activeLineGutter" style="height: 20px; margin-top : 4px;">1</div>
-    					</div>
-    				</div>
-    				
-    				<div style="tab-size: 4;" spellcheck="false" autocapitalize="off" translate="no" contenteditable class="cm-content" id="editable"><div class="cm-line" ></div></div>
-    				<div class="cm-layer cm-layer-above cm-cursorLayer" style="z-index: 150; animation-duration: 1200ms; animation-name: cm-blink;">
-    					<div class="cm-cursor cm-cursor-primary" style="left: 38px; top : 161.75px; height:17px;">
-    					</div>
-    				</div>
-    				
-    				<div class="cm-layer cm-selectionLayer" style="z-index: -2;"></div>
-    			</div>
-    		</div>
-    	</div>
+		<th:block th:replace="~{./code/editor :: edit}"></th:block>
         <button type="submit" id="submit"><span class="icon"><img src="/img/run.png"></span><span class="btnName">Compile and Run</span></button>
     </form>
        
@@ -41,24 +19,17 @@
    <div style="width:100px; height: auto;"><pre id="output"></pre></div>
 
    <script src="/js/Compiler/compiler.js"></script>
+ <!--  <script src="/js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
     <script>
-    function updatePresentation() {
-        var codeTextarea = document.querySelector(".cm-line");
-        var presentationSpan = document.querySelector(".presentation");
-        // 특정 키워드를 찾아 스타일 적용
-        var highlightedText = codeText.replace(/\b(private|public|return|import|static|for|if|else|while|new|class)\b/g, '<span class="java-keyword">$1</span>');
-          highlightedText = highlightedText.replace(/([\[\]{}+\|\\();!])/g, '<span class="java-keyword1">$1</span>');
-          highlightedText = highlightedText.replace(/\b(byte|short|int|long|float|double|char|boolean|String|void)\b/g, '<span class="java-keyword1">$1</span>');
-        // 변경된 내용을 화면에 적용
-        presentationSpan.innerHTML = highlightedText;
-    }
-    // textarea에 입력이 발생할 때마다 updatePresentation 함수 호출
-    /* document.getElementById("code").addEventListener("input", updatePresentation); */
-
+ /*    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/pastel_on_dark");
+    editor.getSession().setMode("ace/mode/java");
+    editor.setOptions({ maxLines: 1000 }); */
+    
         document.getElementById("codeForm").addEventListener("submit", function(event) {
             event.preventDefault(); // 폼의 기본 동작 중단
 
-            var code = document.querySelector(".cm-content").textContent;
+            var code = document.getElementById("editor").textContent;
             console.log(code);
             var user_id = document.getElementById("user_id").value;
             var homework_num = document.getElementById("homework_num").value;

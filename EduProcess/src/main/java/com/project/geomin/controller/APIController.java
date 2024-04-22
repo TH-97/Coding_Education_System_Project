@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.geomin.command.UserVO;
 import com.project.geomin.user.service.UserService;
 
-@ExtendWith(SpringExtension.class) // 스프링 테스트 확장 사용
-@SpringBootTest // 스프링 부트 테스트로 테스트 컨텍스트를 생성합니다.
 @RestController
 public class APIController {
 	@Autowired
