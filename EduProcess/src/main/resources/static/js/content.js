@@ -179,7 +179,7 @@ regi.addEventListener("click", ()=>{
                 con_modal.style.display ="none";
             }
         })
-        .catch(err => alert('업로드에 실패했습니다:' + err) )
+        .catch(err => alert('업로드에 실패했습니다 빈칸을 확인해주세요') )
         con_modal.style.display ="none";
 
 });

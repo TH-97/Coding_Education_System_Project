@@ -125,9 +125,9 @@
             </div>
         </div>
     </div>
-    <div style="width: 200px;height:300px;position: sticky;border: 1px solid black;border-radius: 4px;right: 80px;top:30px;
+    <div style="width: 200px;height:200px;position: sticky;border: 1px solid black;border-radius: 4px;right: 80px;top:30px;
           display: flex; flex-direction: column;text-align: center">
-        <h2 id="con_price" th:text="${content.con_price}+ '원'"></h2>
+        <h2  style="margin-top: 10px" id="con_price" th:text="${content.con_price}+ '원'"></h2>
         <br>
         <button type="button" onclick="requestPay()" style="background-color: #5da886; height: 30px;border: none;">
             카카오페이로 결제하기
