@@ -5,7 +5,7 @@
         <div id="header-content">
             <p><a href="/student/apply">학습서비스</a></p>
             <p><a href="/edu/groupSelect">학습그룹마당</a></p>
-            <p><a href="/board/list">게시판</a></p>
+            <p><a href="/board/list?currentPage=1&writing=5&questionSearch=&status=all">게시판</a></p>
             <p th:if="${#authorization.expression('hasRole(''ROLE_admin'')')}"><a href="/admin/conMa">운영마당</a></p>
             <div style="display: flex; align-items: center">
                 <div class="dropdown">
@@ -13,7 +13,7 @@
  					 <div class="dropdown-content">
     					<a href="/logout">로그아웃</a>
   						<a href="/edu/groupContents">내가 구매한 컨텐츠 보기</a>
-              <a href="/room">채팅방 바로가기</a>
+              <a href="" onclick="popup()">채팅방 바로가기</a>
  					 </div>
 				</div>
                 <button id="loginBtn">로그인</button>

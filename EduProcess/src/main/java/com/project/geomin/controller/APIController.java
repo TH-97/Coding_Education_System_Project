@@ -42,8 +42,8 @@ public class APIController {
         hwVO.getH_para2();
         code =code.substring(0,code.lastIndexOf("}"));
         code +=  "public static void main(String[] args){\n"
-        		+"System.out.println(solution(hwVO.getH_test1(),hwVO.getH_test2()));\n"
-        +"System.out.println(solution(hwVO.getH_test3(),hwVO.getH_test4()));\n"
+        		+"System.out.println(solution("+hwVO.getH_test1()+","+hwVO.getH_test2()+"));\n"
+        +"System.out.println(solution("+hwVO.getH_test3()+","+hwVO.getH_test4()+"));\n"
         +"}\n"
         + "}";
         System.out.println("code2: " +code);
@@ -104,7 +104,7 @@ public class APIController {
                   
                }
                System.out.println("정산값 : " +InputLine);
-               if(InputLine.equals(hwVO.getH_ans1()+"\n"+hwVO.getH_ans2())) {
+               if(InputLine.equals(hwVO.getH_ans1()+"\n"+hwVO.getH_ans2()+"\n")) {
             	   return "테스트에 통과 하였습니다"; 
                }else {
             	   return"테스트에 실패 하였습니다. 다시 시도하여 주세요";
