@@ -59,13 +59,17 @@ public class AdminController {
         } else {
             what = null;
         }
-        int total = 0;
-        int totalstar = 0;
-        for (ReviewVO i : reviewList){
-            int star1 = i.getStar();
-            totalstar += star1;
+        if(!reviewList.isEmpty()) {
+            int total = 0;
+            int totalstar = 0;
+            for (ReviewVO i : reviewList) {
+                int star1 = i.getStar();
+                totalstar += star1;
+            }
+            total = totalstar / reviewList.size();
+            //리뷰 평점
+            model.addAttribute("star", total);
         }
-        total = totalstar / reviewList.size();
 
         model.addAttribute("review",reviewList);
 
@@ -73,9 +77,6 @@ public class AdminController {
         model.addAttribute("content_list", F);
         model.addAttribute("myuser", what);
 
-
-        //리뷰 평점
-        model.addAttribute("star", total);
         return "user/user_content";
     }
     @PostMapping("/reviewSave")
@@ -98,6 +99,17 @@ public class AdminController {
             what = myuser.getUsername();
         } else {
             what = null;
+        }
+        if(!reviewList.isEmpty()) {
+            int total = 0;
+            int totalstar = 0;
+            for (ReviewVO i : reviewList) {
+                int star1 = i.getStar();
+                totalstar += star1;
+            }
+            total = totalstar / reviewList.size();
+            //리뷰 평점
+            model.addAttribute("star", total);
         }
         model.addAttribute("review",reviewList);
         model.addAttribute("content",T);

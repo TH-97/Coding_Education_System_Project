@@ -81,7 +81,9 @@
         <h1 id="con_nm" th:text="${content.con_nm}"></h1>
         <div>
             <h4>리뷰 평점</h4>
-            <div th:each="i : ${#numbers.sequence(1, star)}" class="star"></div>
+            <div th:if="${star != null}">
+                <div th:each="i : ${#numbers.sequence(1, star)}" class="star"></div>
+            </div>
 
         </div>
         <img style="width: 100%" th:src="${content.thumbnail_path}">
