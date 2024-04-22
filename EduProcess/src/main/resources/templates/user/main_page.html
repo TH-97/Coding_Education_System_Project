@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/main_page.css">
 
     <style>
-        #contents-area{display: flex;justify-content: space-around}
+        #contents-area{display: flex;flex-wrap: wrap ;justify-content: space-between}
     </style>
 
 </head>
@@ -20,9 +20,9 @@
         <div class="section_item"></div>
     </div>
     <div id="contents-area">
-    <div class="contents" th:each="item : ${list}" style="width: 350px">
+    <div class="contents" th:each="item : ${list}">
         <form class="formContent" action="/admin/content" method="post">
-            <div style="width: 100%; text-align: center">
+            <div class="content" style="width: 100%; text-align: center">
                 <img th:src="${item.thumbnail_path}" style="border-radius: 10px;width: 350px;height: 200px">
                 <h3 th:text="${item.con_nm}"></h3>
                 <input type="hidden" name="content_name" th:value="${item.con_nm}">

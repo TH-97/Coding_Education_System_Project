@@ -1,11 +1,7 @@
-#editor {
-      height: 800px !important;
-      font-size: 25px;
-   } 
 #submit {
 	cursor: pointer;
     overflow: visible;
-    position: relative;
+    position: absolute;
 	background-color: #06c3a7;
     border-color: #0000;
     color: #fff;
@@ -20,6 +16,9 @@
     justify-content: flex-start;
     line-height: 1.5;
     vertical-align: top;
+   	left: 90%; /* 부모 요소의 가로 중앙에 배치 */
+    top: 70%;
+    margin-right: 10px;
 }
 .icon{
 	align-items: center;
@@ -30,4 +29,11 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
-
+#output{
+	background: gray;
+	overflow: visible;
+    position: absolute;
+    left: 90%; /* 부모 요소의 가로 중앙에 배치 */
+    top: 55%;
+    margin-right: 10px;
+}
