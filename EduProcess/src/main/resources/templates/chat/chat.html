@@ -78,7 +78,7 @@
             
   
 			console.log()
-            const websocket = new WebSocket("ws:/172.30.1.52:8989/ws/chat/"+[[${enterRoom.rc_no}]]);
+            const websocket = new WebSocket("ws:/52.79.194.111:8989/ws/chat/"+[[${enterRoom.rc_no}]]);
 
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
@@ -92,27 +92,29 @@
 
                 return  {
                     year : date.getFullYear(),
-                    month : date.getMonth(),
-                    day : date.getDay(),
+                    month : date.getMonth()+1,
+                    day : date.getDate(),
                     time : date.getHours(),
-                    minutes : date.getMinutes()
+                    minutes : date.getMinutes(),
+                    second : date.getSeconds()
                 }
             }
-            
-            function send(){
-                let msg = document.getElementById("msg");
 
+                function send(){
+                    let msg = document.getElementById("msg");
+                    let now = getNowDate();
 
-                console.log(`${username} : ${msg.value}`);
-                websocket.send(JSON.stringify({
-                    user_id : userid,
-                    mc_content : msg.value,
-                    rc_usage : [[${enterRoom.rc_usage}]],
-                    rc_no : [[${enterRoom.rc_no}]]
-                }));
-                msg.value = '';
+                    console.log(`${username} : ${msg.value}`);
+                    websocket.send(JSON.stringify({
+                        user_id : userid,
+                        mc_content : msg.value,
+                        rc_usage : [[${enterRoom.rc_usage}]],
+                        rc_no : [[${enterRoom.rc_no}]],
+                        mc_send_date : `${now.year}-${now.month}-${now.day}  ${now.time} : ${now.minutes} : ${now.second}`
+                    }));
+                    msg.value = '';
 
-            }
+                }
             function prepareScroll() {
                 window.setTimeout(scrollUl, 50);
 

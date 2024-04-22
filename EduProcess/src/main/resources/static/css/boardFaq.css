@@ -1,6 +1,15 @@
 *{
 	box-sizing: border-box;
 }
+#faq_contents{
+    display: flex; width: 1280px; margin: 0 auto;
+}
+.faq_container{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+
+}
 
 .faq_header{
 	padding : 24px 0;
@@ -122,4 +131,53 @@ input[type="date"]{
     border: none; color: white; border-radius: 4px;
     margin-right: 35px;
     float: right;
+}
+
+.off{
+    display: none;
+
+}
+
+.layout{
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+}
+i {
+    font-size: 24px;
+    color: #1dc078;
+    margin-right: 20px;
+}
+.fqa{
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.fqa > li{
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+.fqa > li > h2 {
+    color :#000;
+}
+.fqa > li:nth-child(n){
+    border-top: 1px dashed #aaa;
+}
+.fqa input {
+    display: none;
+}
+
+
+.fqa div {
+    color: #666;
+    font-size: 0.9375em;
+    overflow: hidden;
+    padding: 30px 0 0px 30px;
+    box-sizing: border-box;
+    transition: max-height 0.4s;
+}
+.fqa input:checked + label + div {
+    display: block;
 }

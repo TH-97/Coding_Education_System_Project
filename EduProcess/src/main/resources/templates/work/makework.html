@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="/css/workall/workall.css">
 </head>
 <body>
-<th:block th:replace ="~{/edu/layouts/font_css :: font_css}"></th:block>
-<th:block th:replace ="~{user/layouts/header :: header}"></th:block>
+<th:block th:replace ="~{./edu/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace ="~{./user/layouts/header :: header}"></th:block>
 <section id="group_content">
-    <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+    <th:block th:replace="~{./edu/layouts/aside :: aside}"></th:block>
     <div class="group_content_container">
         <div class="group_content_header">
             <h1>숙제 등록</h1>
@@ -37,6 +37,8 @@
                         <li><span>테스트값1</span> <input type="text" name="h_test3" placeholder="테스트케이스를 입력해주세요" required></text></li>
                         <li><span>테스트값2</span> <input type="text" name="h_test4" placeholder="테스트케이스를 입력해주세요" required></text></li>
                         <li><span>정답2</span> <input type="text" name="h_ans2" placeholder="출력되어야 하는 정답을 입력해주세요" required></inputtext></li>
+                        <li><span>입력 예시</span> <textarea name="h_detail3" placeholder="입력 예시를 입력해주세요" required></textarea></li>
+                        <li><span>출력 예시</span> <textarea name="h_detail4" placeholder="출력 예시를 입력해주세요" required></textarea></li>
                         <li><span>난이도</span>
                             <select name="h_level">
                                 <option value="1단계">1단계</option>

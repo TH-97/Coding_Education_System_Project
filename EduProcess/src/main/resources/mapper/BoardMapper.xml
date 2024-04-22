@@ -14,10 +14,75 @@
 	</insert>
 	
 	<select id="questionList" resultType="QuestionVO">
-		select * from question
-		Limit #{cri.currentPage},#{cri.writing};
+		select * from question qq
+		left join (
+		select count(*) as a_count, q.q_no from answer a
+		left join question q on a.q_no = q.q_no
+		group by q.q_no
+		) aa on qq.q_no = aa.q_no
+		where 1=1
+
+		<if test="questionSearch != null and questionSearch != ''">
+			and q_context LIKE CONCAT('%', #{questionSearch}, '%')
+			or q_title LIKE CONCAT('%', #{questionSearch}, '%')
+		</if>
+		<if test="status != null and status != '' and status != 'all'">
+			and status = #{status}
+		</if>
+
+		order by qq.q_no desc
+		Limit #{cri.startPage},#{cri.writing}
 	</select>
-	
-	
+
+	<select id="getBoardPageTotal" resultType="int">
+		select count(*) from question
+		where 1=1
+		<if test="questionSearch != null and questionSearch != ''">
+			and q_context LIKE CONCAT('%', #{questionSearch}, '%')
+			or q_title LIKE CONCAT('%', #{questionSearch}, '%')
+		</if>
+		<if test="status != null and status != '' and status != 'all'">
+			and status = #{status}
+		</if>
+
+	</select>
+
+	<select id="getboardDetail" resultType="QuestionVO">
+		select * from question qq
+	  left join (
+		select count(*) as a_count, q.q_no from answer a
+		left join question q on a.q_no = q.q_no
+			group by q.q_no
+		) aa on qq.q_no = aa.q_no
+		where qq.q_no = #{q_no}
+
+
+	</select>
+	<select id="getAnswerList" resultType="AnswerVO">
+		select * from answer
+		where q_no = #{q_no}
+		order by a_no desc;
+	</select>
+
+	<update id="QuestionUpdateReal">
+		update question set q_title = #{q_title}, q_context = #{q_context}, status = #{status}
+		where q_no = #{q_no}
+	</update>
+
+
+	<delete id="delQuestion">
+		delete from question where q_no = #{q_no}
+	</delete>
+	<delete id="delQuestionAnswer">
+		delete from answer where q_no = #{q_no}
+	</delete>
+
+	<insert id="registAnswer">
+		insert into answer(q_no, a_context, a_date, user_id) values (#{q_no}, #{a_context}, date_format(now(), '%y-%m-%d %H : %i'), #{user_id})
+	</insert>
+
+	<delete id="delAnswer">
+		delete from answer where a_no = #{a_no}
+	</delete>
 	
 </mapper>

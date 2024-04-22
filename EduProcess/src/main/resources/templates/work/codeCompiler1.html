@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/css/Compiler/index2.css">
 </head>
 <body style="background-color: #34614d;">
+
 <th:block th:replace ="~{/work/layouts/font_css :: font_css}"></th:block>
 <section>
   <input type="hidden" id="user_id" th:value="${#authentication.principal.username}">
@@ -39,6 +40,25 @@
       </div>
       <div id="ex" style="padding: 10px; color: white">
         [[ ${vo.h_detail3} ]]
+
+<!-- <th:block th:replace ="~{./work/layouts/font_css :: font_css}"></th:block>
+  <section>
+    <input type="hidden" id="user_id" th:value="${#authentication.principal.username}">
+    <input type="hidden" id="homework_num" th:value="${vo.h_no}">
+    <div id="top" style="padding-left: 12px; line-height: 50px; height: 50px; font-weight: bold;  background-color: #334c48;">[[ ${vo.h_name} ]]</div>
+    <div id="area">
+      <div id="left">
+        <div id="pro_description" style="padding: 10px; color: white">
+          [[ ${vo.h_detail1} ]]
+        </div>
+        <div id="restrictions" style="padding: 10px; color: white">
+          [[ ${vo.h_detail2} ]]
+        </div>
+        <div id="ex" style="padding: 10px; color: white">
+          [[ ${vo.h_detail3} ]]
+        </div>
+ -->
+
       </div>
 
     </div>

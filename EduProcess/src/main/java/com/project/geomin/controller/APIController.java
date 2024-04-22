@@ -19,10 +19,10 @@ import com.project.geomin.user.service.UserService;
 
 @RestController
 public class APIController {
-	@Autowired
-	@Qualifier("userService")
-	private UserService userService;
-	
+   @Autowired
+   @Qualifier("userService")
+   private UserService userService;
+   
     @PostMapping("/compileAndRun")
     public String compileAndRun(@RequestParam("code") String code,@RequestParam("user_id") String user_id , @RequestParam("homework_num") String hn) throws IOException, InterruptedException {
         // 사용자가 입력한 코드 경로
@@ -50,13 +50,13 @@ public class APIController {
         }
 
         // javac 명령어를 사용하여 코드를 컴파일
-        Process compileProcess = Runtime.getRuntime().exec("/usr/bin/javac /home/ubuntu/"+directoryPath+"/Solution.java");	
+        Process compileProcess = Runtime.getRuntime().exec("/usr/bin/javac /home/ubuntu/"+directoryPath+"/Solution.java");   
         int exitCode = compileProcess.waitFor(); // 프로세스가 종료될 때까지 대기
         System.out.println("컴파일 종료 코드: " + exitCode);
 
         if (exitCode == 0) { // 컴파일이 정상적으로 종료된 경우
                
-        	//"adsdasdasdaads";
+           //"adsdasdasdaads";
             // java 명령어를 사용하여 컴파일된 클래스 파일 실행
 //            Process runProcess = Runtime.getRuntime().exec("java -cp C:\\\\Users\\\\user\\\\Desktop Solution");
             Process runProcess = Runtime.getRuntime().exec("/usr/bin/java -cp /home/ubuntu/"+directoryPath+" Solution");
@@ -65,9 +65,9 @@ public class APIController {
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
             String errorLine;
             while ((errorLine = errorReader.readLine()) != null) {
-            	
-            	System.out.println("error: " +errorLine);
-            	
+               
+               System.out.println("error: " +errorLine);
+               
             }
             errorReader.close();
             
@@ -78,21 +78,21 @@ public class APIController {
             int a = runProcess.waitFor();
             System.out.println("런타임 종료 코드 : " +a );
             if(a == 0) {
-            	BufferedReader Reader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
-            	String InputLine ="";
-            	String s;
-            	while ((s = Reader.readLine()) != null) {
-            		InputLine+=s;
-            		System.out.println("표준값: " +s);
-            		
-            	}
-            	System.out.println("정산값 : " +InputLine);
-            	return InputLine;
-            	
-            	
+               BufferedReader Reader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
+               String InputLine ="";
+               String s;
+               while ((s = Reader.readLine()) != null) {
+                  InputLine+=s;
+                  System.out.println("표준값: " +s);
+                  
+               }
+               System.out.println("정산값 : " +InputLine);
+               return InputLine;
+               
+               
             }else {
-            	System.out.println("런타임 오류");
-            	return "런타임 오류";
+               System.out.println("런타임 오류");
+               return "런타임 오류";
             }
 
 
@@ -104,15 +104,15 @@ public class APIController {
 
     @PostMapping("/idCheck")
     public String idCheck(@RequestParam("user_id") String id) throws IOException, InterruptedException{
-    	UserVO vo = userService.checkLogin(id);
+       UserVO vo = userService.checkLogin(id);
    if(id =="") {
        return "";
    }
    if(vo != null) {
-	   return "중복된 아이디입니다";
+      return "중복된 아이디입니다";
    }else {
-	   System.out.println("id = " + id);
-	   return "사용가능한 아이디입니다";
+      System.out.println("id = " + id);
+      return "사용가능한 아이디입니다";
    }
     }
 

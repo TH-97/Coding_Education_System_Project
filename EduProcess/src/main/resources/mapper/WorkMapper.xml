@@ -24,6 +24,8 @@
     </select>
     <select id="userList" resultType="UserVO">
         SELECT * from user;
+        SELECT sg_name, sg_no
+        FROM study_group;
     </select>
     <select id="getTotal" resultType="int">
         select count(*)
@@ -70,6 +72,7 @@
                   #{h_test2},
                   #{h_test3},
                   #{h_test4}
+                  date_format(now(), '%Y%m%d')
                          )
     </insert>
 

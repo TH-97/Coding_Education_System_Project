@@ -1,8 +1,10 @@
+
 package com.project.geomin.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.geomin.command.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.geomin.board.service.Criteria;
 import com.project.geomin.board.service.boardService;
-import com.project.geomin.command.BoardPageVO;
-import com.project.geomin.command.QuestionVO;
-import com.project.geomin.command.RegistEduVO;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,15 +31,29 @@ public class boardController {
 	private boardService boardService;
 	
 	@GetMapping("/list")
-	public String list(Model model,Criteria cri) {
-	
-		 
-		BoardPageVO vo = new BoardPageVO(cri, 10);
-		ArrayList<QuestionVO> questionList = boardService.questionList(cri);
+	public String list(Model model, Criteria cri, @RequestParam(value = "questionSearch", required=false) String questionSearch,
+					   @RequestParam(value = "status", required=false) String status) {
+
+		if(cri.getCurrentPage() == null || cri.getWriting() == null){
+			cri = new Criteria();
+		}
+
+		BoardPageVO vo = new BoardPageVO(cri, boardService.getBoardPageTotal(questionSearch, status));
+		ArrayList<QuestionVO> questionList = boardService.questionList(cri, questionSearch, status);
+		System.out.println(questionList);
 		model.addAttribute("questionList",questionList);
-		model.addAttribute("cri",cri);
-		model.addAttribute("BoardPageVO",vo);
+		model.addAttribute("pageVO",vo);
+		model.addAttribute("search",questionSearch);
 		return"board/list";
+	}
+	@GetMapping("/listDetail")
+	public String listDetail(QuestionVO vo, Model model) {
+		System.out.println(vo);
+
+		model.addAttribute("qDetail", boardService.getboardDetail(vo));
+		model.addAttribute("AnswerList", boardService.getAnswerList(vo));
+		System.out.println(boardService.getAnswerList(vo));
+		return "board/list_Detail";
 	}
 	
 	@GetMapping("/faq_list")
@@ -77,7 +90,50 @@ public class boardController {
 	public String regiContents() {
 		return "board/regiContents";
 	}
-	
+
+	@GetMapping("/updateContents")
+	public String updateContents(QuestionVO vo, Model model) {
+
+		model.addAttribute("qDetail", boardService.getboardDetail(vo));
+		return "board/list_update";
+	}
+	@PostMapping("/QuestionUpdateReal")
+	public String QuestionUpdateReal(QuestionVO vo, RedirectAttributes ra) {
+		System.out.println(vo);
+		boardService.QuestionUpdateReal(vo);
+		ra.addAttribute("q_no", vo.getQ_no());
+		return "redirect:/board/listDetail";
+	}
+///////////////////////////////////////////////////////////
+	@PostMapping("/delQuestion")
+	public String delQuestion(QuestionVO vo, RedirectAttributes ra) {
+	System.out.println(vo);
+	boardService.delQuestionAnswer(vo);
+	boardService.delQuestion(vo);
+
+	ra.addAttribute("q_no", vo.getQ_no());
+	return "redirect:/board/list";
+}
+
+	@PostMapping("/registAnswer")
+	public String registAnswer(AnswerVO vo, RedirectAttributes ra) {
+		System.out.println(vo);
+		boardService.registAnswer(vo);
+		ra.addAttribute("q_no", vo.getQ_no());
+		return "redirect:/board/listDetail";
+	}
+
+	@PostMapping("/delAnswer")
+	public String delAnswer(AnswerVO vo, RedirectAttributes ra) {
+		System.out.println(vo);
+		boardService.delAnswer(vo);
+		ra.addAttribute("q_no", vo.getQ_no());
+		return "redirect:/board/listDetail";
+	}
+
+
+
+	////////////////////////////////////////////////////////
 	@PostMapping("/regist")
 	public String regist(QuestionVO vo) {
 		int a =boardService.boardRegi(vo);
@@ -93,3 +149,4 @@ public class boardController {
 
 
 }
+
