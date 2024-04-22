@@ -13,33 +13,32 @@ closeModalButton.addEventListener('click', () => {
 
 //행 추가하기
 const addButton = document.getElementById('addButton'); // 버튼 요소 가져오기
-const tableBody = document.getElementById('file_div'); // 테이블 본문 요소 가져오기
-
 addButton.addEventListener("click", () => {
 
-    // 새로운 행 추가
-    const newRow = tableBody.insertRow();
-
-    // 셀 추가 및 내용 설정
-    const videoCell = newRow.insertCell();
-    videoCell.innerHTML = "<th class=\"th1\">영상</th>";
 
     var index = (filediv.children.length - 1) + 1
-    const numberCell = newRow.insertCell();
-    // numberCell.textContent = index;
-    // numberCell.tagName = 'TH';
-    numberCell.innerHTML = '<th className="v-index">' + index + '</th>';
-    const filename = newRow.insertCell();
-    filename.innerHTML = "<input class='file_name' type=\"text\" placeholder=\"저장할 영상의 이름\">";
 
-    const fileCell = newRow.insertCell();
-    fileCell.innerHTML = '<div class="file_box">영상을 드래그 해주세요</div>';
+    var container = document.getElementById('file_div');
+    var newContent = document.createElement('span');
+    newContent.className = 'content-write';
+    newContent.innerHTML = `
+                    <div style="display: inline" class="th1">영상</div>
+                    <div class="v-index" style="visibility: hidden;">${index}</div>
+                    <input class="file_name" type="text" placeholder="영상의 이름">
+                    <div class="file_area">
+                        <div class="file_box">영상을 드래그 해주세요</div>
+                    </div>
+            `;
+    container.appendChild(newContent);
+    console.log(container);
+
 });
 //행 지우기
 var pop = document.getElementById("popButton")
 pop.addEventListener("click", () => {
     const list = document.getElementById('file_div');
-    const items = list.getElementsByTagName('tr'); // 전체 목록 항목 가져오기
+    const items = list.getElementsByTagName('span'); // 전체 목록 항목 가져오기
+    console.log(items);
     const lastItem = items[items.length - 1]; // 마지막 항목 가져오기
     let index = lastItem.children[1].textContent
     file_data.splice(index);
@@ -67,7 +66,7 @@ filediv.addEventListener('dragleave', (event) => {
 
 filediv.addEventListener('drop', (event) => {
     // console.log(event.target)
-    if (event.target.parentElement.tagName !== "TD") return;
+    if (event.target.parentElement.tagName !== "DIV") return;
     event.preventDefault();
 
     //데이터 크기 검사
@@ -164,12 +163,19 @@ regi.addEventListener("click", ()=>{
     formData.append('con_description',con_description.value);
     formData.append('con_lv',con_lv.value);
 
+    const loading = document.querySelector('#loading');
+    loading.style.display = 'block';
 
-    fetch('/cloudUpload', {method: 'post', body: formData})
+    fetch('/cloudUpload', {
+        method: 'post',
+        body: formData}
+
+    )
         .then(response => response.text() )
         .then(data => {
             let result = confirm("업로드가 완료 되었습니다" + data);
             if(result){
+                loading.style.display = 'none';
                 con_modal.style.display ="none";
             }
         })

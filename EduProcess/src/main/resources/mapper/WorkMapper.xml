@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.geomin.student.service.WorkMapper">
+    <select id="getList" resultType="WorkVO">
+        SELECT *, DATE_FORMAT(h_reg_ymd, '%Y-%m-%d') AS formatted_date FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
+    </select>
+    <select id="getList2" resultType="WorkVO">
+        SELECT *
+        FROM hw_distribution
+        WHERE h_no IN
+              (SELECT h_no FROM hw WHERE sg_no IN
+                                         (SELECT sg_no FROM join_group WHERE user_id = #{user_id})
+              ) LIMIT #{cri.pageStart}, #{cri.amount};
+    </select>
+    <select id="getList3" resultType="WorkVO">
+        SELECT *, DATE_FORMAT(h_reg_ymd, '%Y-%m-%d') AS formatted_date FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
+    </select>
+    <select id="selectGroup"  resultType="GroupVO">
+        SELECT sg_name, sg_no,user_id
+        FROM study_group
+        WHERE user_id = #{gvo.user_id}
+    </select>
+    <select id="userList" resultType="UserVO">
+        SELECT * from user;
+        SELECT sg_name, sg_no
+        FROM study_group;
+    </select>
+    <select id="getTotal" resultType="int">
+        select count(*)
+        from hw_distribution
+    </select>
+    <select id="getTotal2" resultType="int">
+        SELECT count(*)
+        FROM hw_distribution
+        WHERE h_no IN
+              (SELECT h_no FROM hw WHERE sg_no IN
+                                         (SELECT sg_no FROM join_group WHERE user_id = #{user_id})
+              );
+    </select>
+    <insert id="regist">
+        INSERT INTO hw_distribution (
+            h_name,
+            h_detail1,
+            h_detail2,
+            h_detail3,
+            h_level,
+            h_dead,
+            h_reg_ymd,
+            h_ans1,
+            h_ans2,
+            h_para1,
+            h_para2,
+            h_test1,
+            h_test2,
+            h_test3,
+            h_test4
+        ) VALUES (
+                  #{h_name},
+                  #{h_detail1},
+                  #{h_detail2},
+                  #{h_detail3},
+                  #{h_level},
+                  #{h_dead},
+                  date_format(now(), '%Y%m%d'),
+                  #{h_ans1},
+                  #{h_ans2},
+                  #{h_para1},
+                  #{h_para2},
+                  #{h_test1},
+                  #{h_test2},
+                  #{h_test3},
+                  #{h_test4}
+                  date_format(now(), '%Y%m%d')
+                         )
+    </insert>
+
+    <insert id="insertHw">
+        insert into hw (h_no,sg_no) values(#{h_no},#{sg_no})
+    </insert>
+    <select id="getDetail" resultType="WorkVO">
+
+    SELECT * FROM hw_distribution
+
+        WHERE h_no = #{h_no}
+    </select>
+
+    <delete id="delete">
+        delete from hw_distribution where h_no = #{h_no}
+    </delete>
+
+</mapper>

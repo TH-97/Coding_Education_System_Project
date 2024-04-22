@@ -1,0 +1,33 @@
+#editor {
+      height: 800px !important;
+      font-size: 25px;
+   } 
+#submit {
+	cursor: pointer;
+    overflow: visible;
+    position: relative;
+	background-color: #06c3a7;
+    border-color: #0000;
+    color: #fff;
+    padding: calc(.375em - 1px) .75em;
+    align-items: center;
+    border: 1px solid #0000;
+    border-radius: 4px;
+    box-shadow: none;
+    display: inline-flex;
+    font-size: 1rem;
+    height: 2.25em;
+    justify-content: flex-start;
+    line-height: 1.5;
+    vertical-align: top;
+}
+.icon{
+	align-items: center;
+    display: inline-flex;
+    height: 1.5rem;
+    justify-content: center;
+    width: 1.5rem;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
