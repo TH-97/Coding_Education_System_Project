@@ -68,7 +68,7 @@
                  #{msg.rc_no},
                 #{msg.user_id},
                 #{msg.mc_content},
-                NOW()
+                #{msg.mc_send_date}
                 )
             </foreach>
 

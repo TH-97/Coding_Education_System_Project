@@ -55,10 +55,11 @@
 
 ul.status {
 	display: flex;
-    border-bottom: 1px solid #dee2e6;
 }
 ul.status .active {
 	position:relative;
+    font-weight: bold;
+    color: #00c471;
 }
 ul.status .active:after{
     position: absolute;
@@ -124,6 +125,9 @@ form.search .search-item .search-by-text {
     background-color: #00c471;
     color:#ffffff;
     border-radius: 4px;
+}
+.question-list{
+    display: none;
 }
 .question-list-container {
 	margin-bottom: 40px;
@@ -231,6 +235,7 @@ a{
 	font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-top: 5px;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
@@ -315,4 +320,38 @@ a{
 .pagination-list {
 	display: flex;
 	justify-content: center;
+}
+
+.question_body-detail{
+    height: 24px;
+    /* overflow: hidden; */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.5;
+    max-height: 1.5rem;
+    text-align: left;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    color: #495057;
+    font-size: .875rem;
+}
+
+.answer-textarea{
+    height: 100%; width: 100%; padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+.answer-content-box{
+
+}
+.answer-content-container{
+    padding: 20px;
+}
+.question_del-btn{
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
 }

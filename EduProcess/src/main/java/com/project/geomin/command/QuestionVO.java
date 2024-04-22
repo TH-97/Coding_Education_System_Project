@@ -17,4 +17,5 @@ public class QuestionVO {
 	private String q_date;
 	private String status;
 	private String user_id;
+	private String a_count;
 }
