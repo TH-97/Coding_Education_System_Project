@@ -17,7 +17,7 @@ function requestPay() {
         alert("로그인 하세요");
     } else {
         $.ajax({
-            url: "http://52.79.194.111:8989/payment/validate/check", // 실제 엔드포인트로 변경
+            url: "http://localhost:8989/payment/validate/check", // 실제 엔드포인트로 변경
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -46,7 +46,7 @@ function requestPay() {
                     }, function(rsp) { // callback
                         if (rsp.success) {
                             $.ajax({
-                                url: "http://52.79.194.111:8989/payment/validate",
+                                url: "http://localhost:8989/payment/validate",
                                 method: "POST",
                                 contentType: "application/json",
                                 data: JSON.stringify({
@@ -89,7 +89,7 @@ function requestPay2() {
         alert("로그인 하세요");
     } else {
         $.ajax({
-            url: "http://52.79.194.111:8989/payment/validate/check", // 실제 엔드포인트로 변경
+            url: "http://localhost:8989/payment/validate/check", // 실제 엔드포인트로 변경
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -117,7 +117,7 @@ function requestPay2() {
                     }, function(rsp) { // callback
                         if (rsp.success) {
                             $.ajax({
-                                url: "http://52.79.194.111:8989/payment/validate",
+                                url: "http://localhost:8989/payment/validate",
                                 method: "POST",
                                 contentType: "application/json",
                                 data: JSON.stringify({

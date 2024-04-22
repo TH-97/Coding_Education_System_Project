@@ -32,10 +32,9 @@ public class WorkController {
         GroupVO vo2 = new GroupVO();
         vo2.setUser_id(dd.getUsername());
         ArrayList<GroupVO> gList = workService.selectGroup(vo2, searchVO);
-        System.out.println(gList.toString());
         UserVO vo3 = new UserVO();
         UserVO voo = dd.getUserVO();
-        model.addAttribute("gList", gList);
+            model.addAttribute("gList", gList);
         int total=workService.getTotal(cri,dd.getUsername());
         PageeeVO pageVo = new PageeeVO(cri, total);
         model.addAttribute("list", list);
@@ -62,7 +61,7 @@ public class WorkController {
 
     @PostMapping("/workForm")
     public String workForm(WorkVO vo,
-                           HttpSession session) {
+                            HttpSession session) {
 
 
         int result = workService.regist(vo);
@@ -72,7 +71,7 @@ public class WorkController {
     @GetMapping("/worksub")
     public String detail(@RequestParam("h_no") int user_id,
                          Model model
-    ) {
+                         ) {
         WorkVO vo = workService.getDetail(user_id); //게시글 내용
 
         model.addAttribute("vo", vo);
@@ -120,7 +119,7 @@ public class WorkController {
     @GetMapping("/workdell")
     public String deleteBoards(@RequestParam("h_no") int h_no) {
         workService.delete(h_no);
-        return "redirect:workdis";
+        return "redirect:workdel";
     }
 
 
