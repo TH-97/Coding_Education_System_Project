@@ -11,7 +11,7 @@ public class Criteria {
     private Integer writing;
 
     public Criteria(){
-        this(1,4);
+        this(1,5);
     }
 
     public Criteria(Integer currentPage, Integer writing) {

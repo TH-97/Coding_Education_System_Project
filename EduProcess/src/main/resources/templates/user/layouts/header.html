@@ -6,7 +6,7 @@
             <p><a href="">학습서비스</a></p>
             <p><a href="">구독서비스</a></p>
             <p><a href="">교육자마당</a></p>
-            <p><a href="/board/list">게시판</a></p>
+            <p><a href="/board/list?currentPage=1&writing=5&questionSearch=&status=all">게시판</a></p>
             <p th:if="${#authorization.expression('hasRole(''ROLE_admin'')')}">운영마당</p>
             <div style="display: flex; align-items: center">
                 <div class="dropdown">

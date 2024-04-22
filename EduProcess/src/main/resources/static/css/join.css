@@ -49,7 +49,7 @@ label {
 	height:16px;
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="submit"],
+input[type="text"], input[type="email"], input[type="password"], input[type="button"],
 	input[type="number"] {
 	width: calc(100% - 20px);
 	padding: 7px 12px; 
@@ -88,7 +88,7 @@ input[type="radio"] {
 	margin-right: 20px;
 } 
 
-input[type="submit"] {
+input[type="button"] {
 	background-color:#00C471;
 	color: #fff;
 	border: none;
@@ -100,6 +100,6 @@ input[type="submit"] {
 	padding : 0px 16px;
 }
 
-input[type="submit"]:hover {
+input[type="button"]:hover {
 	background-color:#5DA886;
 }

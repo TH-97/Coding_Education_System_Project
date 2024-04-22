@@ -15,5 +15,7 @@ public class AnswerVO {
 	private Integer q_no;
 	private String a_context;
 	private String a_date;
+	private String user_id;
+	private String a_count;
 	
 }
