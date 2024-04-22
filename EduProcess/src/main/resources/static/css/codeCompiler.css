@@ -30,10 +30,10 @@
     margin-right: 0 !important;
 }
 #output{
-	background: gray;
+	color:white;
 	overflow: visible;
     position: absolute;
-    left: 90%; /* 부모 요소의 가로 중앙에 배치 */
-    top: 55%;
+    top: 80%;
     margin-right: 10px;
+    font-size:40px;
 }
