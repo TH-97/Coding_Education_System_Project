@@ -78,7 +78,6 @@ public class WorkController {
     }
     @PostMapping("/subForm")
     public String subForm(@RequestBody Map<String, Object> map){
-        System.out.println("ffffff");
         System.out.println(map.toString());
         List<Map<String,String>> list = (List<Map<String, String>>) map.get("selectedValues");
         for(Map<String,String> map2 :list){
@@ -102,7 +101,7 @@ public class WorkController {
     }
 
     @GetMapping("/code")
-    public String detail(@RequestParam("h_no") int h_no,
+    public String detail(@RequestParam("h_no") int h_no ,
                          Model model,
                          HttpSession session) {
         WorkVO vo = workService.getDetail(h_no);

@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 
-<th:block th:replace="~{./user/layouts/font_css :: font_css}"></th:block>
-<th:block th:replace="~{./user/layouts/header :: header}"></th:block>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
 
 <link rel = "stylesheet" href="/css/boardAside.css">
 <link rel = "stylesheet" href="/css/regiContents.css">
 <body>
   <section id="list_content">
-  <th:block th:replace="~{./board/layouts/aside :: aside}"></th:block>
+  <th:block th:replace="~{/board/layouts/aside :: aside}"></th:block>
   	
   	<div class = "contents">
   		<form class="regi" action="/board/regist" method="post">
@@ -20,9 +21,9 @@
 - 서로 예의를 지키며 존중하는 문화를 만들어가요."></textarea>
   			
   			<div class="contents-footer">
-  			<button type="button" class="cancellation">
-  				취소
-  			</button>
+			<a href="/board/list" class="cancellation" style="line-height: 42px;">
+				취소
+			</a>
   			
   			<button type="submit" class="regiBtn">
   				등록
@@ -35,4 +36,5 @@
    </section>
 </body>
 </html>
+
   	

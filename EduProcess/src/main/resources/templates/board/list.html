@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 
-<th:block th:replace="~{./user/layouts/font_css :: font_css}"></th:block>
-<th:block th:replace="~{./user/layouts/header :: header}"></th:block>
+<th:block th:replace="~{/user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{/user/layouts/header :: header}"></th:block>
 
 <link rel = "stylesheet" href="/css/boardAside.css">
 <link rel = "stylesheet" href="/css/boardList.css">
+<script src="https://kit.fontawesome.com/d71a4a6ef8.js"
+		crossorigin="anonymous"></script>
 <body>
   	<section class="list_header">
   		<div class="list_header_content">
@@ -15,29 +17,30 @@
   	
   	</section>
   <section id="list_content">
-  <th:block th:replace="~{./board/layouts/aside :: aside}"></th:block>
+  <th:block th:replace="~{/board/layouts/aside :: aside}"></th:block>
   	
   	
   	<div class="list_body_content">
   		
   		<div class="search-filter">
   			<ul class="status">
-  				<li class="e-status active" data-status><button class="tab-button">전체</button></li>
-  				<li class="e-status" data-status="unresolved"><button class="tab-button">해결</button></li>
-  				<li class="e-status" data-status="resolved"><button class="tab-button">미해결</button></li>
+  				<li class="e-status" ><button class="tab-button active" data-status="#all">전체</button></li>
+  				<li class="e-status" ><button class="tab-button" data-status="#resolved">해결</button></li>
+  				<li class="e-status"><button class="tab-button" data-status="#unresolved">미해결</button></li>
   				
   			</ul>
-  			<form class="search">
+  			<form class="search" name="search" action="/board/list">
    				 <div class="search-item">
       
   					  <div class="search-by-text">
       						<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill="#212529" fill-rule="evenodd" clip-rule="evenodd" d="M11.5 7c0 .59-.116 1.176-.343 1.722-.226.546-.557 1.042-.975 1.46-.418.418-.914.75-1.46.975-.546.226-1.131.343-1.722.343-.59 0-1.176-.117-1.722-.343-.546-.226-1.042-.557-1.46-.975-.418-.418-.75-.914-.975-1.46C2.616 8.176 2.5 7.591 2.5 7c0-1.194.474-2.338 1.318-3.182C4.662 2.974 5.807 2.5 7 2.5c1.193 0 2.338.474 3.182 1.318C11.026 4.662 11.5 5.806 11.5 7zm-.82 4.74c-1.206.936-2.723 1.377-4.242 1.234-1.52-.143-2.928-.86-3.937-2.005C1.49 9.825.956 8.34 1.004 6.813c.047-1.526.675-2.976 1.754-4.055 1.08-1.08 2.53-1.707 4.055-1.755 1.525-.047 3.012.488 4.156 1.498 1.145 1.01 1.862 2.417 2.005 3.937.143 1.52-.298 3.036-1.234 4.242l3.04 3.04c.074.069.133.151.174.243.04.092.063.192.065.292.001.101-.017.201-.055.294-.038.094-.094.179-.165.25-.071.071-.156.127-.25.165-.093.038-.193.056-.293.054-.101-.001-.2-.023-.293-.064-.091-.041-.174-.1-.243-.174l-3.04-3.04z"></path></svg>
-    					  <input value="" data-kv="s" type="text" spellcheck="false" placeholder="궁금한 질문을 검색해보세요!" enterkeyhint="search">
+    					  <input name="questionSearch" value="" data-kv="s" type="text" spellcheck="false" placeholder="궁금한 질문을 검색해보세요!" enterkeyhint="search">
+						  <input id="searchStatus" type="hidden" name="status" value="">
       
    					 </div>
   
       
-   					 <button class="submit_form">검색</button>
+   					 <button id="searchBtn" class="submit_form" onclick="">검색</button>
     			</div>
     
 		  </form>
@@ -45,26 +48,28 @@
   		
   		<div class="question-list-container">
   			<div class="question-list-header">
-  				<ul class="order-qc">
-  					<li class="e-order active" data-order="recent">
-  						<button class="order-qc_button">
-  							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  								<path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd">
-  								</path>
-  							</svg>
-  							최신순
-  						</button>
-  					</li>
-  					<li class="e-order" data-order="comment">
-  						<button class="order-qc_button">
-  							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  								<path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd">
-  								</path>
-  							</svg>
-  							답변 많은 순
-  						</button>
-  					</li>
-  				</ul>
+
+<!--  				<ul class="order-qc">-->
+<!--  					<li class="e-order active" data-order="recent">-->
+<!--  						<a href="/board/list?order=new" class="order-qc_button">-->
+<!--  							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">-->
+<!--  								<path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd">-->
+<!--  								</path>-->
+<!--  							</svg>-->
+<!--  							최신순-->
+<!--  						</a>-->
+<!--  					</li>-->
+<!--  					<li class="e-order" data-order="comment">-->
+<!--  						<a href="/board/list?order=answer&status=all&questionSearch=" class="order-qc_button">-->
+<!--  							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">-->
+<!--  								<path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd">-->
+<!--  								</path>-->
+<!--  							</svg>-->
+<!--  							답변 많은 순-->
+<!--  						</a>-->
+<!--  					</li>-->
+<!--  				</ul>-->
+
   				<div class="quest_box"></div>
   				<button class="e-new-question">
   				<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="#ffffff" fill-rule="evenodd" d="M11.508 1.451c.456-.455 1.195-.455 1.65 0l1.724 1.724c.456.456.456 1.194 0 1.65L13.02 6.687l-.008.008-7.219 6.89c-.132.126-.291.22-.466.273l-3.681 1.12c-.177.054-.369.006-.5-.124-.13-.131-.178-.323-.124-.5l1.115-3.666c.059-.192.166-.365.311-.504L9.651 3.31l1.857-1.858zM9.992 4.366l-6.854 6.542c-.02.02-.036.044-.044.072l-.843 2.769 2.785-.848c.025-.007.048-.02.067-.039l6.848-6.537-1.96-1.96zm2.675 1.26l1.508-1.508c.065-.065.065-.17 0-.236l-1.724-1.724c-.065-.065-.17-.065-.236 0l-1.508 1.509 1.96 1.96z" clip-rule="evenodd"></path></svg>
@@ -73,14 +78,19 @@
   		
   			</div>
   			
-  			<ul class="question-list">
+  			<ul class="question-list tab-active" id="all">
   				<li class="question-container" th:each="list : ${questionList}">
-  					<a class="click-post" href="">
+  					<a class="click-post" th:href="@{/board/listDetail(q_no=${list.q_no})}">
   						<div class="question">
   							<div class="question_info">
   								<div class="question_title"></div>
   									<div class="title-sub_text">
-  										<span class="question_status">[[${list.status}]]</span>
+										<th:block th:if="${list.status == 'unresolved'}">
+  											<span class="question_status">미해결</span>
+										</th:block>
+										<th:block th:if="${list.status == 'resolved'}">
+											<span class="question_status" style="color: black; background-color: #00C471 ">해결</span>
+										</th:block>
   									</div>
   									<div class="title_text">
   									[[${list.q_title}]]
@@ -93,48 +103,192 @@
   										<span class="question_info_user_name">[[${list.user_id}]]</span>
   										<span>&nbsp;·&nbsp;</span>
   										<span class="question_info_time">[[${list.q_date}]]</span>
+										<span>&nbsp;·&nbsp;</span>
+										<span class="question_info_answer" th:if="${list.a_count == null}">답변 : 0개</span>
+										<span class="question_info_answer" th:if="${list.a_count != null}">답변 : [[${list.a_count}]]개</span>
   									</div>
   								</div>
   							</div>
   						</div>
   					</a>
   				</li>
-  				
-				  			
+
+				<div class="page">
+					<ul>
+						<th:block th:if="${pageVO.total != 0}">
+							<li class=""><a th:href="@{list(currentPage=1,writing=${pageVO.writing} , questionSearch=${search},  status='all')}">
+								<i class="fa fa-angle-double-left"></i><p></p></a>
+							</li>
+						</th:block>
+						<!-- 2. 이전버튼 -->
+						<li style="margin-right:5px;" th:if="${pageVO.prev}">
+							<a class="pagination-previous" th:href="@{list(currentPage=${pageVO.start - 1}, writing=${pageVO.writing}, questionSearch=${search},  status='all')}">
+								<i class="fa fa-angle-left" aria-hidden="true"> </i></a>
+						</li>
+						<!-- 1. 페이지 반복-->
+						<th:block th:each="page :${pageVO.pageList}">
+							<li th:class="${page == pageVO.currentPage ? 'on' : ''}">
+								<a class="pagination-link" th:href="@{list(currentPage=${page}, writing=${pageVO.writing}, questionSearch=${search},  status='all')}">[[${page}]]</a>
+							</li>
+						</th:block>
+						<!--3. 다음버튼-->
+						<li style="margin-left:5px;" th:if="${pageVO.next}">
+							<a class="pagination-next" th:href="@{list(currentPage=${pageVO.end + 1}, writing=${pageVO.writing}, questionSearch=${search}, status='all')}">
+								<i class="fa fa-angle-right" aria-hidden="true"></i> >
+							</a>
+						</li>
+						<th:block th:if="${pageVO.total != 0 }">
+							<li><a th:href="@{list(currentPage=${pageVO.realEnd}, writing=${pageVO.writing}, questionSearch=${search}, status='all')}">
+								<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+						</th:block>
+					</ul>
+				</div>
   			</ul>
-  		
-  		
+
+			<ul class="question-list" id="unresolved">
+				<li class="question-container" th:each="list : ${questionList}">
+					<th:block th:if="${list.status == 'unresolved'}">
+					<a class="click-post" th:href="@{/board/listDetail(q_no=${list.q_no})}">
+						<div class="question">
+							<div class="question_info">
+								<div class="question_title"></div>
+								<div class="title-sub_text">
+									<th:block th:if="${list.status == 'unresolved'}">
+										<span class="question_status">미해결</span>
+									</th:block>
+									<th:block th:if="${list.status == 'resolved'}">
+										<span class="question_status" style="color: black; background-color: #00C471 ">해결</span>
+									</th:block>
+								</div>
+								<div class="title_text">
+									[[${list.q_title}]]
+								</div>
+								<p class="question_body">
+									[[${list.q_context}]]
+								</p>
+								<div class="question_footer">
+									<div class="question_footer_info-detail">
+										<span class="question_info_user_name">[[${list.user_id}]]</span>
+										<span>&nbsp;·&nbsp;</span>
+										<span class="question_info_time">[[${list.q_date}]]</span>
+										<span>&nbsp;·&nbsp;</span>
+										<span class="question_info_answer" th:if="${list.a_count == null}">답변 : 0개</span>
+										<span class="question_info_answer" th:if="${list.a_count != null}">답변 : [[${list.a_count}]]개</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+					</th:block>
+				</li>
+
+				<div class="page">
+					<ul>
+						<th:block th:if="${pageVO.total != 0}">
+							<li class=""><a th:href="@{list(currentPage=1,writing=${pageVO.writing} , questionSearch=${search},  status='unresolved')}">
+								<i class="fa fa-angle-double-left"></i><p></p></a>
+							</li>
+						</th:block>
+						<!-- 2. 이전버튼 -->
+						<li style="margin-right:5px;" th:if="${pageVO.prev}">
+							<a class="pagination-previous" th:href="@{list(currentPage=${pageVO.start - 1}, writing=${pageVO.writing}, questionSearch=${search},  status='unresolved')}">
+								<i class="fa fa-angle-left" aria-hidden="true"> </i></a>
+						</li>
+						<!-- 1. 페이지 반복-->
+						<th:block th:each="page :${pageVO.pageList}">
+							<li th:class="${page == pageVO.currentPage ? 'on' : ''}">
+								<a class="pagination-link" th:href="@{list(currentPage=${page}, writing=${pageVO.writing}, questionSearch=${search},  status='unresolved')}">[[${page}]]</a>
+							</li>
+						</th:block>
+						<!--3. 다음버튼-->
+						<li style="margin-left:5px;" th:if="${pageVO.next}">
+							<a class="pagination-next" th:href="@{list(currentPage=${pageVO.end + 1}, writing=${pageVO.writing}, questionSearch=${search}, status='unresolved')}">
+								<i class="fa fa-angle-right" aria-hidden="true"></i> >
+							</a>
+						</li>
+						<th:block th:if="${pageVO.total != 0 }">
+							<li><a th:href="@{list(currentPage=${pageVO.realEnd}, writing=${pageVO.writing}, questionSearch=${search}, status='unresolved')}">
+								<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+						</th:block>
+					</ul>
+				</div>
+			</ul>
+
+			<ul class="question-list" id="resolved">
+				<li class="question-container" th:each="list : ${questionList}">
+					<th:block th:if="${list.status == 'resolved'}">
+					<a class="click-post" th:href="@{/board/listDetail(q_no=${list.q_no})}">
+						<div class="question">
+							<div class="question_info">
+								<div class="question_title"></div>
+								<div class="title-sub_text">
+									<th:block th:if="${list.status == 'unresolved'}">
+										<span class="question_status">미해결</span>
+									</th:block>
+									<th:block th:if="${list.status == 'resolved'}">
+										<span class="question_status" style="color: black; background-color: #00C471 ">해결</span>
+									</th:block>
+								</div>
+								<div class="title_text">
+									[[${list.q_title}]]
+								</div>
+								<p class="question_body">
+									[[${list.q_context}]]
+								</p>
+								<div class="question_footer">
+									<div class="question_footer_info-detail">
+										<span class="question_info_user_name">[[${list.user_id}]]</span>
+										<span>&nbsp;·&nbsp;</span>
+										<span class="question_info_time">[[${list.q_date}]]</span>
+										<span>&nbsp;·&nbsp;</span>
+										<span class="question_info_answer" th:if="${list.a_count == null}">답변 : 0개</span>
+										<span class="question_info_answer" th:if="${list.a_count != null}">답변 : [[${list.a_count}]]개</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+					</th:block>
+				</li>
+
+				<div class="page">
+					<ul>
+						<th:block th:if="${pageVO.total != 0}">
+							<li class=""><a th:href="@{list(currentPage=1,writing=${pageVO.writing} , questionSearch=${search},  status='resolved')}">
+								<i class="fa fa-angle-double-left"></i><p></p></a>
+							</li>
+						</th:block>
+						<!-- 2. 이전버튼 -->
+						<li style="margin-right:5px;" th:if="${pageVO.prev}">
+							<a class="pagination-previous" th:href="@{list(currentPage=${pageVO.start - 1}, writing=${pageVO.writing}, questionSearch=${search},  status='resolved')}">
+								<i class="fa fa-angle-left" aria-hidden="true"> </i></a>
+						</li>
+						<!-- 1. 페이지 반복-->
+						<th:block th:each="page :${pageVO.pageList}">
+							<li th:class="${page == pageVO.currentPage ? 'on' : ''}">
+								<a class="pagination-link" th:href="@{list(currentPage=${page}, writing=${pageVO.writing}, questionSearch=${search},  status='resolved')}">[[${page}]]</a>
+							</li>
+						</th:block>
+						<!--3. 다음버튼-->
+						<li style="margin-left:5px;" th:if="${pageVO.next}">
+							<a class="pagination-next" th:href="@{list(currentPage=${pageVO.end + 1}, writing=${pageVO.writing}, questionSearch=${search}, status='resolved')}">
+								<i class="fa fa-angle-right" aria-hidden="true"></i> >
+							</a>
+						</li>
+						<th:block th:if="${pageVO.total != 0 }">
+							<li><a th:href="@{list(currentPage=${pageVO.realEnd}, writing=${pageVO.writing}, questionSearch=${search}, status='resolved')}">
+								<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+						</th:block>
+					</ul>
+				</div>
+			</ul>
+
+
   		</div>
   	
-  		<th:block th:if="${not #lists.isEmpty(list)}">
-            <div class="pagination">
-                <ul>
-                    <li class=""><a th:href="@{workdis(page=1,amount=${pageVO.amount})}">
-                        <i class="fa fa-angle-double-left"></i><p></p></a>
-                    </li>
-                    <!-- 2. 이전버튼 -->
-                    <li style="margin-right:5px;" th:if="${pageVO.prev}">
-                        <a class="pagination-previous" th:href="@{workdis(page=${pageVO.start - 1}, amount=${pageVO.amount})}">
-                            <i class="fa fa-angle-left" aria-hidden="true"> </i></a>
-                    </li>
-                    <!-- 1. 페이지 반복-->
-                    <th:block th:each="page, status :${pageVO.pageList}">
-                        <li th:class="${page == pageVO.page ? 'on' : ''}">
-                            <a class="pagination-link" th:href="@{workdis(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
-                        </li>
-                    </th:block>
-                    <!--3. 다음버튼-->
-                    <li style="margin-left:5px;" th:if="${pageVO.next}">
-                        <a class="pagination-next" th:href="@{workdis(page=${pageVO.end + 1}, amount=${pageVO.amount})}">
-                            <i class="fa fa-angle-right" aria-hidden="true"></i> >
-                        </a>
-                    </li>
 
-                    <li><a th:href="@{workdis(page=${pageVO.realEnd}, amount=${pageVO.amount})}">
-                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-                </ul>
-            </div>
-        </th:block>
+
+
   	</div>
   	
   	<div class="list_right_side">
@@ -146,3 +300,112 @@
 <script src="/js/boardList.js"></script>
 </body>
 </html>
+
+<script>
+	window.onload = ()=>{
+		var questionList = document.querySelectorAll(".question-list");
+		var tabBtnList = document.querySelectorAll(".tab-button");
+
+
+		var urlStr = window.location.href;
+		var url = new URL(urlStr);
+		var urlparams = url.searchParams;
+		var tabStatus =urlparams.get("status");
+		var tabStatusId = "#"+tabStatus;
+		
+		if(tabStatus != null){
+
+			for (let i = 0; i < questionList.length; i++) {
+				questionList[i].classList.remove("tab-active");
+				tabBtnList[i].classList.remove("active");
+			}
+			document.querySelector(tabStatusId).classList.add("tab-active");
+			for (let i = 0; i < tabBtnList.length; i++) {
+				if(tabBtnList[i].dataset.status == tabStatusId){
+					tabBtnList[i].classList.add("active");
+				}
+			}
+
+		}
+
+	}
+
+	var toggleStatus = document.querySelector(".status");
+	var questionList = document.querySelectorAll(".question-list");
+	var tabBtnList = document.querySelectorAll(".tab-button");
+	var searchStatus = document.querySelector("#searchStatus");
+
+	toggleStatus.onclick = ()=>{
+		console.log(event.target)
+		if (event.target.tagName != "BUTTON") return;
+		var toggleId = event.target.dataset.status;
+
+		console.log(toggleId)
+		console.log(questionList)
+		for (var i = 0; i < questionList.length; i++) {
+			questionList[i].classList.remove("tab-active");
+			tabBtnList[i].classList.remove("active");
+		}
+
+		document.querySelector(toggleId).classList.add("tab-active");
+		event.target.classList.add("active");
+		console.log(toggleId.substring(1))
+		searchStatus.value=toggleId.substring(1);
+
+		var urlStr = window.location.href;
+		var url = new URL(urlStr);
+		var urlparams = url.searchParams;
+		var questionSearch =urlparams.get("questionSearch");
+		if(questionSearch == null){
+			questionSearch='';
+		}
+		location.href=`/board/list?currentPage=1&writing=5&questionSearch=${questionSearch}&status=${toggleId.substring(1)}`;
+
+	}
+
+	var searchBtn = document.querySelector("#searchBtn");
+
+	searchBtn.onclick = ()=>{
+		var urlStr = window.location.href;
+		var url = new URL(urlStr);
+		var urlparams = url.searchParams;
+		var status =urlparams.get("status");
+		searchStatus.value= status;
+	}
+
+
+
+
+
+</script>
+
+<style>
+	.tab-active{
+		display: block;
+	}
+	/* 페이징 */
+	.page{padding:30px 0 20px 0;position:relative;}
+	.page ul{text-align:center;}
+	.page ul li{display:inline;  padding:0px!important;}
+	.page ul li a{display:inline-block; zoom:1;*display:inline; width: 35px; height: 35px; line-height: 35px; color:#777777; border:1px solid #dddddd;transition:all 0.25s ease-in-out;-webkit-transition:all 0.25s ease-in-out;font-size:15px;}
+	.page ul li a:hover, .page ul li.on a{display:inline-block;zoom:1;*display:inline; border:1px solid #7866c9;background:#fff;color:#7866c9;}
+	.page ul li a i{color:#777777;}
+	.page ul li a:hover i{color:#7866c9;}
+
+	.btn-option{
+		display: inline-block;
+		width: 70px;
+		height: 30px;
+		line-height: 30px;
+		margin-left:-4px;
+		color: #666;
+		text-align: center;
+		border: 1px solid #cfcfcf;
+		background-color:#fff;
+	}
+	.search_th{width:100px; float:left; text-align:center;}
+	.btn-option.on{background-color:#7866c9; color:#fff;}
+	p > .btn-option:first-child{border-radius: 5px 0px 0px 5px;}
+	p > .btn-option:last-child{border-radius: 0px 5px 5px 0px;}
+
+</style>
