@@ -38,12 +38,10 @@ public class APIController {
 
         WorkVO hwVO = workMapper.getHomework(hn);
         //vo 가져오기;
-        hwVO.getH_para1();
-        hwVO.getH_para2();
         code =code.substring(0,code.lastIndexOf("}"));
         code +=  "public static void main(String[] args){\n"
-        		+"System.out.println(solution(hwVO.getH_test1(),hwVO.getH_test2()));\n"
-        +"System.out.println(solution(hwVO.getH_test3(),hwVO.getH_test4()));\n"
+        		+"System.out.println(solution("+hwVO.getH_test1()+","+hwVO.getH_test2()+"));\n"
+        +"System.out.println(solution("+hwVO.getH_test3()+","+hwVO.getH_test4()+"));\n"
         +"}\n"
         + "}";
         System.out.println("code2: " +code);
@@ -101,12 +99,23 @@ public class APIController {
                while ((s = Reader.readLine()) != null) {
                   InputLine+=s+"\n";
                   System.out.println("표준값: " +s);
+                  if(s.equals(String.valueOf(hwVO.getH_ans1()))) {
+                	  System.out.println("123");
+                  }
+                  if(s.equals(String.valueOf(hwVO.getH_ans2()))) {
+                	  System.out.println("456");
+                  }
+                  
                   
                }
                System.out.println("정산값 : " +InputLine);
-               if(InputLine.equals(hwVO.getH_ans1()+"\n"+hwVO.getH_ans2())) {
+               System.out.println("ans1 : " +hwVO.getH_ans1());
+               System.out.println("ans2 : " +hwVO.getH_ans2());
+               if(InputLine.equals(String.valueOf(hwVO.getH_ans1())+"\n"+String.valueOf(hwVO.getH_ans2()+"\n"))) {
+            	   System.out.println("성공 : "+String.valueOf(hwVO.getH_ans1())+"\n"+String.valueOf(hwVO.getH_ans2()));
             	   return "테스트에 통과 하였습니다"; 
                }else {
+            	   System.out.println("실패: " +String.valueOf(hwVO.getH_ans1())+"\n"+String.valueOf(hwVO.getH_ans2()));  
             	   return"테스트에 실패 하였습니다. 다시 시도하여 주세요";
                }
                
