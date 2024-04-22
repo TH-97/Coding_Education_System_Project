@@ -99,12 +99,19 @@ public class APIController {
                while ((s = Reader.readLine()) != null) {
                   InputLine+=s+"\n";
                   System.out.println("표준값: " +s);
+                  if(s.equals(String.valueOf(hwVO.getH_ans1()))) {
+                	  System.out.println("123");
+                  }
+                  if(s.equals(String.valueOf(hwVO.getH_ans2()))) {
+                	  System.out.println("456");
+                  }
+                  
                   
                }
                System.out.println("정산값 : " +InputLine);
                System.out.println("ans1 : " +hwVO.getH_ans1());
                System.out.println("ans2 : " +hwVO.getH_ans2());
-               if(InputLine.equals(String.valueOf(hwVO.getH_ans1())+"\n"+String.valueOf(hwVO.getH_ans2()))) {
+               if(InputLine.equals(String.valueOf(hwVO.getH_ans1())+"\n"+String.valueOf(hwVO.getH_ans2()+"\n"))) {
             	   System.out.println("성공 : "+String.valueOf(hwVO.getH_ans1())+"\n"+String.valueOf(hwVO.getH_ans2()));
             	   return "테스트에 통과 하였습니다"; 
                }else {
