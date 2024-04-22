@@ -11,7 +11,7 @@
 <body>
   <aside th:fragment="aside">
     <div id="title">
-      <h3>스터디그룹</h3>
+      <h3>학습그룹마당</h3>
     </div>
     <div id="side">
       <ul>
@@ -22,7 +22,8 @@
         <a><li class="menu" onclick="popup()"><img src="/img/message.png">채팅방입장</li></a>
         <a href="/work/makework" style="color: black"><li class="menu"><img src="/img/search.png">숙제 생성</li></a>
         <a href="/work/workdis" style="color: black"><li class="menu"><img src="/img/search.png">숙제 배포</li></a>
-        <a href="#" style="color: black"> <li class="menu"><img src="/img/search.png">숙제 평가</li></a>
+        <a href="/work/workcheck" style="color: black"> <li class="menu"><img src="/img/search.png">숙제 확인</li></a>
+        <a href="/work/workdel" style="color: black"> <li class="menu"><img src="/img/search.png">숙제 관리</li></a>
       </ul>
     </div>
     <script src="/js/aside.js"></script>

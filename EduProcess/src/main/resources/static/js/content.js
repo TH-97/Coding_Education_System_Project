@@ -173,13 +173,14 @@ regi.addEventListener("click", ()=>{
     )
         .then(response => response.text() )
         .then(data => {
-            let result = confirm("업로드가 완료 되었습니다" + data);
+            let result = confirm(data);
             if(result){
                 loading.style.display = 'none';
                 con_modal.style.display ="none";
             }
         })
-        .catch(err => alert('업로드에 실패했습니다:' + err) );
+        .catch(err => alert('업로드에 실패했습니다 빈칸을 확인해주세요') )
+        con_modal.style.display ="none";
 
 });
 

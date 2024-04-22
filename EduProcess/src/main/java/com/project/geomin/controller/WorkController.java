@@ -33,8 +33,6 @@ public class WorkController {
         vo2.setUser_id(dd.getUsername());
         ArrayList<GroupVO> gList = workService.selectGroup(vo2, searchVO);
         UserVO vo3 = new UserVO();
-        ArrayList<UserVO> uList = workService.userList(vo3);
-        //model.addAttribute("uList", uList);
         UserVO voo = dd.getUserVO();
             model.addAttribute("gList", gList);
         int total=workService.getTotal(cri,dd.getUsername());
@@ -102,6 +100,7 @@ public class WorkController {
         PageeeVO pageVo = new PageeeVO(cri, total);
         model.addAttribute("list", list);
         model.addAttribute("pageVO", pageVo);
+        System.out.println(list.toString());
         return "work/workcheck";
     }
 

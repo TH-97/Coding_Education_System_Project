@@ -30,11 +30,12 @@
                 <td th:text="${workeva.h_level}"></td>
                 <td th:text="${workeva.h_dead}"></td>
                 <td th:text="${workeva.h_reg_ymd}"></td>
+                <!-- 각 숙제 항목에 대한 라디오 버튼 -->
                 <td><input type="radio" class="radio-item" name="selected-item" th:value="${workeva.h_no}"></td>
             </tr>
-            <button onclick="del()" class="delete" style="cursor: pointer">선택 삭제</button>
-
+            <button onclick="deleteSelected()" class="delete" style="cursor: pointer">선택 삭제</button>
         </table>
+
 
         <th:block th:if="${not #lists.isEmpty(list)}">
             <div class="page">
@@ -74,7 +75,7 @@
         });
     });
 
-    function del(){
+    function deleteSelected(){
         if(selectedValue) {
             if(confirm("선택한 숙제를 삭제하시겠습니까?")) {
                 location.href = 'workdell?h_no=' + selectedValue;
@@ -83,7 +84,6 @@
             alert("삭제할 숙제를 선택하세요.");
         }
     }
-
 </script>
 </body>
 </html>
