@@ -85,8 +85,4 @@
 		delete from answer where a_no = #{a_no}
 	</delete>
 	
-	
-	
-
-
 </mapper>

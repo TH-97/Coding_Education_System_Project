@@ -18,9 +18,14 @@
         SELECT *, DATE_FORMAT(h_reg_ymd, '%Y-%m-%d') AS formatted_date FROM hw_distribution LIMIT #{cri.pageStart}, #{cri.amount};
     </select>
     <select id="selectGroup"  resultType="GroupVO">
+        SELECT sg_name, sg_no,user_id
+        FROM study_group
+        WHERE user_id = #{gvo.user_id}
+    </select>
+    <select id="userList" resultType="UserVO">
+        SELECT * from user;
         SELECT sg_name, sg_no
         FROM study_group;
-
     </select>
     <select id="getTotal" resultType="int">
         select count(*)
@@ -42,7 +47,15 @@
             h_detail3,
             h_level,
             h_dead,
-            h_reg_ymd
+            h_reg_ymd,
+            h_ans1,
+            h_ans2,
+            h_para1,
+            h_para2,
+            h_test1,
+            h_test2,
+            h_test3,
+            h_test4
         ) VALUES (
                   #{h_name},
                   #{h_detail1},
@@ -50,6 +63,15 @@
                   #{h_detail3},
                   #{h_level},
                   #{h_dead},
+                  date_format(now(), '%Y%m%d'),
+                  #{h_ans1},
+                  #{h_ans2},
+                  #{h_para1},
+                  #{h_para2},
+                  #{h_test1},
+                  #{h_test2},
+                  #{h_test3},
+                  #{h_test4}
                   date_format(now(), '%Y%m%d')
                          )
     </insert>

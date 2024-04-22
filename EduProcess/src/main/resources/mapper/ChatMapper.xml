@@ -69,7 +69,6 @@
                 #{msg.user_id},
                 #{msg.mc_content},
                 #{msg.mc_send_date}
-
                 )
             </foreach>
 

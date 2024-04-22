@@ -4,6 +4,7 @@ import com.project.geomin.command.*;
 import com.project.geomin.student.service.WorkService;
 import com.project.geomin.user.security.MyUserDetails;
 import com.project.geomin.util.Criteria;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -29,14 +30,18 @@ public class WorkController {
         ArrayList<WorkVO> list = workService.getList(cri, dd.getUsername());
         //그룹 가져오기
         GroupVO vo2 = new GroupVO();
+        vo2.setUser_id(dd.getUsername());
         ArrayList<GroupVO> gList = workService.selectGroup(vo2, searchVO);
-        model.addAttribute("gList", gList);
+        UserVO vo3 = new UserVO();
+        ArrayList<UserVO> uList = workService.userList(vo3);
+        //model.addAttribute("uList", uList);
+        UserVO voo = dd.getUserVO();
+            model.addAttribute("gList", gList);
         int total=workService.getTotal(cri,dd.getUsername());
         PageeeVO pageVo = new PageeeVO(cri, total);
         model.addAttribute("list", list);
         model.addAttribute("pageVO", pageVo);
         //배포
-
         return "work/workdis";
     }
     @GetMapping("/workdel")
