@@ -60,6 +60,14 @@ public class UserController {
 	public String stud_join() {
 		return "user/join";
 	}
+	@GetMapping("/test")
+	public String test() {
+		return "code/test1";
+	}
+	@GetMapping("/editor")
+	public String editor() {
+		return "code/editor";
+	}
 	
 
 	@PostMapping("/register")

@@ -1,3 +1,4 @@
+
 package com.project.geomin.controller;
 
 import java.util.ArrayList;
@@ -148,3 +149,4 @@ public class boardController {
 
 
 }
+
