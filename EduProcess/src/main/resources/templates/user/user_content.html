@@ -48,6 +48,13 @@
         #myform input[type=radio]:checked ~ label {
             text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
         }
+        .star {
+            width: 20px;
+            height: 20px;
+            background-image: url('/img/star.png'); /* 별 이미지 경로에 맞게 수정하세요 */
+            background-size: contain;
+            display: inline-block;
+        }
 
         #reviewContents {
             width: 100%;
@@ -73,7 +80,9 @@
     <div style=" width: 60%;">
         <h1 id="con_nm" th:text="${content.con_nm}"></h1>
         <div>
-            <h4>리뷰 평점</h4> <h4>수강생 20명</h4>
+            <h4>리뷰 평점</h4>
+            <div th:each="i : ${#numbers.sequence(1, star)}" class="star"></div>
+
         </div>
         <img style="width: 100%" th:src="${content.thumbnail_path}">
         <h3 style="background-color: white; border-bottom: 1px solid red">난이도</h3>
@@ -108,7 +117,7 @@
                     </div>
                     <div>
                         <h2 th:text="${reviews.user_id}"></h2>
-                        <div th:text="${reviews.star}"></div>
+                        <div th:each="i : ${#numbers.sequence(1, reviews.star)}" class="star"></div>
                         <div th:text="${reviews.review_context}"></div>
                         <div th:text="${reviews.review_date}"></div>
                     </div>

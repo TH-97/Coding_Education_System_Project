@@ -21,7 +21,7 @@ public class adminRestController {
     AdminService adminService;
 
     @PostMapping("/cloudUpload")
-    public void cloudUpload(@RequestParam("file_data") List<MultipartFile> file,
+    public String cloudUpload(@RequestParam("file_data") List<MultipartFile> file,
                             @RequestParam("con_nm") String con_nm,
                             @RequestParam("cate_no") String cate_no,
                             @RequestParam("con_price") Integer con_price,
@@ -78,5 +78,6 @@ public class adminRestController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "업로드 완료";
     }
 }

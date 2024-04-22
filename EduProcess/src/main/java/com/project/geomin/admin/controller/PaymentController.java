@@ -15,10 +15,8 @@ public class PaymentController{
     PaymentService paymentService;
     @PostMapping("/payment/validate")
     public String createPayment(@RequestBody PaymentVO paymentReq){
-        System.out.println("들어옴");
 
         String user_id = paymentReq.getBuyer_name();
-        System.out.println(user_id);
         String con_nm = paymentReq.getName();
         String ctb_pay_type = paymentReq.getCtb_pay_type();
         int ctb_money = paymentReq.getAmount();
@@ -30,12 +28,9 @@ public class PaymentController{
     }
     @PostMapping("/payment/validate/check")
     public String update(@RequestBody PaymentVO paymentReq){
-        System.out.println("업데이트 들어옴");
         String user_id = paymentReq.getBuyer_name();
         String con_nm = paymentReq.getName();
-        System.out.println("유저아이디" + user_id);
         if(paymentService.check(user_id,con_nm) <1){
-            System.out.println("구매 하지 않음");
             return "구매 시작하겠습니다";
         }else{
 
