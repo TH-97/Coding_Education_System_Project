@@ -40,7 +40,6 @@ public class WorkServiceImpl implements WorkService {
     public ArrayList<GroupVO> selectGroup(GroupVO vo, GroupSearchVO gsvo) {
         return workMapper.selectGroup(vo, gsvo);
     }
-    public ArrayList<UserVO> userList(UserVO vo){return workMapper.userList(vo);}
     @Override
     public int getTotal(Criteria cri, String h_no) {
         return workMapper.getTotal(cri, h_no);

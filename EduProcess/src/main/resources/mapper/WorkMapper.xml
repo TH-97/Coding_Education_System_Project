@@ -22,11 +22,6 @@
         FROM study_group
         WHERE user_id = #{gvo.user_id}
     </select>
-    <select id="userList" resultType="UserVO">
-        SELECT * from user;
-        SELECT sg_name, sg_no
-        FROM study_group;
-    </select>
     <select id="getTotal" resultType="int">
         select count(*)
         from hw_distribution
@@ -72,7 +67,6 @@
                   #{h_test2},
                   #{h_test3},
                   #{h_test4}
-                  date_format(now(), '%Y%m%d')
                          )
     </insert>
 
