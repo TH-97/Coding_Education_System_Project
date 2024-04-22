@@ -7,15 +7,12 @@ import com.project.geomin.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Controller
@@ -86,7 +83,7 @@ public class WorkController {
         for(Map<String,String> map2 :list){
             String h_no = map2.get("workNo");
             String sg_no = map2.get("groupNo");
-            int n = workService.insertHw(h_no,sg_no);
+            workService.insertHw(h_no,sg_no);
         }
         return "redirect:/work/workcheck";
     }
