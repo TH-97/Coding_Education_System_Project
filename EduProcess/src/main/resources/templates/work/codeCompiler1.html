@@ -8,10 +8,7 @@
 </head>
 <body style="background-color: #34614d;">
 
-<th:block th:replace ="~{/work/layouts/font_css :: font_css}"></th:block>
 <section>
-  <input type="hidden" id="user_id" th:value="${#authentication.principal.username}">
-  <input type="hidden" id="homework_num" th:value="${vo.h_no}">
   <div id="top" style="padding-left: 12px; line-height: 50px; height: 50px; font-weight: bold;  background-color: #334c48;">[[ ${vo.h_name} ]]</div>
   <div id="area">
     <div id="left">
@@ -21,19 +18,19 @@
       <div id="restrictions" style="padding: 10px; color: white">
         <table style="background-color: #334c48; height: 100px; width: 400px">
           <tr>
-            <th style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">[[ ${vo.h_para1}]]</th>
-            <th  style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">[[ ${vo.h_para2}]]</th>
-            <th style="border-bottom: 1px solid #36444d">Answer</th>
+            <th style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">"Parameter1"</th>
+            <th  style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">"Parameter2"</th>
+            <th style="border-bottom: 1px solid #36444d">"Answer"</th>
           </tr>
           <tr>
-            <th style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">[[ ${vo.h_test1} ]]</th>
-            <th  style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">[[ ${vo.h_test2} ]]</th>
-            <th style="border-bottom: 1px solid #36444d">[[ ${vo.h_ans1} ]]</th>
+            <th style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">"[[ ${vo.h_test1} ]]"</th>
+            <th  style="border-right: 1px solid #36444d; border-bottom: 1px solid #36444d">"[[ ${vo.h_test2} ]]"</th>
+            <th style="border-bottom: 1px solid #36444d">"[[ ${vo.h_ans1} ]]"</th>
           </tr>
           <tr>
-            <th style="border-right: 1px solid #36444d">[[ ${vo.h_test3} ]]</th>
-            <th style="border-right: 1px solid #36444d">[[ ${vo.h_test4} ]]</th>
-            <th>[[ ${vo.h_ans2} ]]</th>
+            <th style="border-right: 1px solid #36444d">"[[ ${vo.h_test3} ]]"</th>
+            <th style="border-right: 1px solid #36444d">"[[ ${vo.h_test4} ]]"</th>
+            <th>"[[ ${vo.h_ans2} ]]"</th>
           </tr>
         </table>
         [[ ${vo.h_detail2} ]]
@@ -41,30 +38,12 @@
       <div id="ex" style="padding: 10px; color: white">
         [[ ${vo.h_detail3} ]]
 
-        <!-- <th:block th:replace ="~{./work/layouts/font_css :: font_css}"></th:block>
-          <section>
-            <input type="hidden" id="user_id" th:value="${#authentication.principal.username}">
-            <input type="hidden" id="homework_num" th:value="${vo.h_no}">
-            <div id="top" style="padding-left: 12px; line-height: 50px; height: 50px; font-weight: bold;  background-color: #334c48;">[[ ${vo.h_name} ]]</div>
-            <div id="area">
-              <div id="left">
-                <div id="pro_description" style="padding: 10px; color: white">
-                  [[ ${vo.h_detail1} ]]
-                </div>
-                <div id="restrictions" style="padding: 10px; color: white">
-                  [[ ${vo.h_detail2} ]]
-                </div>
-                <div id="ex" style="padding: 10px; color: white">
-                  [[ ${vo.h_detail3} ]]
-                </div>
-         -->
-
       </div>
 
     </div>
     <div id="right">
 
-      <div style="color: white; font-size: 15px; padding: 10px; border-style: none; background-color: #34614d; border-bottom: 1px solid #334c48;">
+<!--       <div style="color: white; font-size: 15px; padding: 10px; border-style: none; background-color: #34614d; border-bottom: 1px solid #334c48;">
         <p style="border-bottom: 1px solid #334c48; height: 50px; padding-left: 12px; line-height: 50px; color: white">Solution.java</p>
         <form id="codeForm">
             <textarea id="code" name="code" rows="35" cols="68" style=" ">public class Solution {
@@ -80,37 +59,38 @@
 
         </textarea><br>
           <button class="bbtn" type="submit">실행하기</button>
-        </form>
+        </form> -->
+      <div id="ss">
+        <p style="border-bottom: 1px solid #334c48; height: 50px; padding-left: 12px; line-height: 50px; color: white">Solution.java</p>
+       <th:block th:replace="~{./code/codeCompiler :: editor}" id="code"></th:block> 
       </div>
-      <p style="float: left; margin-left: 10px; margin-top: 14px; color: white">실행결과:</p>
-      <div id="output" style="float: left; margin-left: 10px; margin-top: 14px; color: white"></div>
 
     </div>
   </div>
 </section>
 <script>
-  // document.getElementById("codeForm").addEventListener("submit", function(event) {
-  //     event.preventDefault(); // 폼의 기본 동작 중단
-  //
-  //     var code = document.getElementById("code").value;
-  //     var user_id = document.getElementById("user_id").value;
-  //     var homework_num =document.getElementById("homework_num").value;
-  //
-  //     // AJAX를 사용하여 서버로 코드를 전송하고 결과를 받아옴
-  //     var xhr = new XMLHttpRequest();
-  //     xhr.open("POST", "/compileAndRun", true);
-  //     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  //     xhr.onreadystatechange = function() {
-  //         if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-  //             document.getElementById("output").innerText = xhr.responseText;
-  //         }
-  //     };
-  //     xhr.send("code=" + encodeURIComponent(code)+"&user_id="+user_id+"&homework_num="+homework_num);
-  // });
-  document.getElementById("codeForm").addEventListener("submit", function(event) {
+    // document.getElementById("codeForm").addEventListener("submit", function(event) {
+    //     event.preventDefault(); // 폼의 기본 동작 중단
+    //
+    //     var code = document.getElementById("code").value;
+    //     var user_id = document.getElementById("user_id").value;
+    //     var homework_num =document.getElementById("homework_num").value;
+    //
+    //     // AJAX를 사용하여 서버로 코드를 전송하고 결과를 받아옴
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open("POST", "/compileAndRun", true);
+    //     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //     xhr.onreadystatechange = function() {
+    //         if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+    //             document.getElementById("output").innerText = xhr.responseText;
+    //         }
+    //     };
+    //     xhr.send("code=" + encodeURIComponent(code)+"&user_id="+user_id+"&homework_num="+homework_num);
+    // });
+ /*  document.getElementById("codeForm").addEventListener("submit", function(event) {
     event.preventDefault(); // 폼의 기본 동작 중단
 
-    var code = document.getElementById("code").value;
+    var code = document.getElementById("editor").value;
     var user_id = document.getElementById("user_id").value;
     var homework_num =document.getElementById("homework_num").value;
 
@@ -138,7 +118,7 @@
       }
     };
     xhr.send("code=" + encodeURIComponent(code)+"&user_id="+user_id+"&homework_num="+homework_num);
-  });
+  }); */
 </script>
 </body>
 </html>

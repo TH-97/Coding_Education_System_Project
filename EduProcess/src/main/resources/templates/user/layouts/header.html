@@ -1,23 +1,21 @@
+
 <header th:fragment="header">
     <div id="header">
         <div id="logo"><a href="/user/mainPage"> <img src="/img/logo.png" alt=""></a></div>
         <div id="header-content">
             <p><a href="/student/apply">학습서비스</a></p>
             <p><a href="/edu/groupSelect">학습그룹마당</a></p>
-            <p><a href="/board/list?currentPage=1&writing=5&questionSearch=&status=all">게시판</a></p>
+            <p><a href="/board/list">게시판</a></p>
             <p th:if="${#authorization.expression('hasRole(''ROLE_admin'')')}"><a href="/admin/conMa">운영마당</a></p>
             <div style="display: flex; align-items: center">
                 <div class="dropdown">
-                    <button class="dropbtn" sec:authorize="isAuthenticated()" onclick="toggleDropdown()">내정보</button>
-                    <div class="dropdown-content">
-                        <a href="/logout">로그아웃</a>
-                        <a href="/edu/groupContents">내가 구매한 컨텐츠 보기</a>
-                        <a  href="/work/workcheck">내 숙제 확인하기</a>
-                        <a href="/room">채팅방 바로가기</a>
-                        <a href="#">내 정보 보기</a>
-                        <a onclick="popup()">채팅방 바로가기</a>
-                    </div>
-                </div>
+ 				<button class="dropbtn" sec:authorize="isAuthenticated()" onclick="toggleDropdown()">내정보</button>
+ 					 <div class="dropdown-content">
+    					<a href="/logout">로그아웃</a>
+  						<a href="/edu/groupContents">내가 구매한 컨텐츠 보기</a>
+              <a href="/room">채팅방 바로가기</a>
+ 					 </div>
+				</div>
                 <button id="loginBtn">로그인</button>
 
             </div>
@@ -27,11 +25,11 @@
     <!-- 모달창 -->
     <div id="modal" class="hidden">
         <div class="modal-content">
-            <div id="logo2"><img class="logo2" src="/img/logo.png" alt=""></div>
+            <div id="logo2"><img class ="logo2" src="/img/logo.png" alt=""></div>
             <div>
                 <form action="/loginForm" method="post" id="textBox">
-                    <input type="text" name="username" placeholder="아이디">
-                    <input type="password" name="password" placeholder="비밀번호">
+                    <input type="text" name = "username" placeholder="아이디">
+                    <input type="password" name = "password" placeholder="비밀번호">
                     <input type="hidden" name="remember-me" value="true">
                     <button id="loginBtn2">로그인</button>
                 </form>
@@ -47,11 +45,9 @@
                 <hr id="line">
                 <span id="simpleLogin">간편 로그인</span>
                 <div>
-                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=hGxkco0a05QxwVjiglkx&state=STATE_STRING&redirect_uri=http://52.79.194.111:8989/user/naver"><img
-                            class="social" src="/img/Naver.png"></a>
-                    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5b36e517cda6ce71a97d292f2d6e5388&redirect_uri=http://52.79.194.111:8989/user/kakao"><img
-                            class="social" src="/img/Kakao.png"></a>
-                    <a href="/oauth2/authorization/google"><img class="social" src="/img/Google.png"></a>
+                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=hGxkco0a05QxwVjiglkx&state=STATE_STRING&redirect_uri=http://52.79.194.111:8989/user/naver"><img class = "social" src="/img/Naver.png"></a>
+                    <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5b36e517cda6ce71a97d292f2d6e5388&redirect_uri=http://52.79.194.111:8989/user/kakao"><img class = "social" src="/img/Kakao.png"></a>
+                    <a href="/oauth2/authorization/google"><img class = "social" src="/img/Google.png"></a>
                 </div>
             </div>
             <button id="close-modal">X</button>
@@ -60,4 +56,5 @@
     <!-- 모달창 끝 -->
 
     <script src="/js/header.js"></script>
+    <script src="/js/gpapply/popup.js"></script>
 </header>
