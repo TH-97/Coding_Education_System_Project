@@ -102,9 +102,13 @@ public class APIController {
                   
                }
                System.out.println("정산값 : " +InputLine);
+               System.out.println("ans1 : " +hwVO.getH_ans1());
+               System.out.println("ans2 : " +hwVO.getH_ans2());
                if(InputLine.equals(hwVO.getH_ans1()+"\n"+hwVO.getH_ans2())) {
+            	   System.out.println("성공 : "+hwVO.getH_ans1()+"\n"+hwVO.getH_ans2());
             	   return "테스트에 통과 하였습니다"; 
                }else {
+            	   System.out.println("실패: " + hwVO.getH_ans1()+"\n"+hwVO.getH_ans2());  
             	   return"테스트에 실패 하였습니다. 다시 시도하여 주세요";
                }
                
