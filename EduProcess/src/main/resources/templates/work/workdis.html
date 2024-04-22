@@ -11,7 +11,7 @@
 <th:block th:replace ="~{/edu/layouts/font_css :: font_css}"></th:block>
 <th:block th:replace ="~{user/layouts/header :: header}"></th:block>
 <section id="group_content">
-    <th:block th:replace="~{/edu/layouts/aside :: aside}"></th:block>
+    <th:block  th:replace="~{/edu/layouts/aside :: aside}"></th:block>
     <div class="detailbox">
         <div class="group_content_header">
             <h1>숙제 리스트</h1>
@@ -24,6 +24,7 @@
                 <th>레벨</th>
                 <th>제출기한</th>
                 <th>생성일자</th>
+                <th></th>
             </tr>
             <tr th:each="workeva : ${list}" th:class="'work-' + ${workeva.h_no}" th:onclick="'workInfo(' + ${workeva.h_no} + ')'">
                 <td th:class="'h_name-' + ${workeva.h_no}" th:text="${workeva.h_name}"></td>
@@ -31,11 +32,16 @@
                 <td th:class="'h_dead-' + ${workeva.h_no}" th:text="${workeva.h_dead}"></td>
                 <td th:class="'h_reg_ymd-' + ${workeva.h_no}" th:text="${workeva.h_reg_ymd}"></td>
                 <td th:class="'sel'+${workeva.h_no}" style="display: none">
-                    <select th:class="'selectTag select'+${workeva.h_no}">
+                    <select th:each="group : ${gList}" th:if="${group.user_id}" th:class="'selectTag select'+${workeva.h_no}">
                         <option th:each="group : ${gList}" th:value="${group.sg_no}" th:text="${group.sg_name}" th:attr="data-hno=${workeva.h_no}"></option>
                     </select>
                 </td>
+                <td>
+                    <!-- group.user_id가 있는 경우에만 라디오 버튼 출력 -->
+                    <input type="radio" class="radio-item" name="selected-item" th:each="group : ${gList}" th:if="${group.user_id}" th:value="${workeva.h_no}">
+                </td>
             </tr>
+            <button th:each="group : ${gList}" th:if="${group.user_id}" onclick="deleteSelected()" class="delete" style="cursor: pointer">선택 삭제</button>
         </table>
         <th:block th:if="${not #lists.isEmpty(list)}">
             <div class="page">
@@ -78,7 +84,7 @@
                         <th>숙제명</th>
                         <th>제출 기한</th>
                         <th>생성 일자</th>
-                        <th>학생 그룹</th>
+                        <th >학생 그룹</th>
                     </tr>
                     <tr id="selectedHomeworkRow">
                     </tr>
@@ -151,7 +157,25 @@
         alert("숙제 전송 완료!!")
         location.reload(true);
     }
+    // 선택된 항목의 값을 저장할 변수
+    var selectedValue = null;
 
+    // 라디오 버튼 클릭 시 선택된 항목의 값을 저장
+    document.querySelectorAll('.radio-item').forEach(function(item) {
+        item.addEventListener('change', function() {
+            selectedValue = this.value;
+        });
+    });
+
+    function deleteSelected(){
+        if(selectedValue) {
+            if(confirm("선택한 숙제를 삭제하시겠습니까?")) {
+                location.href = 'workdell?h_no=' + selectedValue;
+            }
+        } else {
+            alert("삭제할 숙제를 선택하세요.");
+        }
+    }
 
 
 </script>
