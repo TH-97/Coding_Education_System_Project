@@ -38,12 +38,10 @@ public class APIController {
 
         WorkVO hwVO = workMapper.getHomework(hn);
         //vo 가져오기;
-        hwVO.getH_para1();
-        hwVO.getH_para2();
         code =code.substring(0,code.lastIndexOf("}"));
         code +=  "public static void main(String[] args){\n"
-        		+"System.out.println(solution(hwVO.getH_test1(),hwVO.getH_test2()));\n"
-        +"System.out.println(solution(hwVO.getH_test3(),hwVO.getH_test4()));\n"
+        		+"System.out.println(solution("+hwVO.getH_test1()+","+hwVO.getH_test2()+"));\n"
+        +"System.out.println(solution("+hwVO.getH_test3()+","+hwVO.getH_test4()+"));\n"
         +"}\n"
         + "}";
         System.out.println("code2: " +code);
