@@ -10,7 +10,7 @@ files.addEventListener("click", function() {
     } else {
         var clickedElement = this; // 현재 클릭된 요소를 저장
         $.ajax({
-            url: "http://52.79.194.111:8989/payment/validate/check", // 실제 엔드포인트로 변경
+            url: "http://ec2-52-79-194-111.ap-northeast-2.compute.amazonaws.com:8989/payment/validate/check", // 실제 엔드포인트로 변경
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -52,7 +52,7 @@ reviewBtn.addEventListener("click", () => {
         alert("로그인 하세요");
     }else {
         $.ajax({
-            url: "http://52.79.194.111:8989/payment/validate/check", // 실제 엔드포인트로 변경
+            url: "http://ec2-52-79-194-111.ap-northeast-2.compute.amazonaws.com:8989/payment/validate/check", // 실제 엔드포인트로 변경
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
