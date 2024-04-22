@@ -23,5 +23,6 @@ public interface WorkMapper {
     public int insertHw(@Param("h_no")String h_no,@Param("sg_no")String sg_no);
     public WorkVO getDetail(int h_no);
     public void delete(int h_no);
+    public WorkVO getHomework(String h_no);
 
 }

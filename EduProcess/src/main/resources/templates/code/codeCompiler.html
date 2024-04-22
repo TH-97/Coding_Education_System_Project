@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymleaf.org">
+<html lang="en" xmlns:th="http://www.thymleaf.org" th:fragment="editor">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,33 +7,25 @@
 
 </head>
 <body>
-    <h1>Code Compiler</h1>
     <form id="codeForm">
-    	<input type="hidden" id="user_id" value="a1234">
-    	<input type="hidden" id="homework_num" value="49502">
-		<th:block th:replace="~{./code/editor :: edit}"></th:block>
+    	<input type="hidden" id="user_id" th:value="${#authentication.principal.username}">
+    	<input type="hidden" id="homework_num" th:value="${vo.h_no}">
+		<th:block th:replace="~{./code/editor :: edit}" id="code"></th:block>
         <button type="submit" id="submit"><span class="icon"><img src="/img/run.png"></span><span class="btnName">Compile and Run</span></button>
     </form>
        
-      <div style="width: 1000px ;height:auto" contenteditable="true" spellcheck="false"><pre class="presentation"></pre></div>
-   <div style="width:100px; height: auto;"><pre id="output"></pre></div>
+   <div style="width:100px; height: auto;"><pre id="output" ></pre></div>
 
    <script src="/js/Compiler/compiler.js"></script>
- <!--  <script src="/js/editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
     <script>
- /*    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/pastel_on_dark");
-    editor.getSession().setMode("ace/mode/java");
-    editor.setOptions({ maxLines: 1000 }); */
+
     
         document.getElementById("codeForm").addEventListener("submit", function(event) {
             event.preventDefault(); // 폼의 기본 동작 중단
-
-            var code = document.getElementById("editor").textContent;
-            console.log(code);
+            var code = document.querySelector(".ace_content").textContent;
             var user_id = document.getElementById("user_id").value;
             var homework_num = document.getElementById("homework_num").value;
-
+			console.log("code: " + code);
 
             // AJAX를 사용하여 서버로 코드를 전송하고 결과를 받아옴
             var xhr = new XMLHttpRequest();

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.geomin.command.UserVO;
+import com.project.geomin.command.WorkVO;
+import com.project.geomin.student.service.WorkMapper;
+import com.project.geomin.student.service.WorkService;
 import com.project.geomin.user.service.UserService;
 
 
@@ -23,13 +26,27 @@ public class APIController {
    @Qualifier("userService")
    private UserService userService;
    
+	@Autowired
+	private WorkMapper workMapper;
+   
+   
     @PostMapping("/compileAndRun")
     public String compileAndRun(@RequestParam("code") String code,@RequestParam("user_id") String user_id , @RequestParam("homework_num") String hn) throws IOException, InterruptedException {
         // 사용자가 입력한 코드 경로
         String directoryPath ="homework/"+user_id+"/"+hn;
         System.out.println("user_id : " + user_id + " homework_num : " +hn);
-        System.out.println("code : " +code);
 
+        WorkVO hwVO = workMapper.getHomework(hn);
+        //vo 가져오기;
+        hwVO.getH_para1();
+        hwVO.getH_para2();
+        code =code.substring(0,code.lastIndexOf("}"));
+        code +=  "public static void main(String[] args){\n"
+        		+"System.out.println(solution(hwVO.getH_test1(),hwVO.getH_test2()));\n"
+        +"System.out.println(solution(hwVO.getH_test3(),hwVO.getH_test4()));\n"
+        +"}\n"
+        + "}";
+        System.out.println("code2: " +code);
         // 폴더 객체 생성
         File directory = new File(directoryPath);
 
@@ -82,12 +99,16 @@ public class APIController {
                String InputLine ="";
                String s;
                while ((s = Reader.readLine()) != null) {
-                  InputLine+=s;
+                  InputLine+=s+"\n";
                   System.out.println("표준값: " +s);
                   
                }
                System.out.println("정산값 : " +InputLine);
-               return InputLine;
+               if(InputLine.equals(hwVO.getH_ans1()+"\n"+hwVO.getH_ans2())) {
+            	   return "테스트에 통과 하였습니다"; 
+               }else {
+            	   return"테스트에 실패 하였습니다. 다시 시도하여 주세요";
+               }
                
                
             }else {
