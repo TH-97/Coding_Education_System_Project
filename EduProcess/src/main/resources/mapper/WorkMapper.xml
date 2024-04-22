@@ -89,5 +89,10 @@
     <delete id="delete">
         delete from hw_distribution where h_no = #{h_no}
     </delete>
+    
+    <select id="getHomework" resultType="WorkVO">
+    	select * from hw_distribution
+		where h_no= #{h_no}
+    </select>
 
 </mapper>
