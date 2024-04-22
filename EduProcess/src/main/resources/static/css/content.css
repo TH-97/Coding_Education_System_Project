@@ -51,6 +51,9 @@ textarea{
     width: 100%;
     height: 30px;
 }
+.contents{
+    width: 400px;
+}
 /*모달 창*/
 #con-modal {
     position: fixed;
@@ -63,6 +66,7 @@ textarea{
     display: none;
     pointer-events: auto;
 }
+
 
 .con-modal-content {
     position: absolute;
@@ -120,6 +124,9 @@ th {
     width: 200px;
     height: 100px
 }
+.content-write > input{
+    padding: 0 20px;
+}
 textarea {
     overflow: scroll;
     box-sizing: border-box
@@ -129,6 +136,8 @@ textarea {
     top: 370px; left: 4px}
 #addButton{width: 30px;height: 30px;border-radius: 5px}
 #popButton{width: 30px;height: 30px;border-radius: 5px}
+
+#regi{width: 80%; background-color: #5DA886; margin: 0 auto; border: none; height: 30px; font-size: 20px; border-radius: 5px; margin-top: 10px;}
 /*로딩창*/
 #loading {
     display: none;

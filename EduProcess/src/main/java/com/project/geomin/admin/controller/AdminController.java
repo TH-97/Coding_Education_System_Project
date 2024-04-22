@@ -52,7 +52,6 @@ public class AdminController {
         List<AdminVO> F = adminService.getF(con_nm);
 
         List<ReviewVO> reviewList = reviewService.getReview(con_nm);
-
         String what ="";
         if (auth != null){
             MyUserDetails myuser = (MyUserDetails) auth.getPrincipal();
@@ -60,13 +59,23 @@ public class AdminController {
         } else {
             what = null;
         }
+        int total = 0;
+        int totalstar = 0;
+        for (ReviewVO i : reviewList){
+            int star1 = i.getStar();
+            totalstar += star1;
+        }
+        total = totalstar / reviewList.size();
 
         model.addAttribute("review",reviewList);
 
-        System.out.println(F);
         model.addAttribute("content",T);
         model.addAttribute("content_list", F);
         model.addAttribute("myuser", what);
+
+
+        //리뷰 평점
+        model.addAttribute("star", total);
         return "user/user_content";
     }
     @PostMapping("/reviewSave")
@@ -79,7 +88,6 @@ public class AdminController {
         reviewService.inputReview(con_nm,star,review_context,user_id);
         //모든 리뷰 가져오기
         List<ReviewVO> reviewList = reviewService.getReview(con_nm);
-        System.out.println(reviewList);
         //컨텐츠 가져오기
         AdminVO T = adminService.getT(con_nm);
         List<AdminVO> F = adminService.getF(con_nm);
@@ -91,7 +99,6 @@ public class AdminController {
         } else {
             what = null;
         }
-
         model.addAttribute("review",reviewList);
         model.addAttribute("content",T);
         model.addAttribute("content_list", F);
@@ -118,13 +125,10 @@ public class AdminController {
     }
     @GetMapping("/FAQ")
     public String FAQ(){
-        System.out.println("들어옴");
-
         return "admin/FAQ";
     }
     @GetMapping("/Q&A")
     public String QA(){
-        System.out.println("들어옴");
         return "admin/Q&A";
     }
 
