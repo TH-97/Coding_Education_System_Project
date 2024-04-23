@@ -102,13 +102,19 @@ public class ChatServiceImpl implements  ChatService{
 
     @Override
     public void oneToOneJoinChat(JoinChatVO vo, String myUserId) {
+   
+        	
        if(vo.getUser_id() != null){
            vo.setJc_status("비활성화");
            chatMapper.oneToOneJoinChat(vo);
        }
-       vo.setUser_id(myUserId);
-       vo.setJc_status("비활성화");
-       chatMapper.oneToOneJoinChat(vo);
+       
+ 
+       	vo.setUser_id(myUserId);
+       	vo.setJc_status("비활성화");
+       	chatMapper.oneToOneJoinChat(vo); 
+  
+       
     }
 
     @Override
