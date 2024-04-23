@@ -45,7 +45,6 @@ function validateCheck(){
     }
     if(!phoneRegex.test(userPhone.value)){
         alert("010으로 시작하는 11자리로 입력하여주세요.")
-        userPhone.value="";
         userPhone.focus();
         return;
     }
