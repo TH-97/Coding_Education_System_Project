@@ -53,7 +53,7 @@ public class boardController {
 		model.addAttribute("qDetail", boardService.getboardDetail(vo));
 		model.addAttribute("AnswerList", boardService.getAnswerList(vo));
 		System.out.println(boardService.getAnswerList(vo));
-		return "board/list_Detail";
+		return "board/list_detail";
 	}
 	
 	@GetMapping("/faq_list")

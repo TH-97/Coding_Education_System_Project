@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 
-<!-- <th:block th:replace="~{./user/layouts/font_css :: font_css}"></th:block>
-<th:block th:replace="~{./user/layouts/header :: header}"></th:block> -->
+ <th:block th:replace="~{./user/layouts/font_css :: font_css}"></th:block>
+<th:block th:replace="~{./user/layouts/header :: header}"></th:block>
 
 <link rel = "stylesheet" href="/css/boardAside.css">
 <link rel = "stylesheet" href="/css/boardList.css">
@@ -12,7 +12,7 @@
 
 <section id="list_content">
 
-<!--     <th:block th:replace="~{./board/layouts/aside :: aside}"></th:block> -->
+    <th:block th:replace="~{./board/layouts/aside :: aside}"></th:block> 
 
         <div class="list_body_content" style="width: 750px; flex: none;">
 
@@ -58,8 +58,8 @@
                                         <input type="submit"  class="e-new-question"  style="float: right;margin-top: 10px; font-size: 16px" value="삭제하기">
                                     </form>
 
-                                  <!--   <a th:href="@{./updateContents(q_no=${qDetail.q_no})}" class="e-new-question" style="float: right;margin-top: 10px;">
-                                        수정하기 -->
+                                    <a th:href="@{./updateContents(q_no=${qDetail.q_no})}" class="e-new-question" style="float: right;margin-top: 10px;">
+                                        수정하기 
                                     </a>
                                     </th:block>
 
