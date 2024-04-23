@@ -5,7 +5,7 @@ section{width: 1280px; margin: 0 auto}
 #header img {width: 100%;}
 #modal .logo2 {width: 100%;}
 #header-content{width: 65%; display: flex;justify-content: space-around;}
-#loginBtn , .dropbtn {background-color: #5DA886; border: none;padding: 10px 10px; border-radius: 10px;}
+#loginBtn , .dropbtn {background-color: #5DA886; border: none;padding: 10px 10px; border-radius: 10px;  float: none !important; margin: 0 !important; color: black !important; width: inherit !important; height: inherit !important;}
 #loginBtn:hover{cursor: pointer;}
 .dropbtn:hover{cursor:pointer;}
 p{height: 100%; display: flex; align-items: center;}

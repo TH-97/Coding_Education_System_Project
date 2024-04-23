@@ -212,10 +212,12 @@
             })
             .then((data)=>{
                 for(vo of data){
-                    var option = document.createElement("option");
-                    option.value = vo.user_id;
-                    option.innerText = vo.user_nm;
-                    myStudent.appendChild(option);
+                	if(vo.user_id != [[${#authentication.getPrincipal.getUserVO.user_id}]]){
+	                    var option = document.createElement("option");
+	                    option.value = vo.user_id;
+	                    option.innerText = vo.user_nm;
+	                    myStudent.appendChild(option);
+                	}
                 }
 
             })

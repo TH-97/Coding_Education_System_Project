@@ -213,7 +213,6 @@ public class UserController {
 	public String find_ID_result() {
 		return "user/find_ID_result";
 	}
-	
 	@GetMapping("/find_PW_result")
 	public String find_PW_result() {
 		return "user/find_PW_result";

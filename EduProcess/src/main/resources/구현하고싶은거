@@ -28,7 +28,7 @@ FAQ,QNA커뮤니티
 ssh -i "C:\Users\user\Downloads\java.pem" ubuntu@ec2-52-79-194-111.ap-northeast-2.compute.amazonaws.com
 
 네이버
-ec2-52-79-194-111.ap-northeast-2.compute.amazonaws.com
+ec2-52-79-194-111.ap-northeast-2.compute.amazonaws.com:8989/user/mainPage
 52.79.194.111
 
 네이버 , 구글 로그인 다른방식으로 해놨음 

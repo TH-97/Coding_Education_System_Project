@@ -50,7 +50,8 @@
             h_test1,
             h_test2,
             h_test3,
-            h_test4
+            h_test4,
+            h_return
         ) VALUES (
                   #{h_name},
                   #{h_detail1},
@@ -66,7 +67,8 @@
                   #{h_test1},
                   #{h_test2},
                   #{h_test3},
-                  #{h_test4}
+                  #{h_test4},
+                  #{h_return}
                          )
     </insert>
 
