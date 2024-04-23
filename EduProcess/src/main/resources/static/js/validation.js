@@ -44,13 +44,12 @@ function validateCheck(){
         return;
     }
     if(!phoneRegex.test(userPhone.value)){
-        alert("010, 11자리")
-        userPhone.value="";
+        alert("010으로 시작하는 11자리로 입력하여주세요.")
         userPhone.focus();
         return;
     }
     if(!phoneRegex.test(parentPhone.value)){
-        alert("010, 11자리")
+        alert("010으로 시작하는 11자리로 입력하여주세요.")
         parentPhone.value="";
         parentPhone.focus();
         return;

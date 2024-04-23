@@ -26,6 +26,7 @@ public class WorkVO {
     private String h_test2;
     private String h_test3;
     private String h_test4;
+    private String h_return;
     private String sg_no; //fk
     private String sg_name;
 
