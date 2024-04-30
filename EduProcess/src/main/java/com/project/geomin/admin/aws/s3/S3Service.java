@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -14,8 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.stream.DoubleStream;
 
 @Service
 public class S3Service {
@@ -39,7 +36,7 @@ public class S3Service {
                     .region(region)
                     .build();
 
-
+            //버킷 설정
             Map<String, String> metadata = new HashMap<>();
             metadata.put("x-amz-meta-myVal", "test");
             PutObjectRequest putOb = PutObjectRequest.builder()
@@ -74,6 +71,7 @@ public class S3Service {
         ArrayList<ObjectIdentifier> keys = new ArrayList<>(); // 객체 키를 위한 String 리스트 사용
 
         try {
+            //prefix를 이용하여 특정 폴더 가져오기
             ListObjectsRequest listObjects = ListObjectsRequest
                     .builder()
                     .prefix(con_nm + "/")
