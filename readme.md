@@ -1,7 +1,10 @@
 ## team project repo
 <h3>코딩 학습 WEB</h3>
+
+
 ##ppt
 https://www.canva.com/design/DAGDEWNHtcY/o7VdbjoI2oaIrNRF4x2taw/view?utm_content=DAGDEWNHtcY&utm_campaign=designshare&utm_medium=link&utm_source=editor
+
 ## 💻 프로젝트 소개
 <h1>선정배경</h1>
 코딩 학습은 개인 학습의 한계로 인해 어려움을 겪는 경우가 많습니다.
